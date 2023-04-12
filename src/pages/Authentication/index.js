@@ -29,7 +29,7 @@ const AuthenticationPage = (props) => {
         return (
             <div className="form-container">
                 <h3>Account Registration</h3>
-                <TextField label="User ID" variant="outlined" className="auth-textfield" />
+                <TextField label="Username" variant="outlined" className="auth-textfield" />
                 <TextField label="Email" variant="outlined" className="auth-textfield" />
                 <TextField label="Password" variant="outlined" type="password" className="auth-textfield" />
                 <FormControlLabel
