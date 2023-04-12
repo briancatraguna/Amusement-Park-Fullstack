@@ -1,17 +1,16 @@
 import './App.css';
-import Authentication from './pages/Authentication/Authentication';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-
+import AuthenticationPage from './pages/Authentication/index'
 
 
 function App() {
 
   return (
-    <BrowserRouter>
-    <Routes>
-      <Route path="/" element={<Authentication isLoginMode={true}/>}/>
-    </Routes>
-    </BrowserRouter>
+      <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<AuthenticationPage/>}/>
+      </Routes>
+      </BrowserRouter>
   );
 }
 

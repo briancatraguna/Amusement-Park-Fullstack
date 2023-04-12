@@ -1,3 +1,11 @@
+:root {
+  --primary-periwinkle: #d8dcff;
+  --secondary-periwinkle: #aeadf0;
+  --rosy-brown: #c38d94;
+  --china-rose: #a76571;
+  --ultra-violet: #565676;
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
