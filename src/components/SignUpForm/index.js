@@ -11,7 +11,8 @@ const SignUpForm = ({
     setPassword,
     isEmployee,
     setIsEmployee,
-    onRegister
+    onRegister,
+    onBackToLogin,
 }) => {
 
   return (
@@ -55,6 +56,9 @@ const SignUpForm = ({
       >
         Register
       </Button>
+      <span className="signup-link">
+        Back to <a onClick={() => onBackToLogin()}>Login</a>
+      </span>
     </div>
   );
 };

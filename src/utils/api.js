@@ -16,3 +16,16 @@ export const registerUser = async (email, password, userName, isEmployee) => {
     throw new Error(response.data.message);
   }
 };
+
+export const loginUser = async (email, password) => {
+    const url = `${BASE_URL}/auth/login`;
+    const response = await axios.post(url, {
+        email: email,
+        password: password
+    });
+    if (response.status === 200) {
+        return { success: true, data: response.data };
+    } else {
+        throw new Error(response.data.message);
+    }
+}

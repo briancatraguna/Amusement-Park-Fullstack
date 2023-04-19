@@ -3,8 +3,7 @@ import VoaLogo from "../../components/VoaLogo";
 import "./style.css";
 import LoginForm from "../../components/LoginForm";
 import SignUpForm from "../../components/SignUpForm";
-import { registerUser } from "../../utils/api";
-import Message from "../../components/Message";
+import { loginUser, registerUser } from "../../utils/api";
 
 const AuthenticationPage = (props) => {
   const [isLoginMode, setLoginMode] = useState(true);
@@ -17,9 +16,18 @@ const AuthenticationPage = (props) => {
   const [regPassword, setRegPassword] = useState("");
   const [isEmployee, setIsEmployee] = useState("");
 
-  const [message, setMessage] = useState("");
-
-  const handleSignIn = () => {};
+  const handleSignIn = async () => {
+    try {
+      const response = await loginUser(loginEmail, loginPassword);
+      if (response.success) {
+        const isEmployee =
+          response.data.user.is_ticketemployee === "1" ? true : false;
+        alert(`Succesfully logged in!\n${isEmployee}`);
+      }
+    } catch (error) {
+      alert(error.response.data.message);
+    }
+  };
 
   const handleRegister = async () => {
     try {
@@ -32,9 +40,9 @@ const AuthenticationPage = (props) => {
       if (response.success) {
         alert(response.message);
         setLoginMode(true);
-      } 
+      }
     } catch (error) {
-      alert(error.response.data.message)
+      alert(error.response.data.message);
     }
   };
 
@@ -50,7 +58,7 @@ const AuthenticationPage = (props) => {
             setEmail={setLoginEmail}
             password={loginPassword}
             setPassword={setLoginPassword}
-            onSignIn={handleSignIn}
+            onSignIn={() => handleSignIn()}
             onClickSignUp={() => setLoginMode(false)}
           />
         ) : (
@@ -64,6 +72,7 @@ const AuthenticationPage = (props) => {
             isEmployee={isEmployee}
             setIsEmployee={setIsEmployee}
             onRegister={() => handleRegister()}
+            onBackToLogin={() => setLoginMode(true)}
           />
         )}
         ;
