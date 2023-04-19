@@ -3,6 +3,8 @@ import VoaLogo from "../../components/VoaLogo";
 import "./style.css";
 import LoginForm from "../../components/LoginForm";
 import SignUpForm from "../../components/SignUpForm";
+import { registerUser } from "../../utils/api";
+import Message from "../../components/Message";
 
 const AuthenticationPage = (props) => {
   const [isLoginMode, setLoginMode] = useState(true);
@@ -15,10 +17,25 @@ const AuthenticationPage = (props) => {
   const [regPassword, setRegPassword] = useState("");
   const [isEmployee, setIsEmployee] = useState("");
 
+  const [message, setMessage] = useState("");
+
   const handleSignIn = () => {};
 
-  const handleRegister = () => {
-    setLoginMode(true);
+  const handleRegister = async () => {
+    try {
+      const response = await registerUser(
+        regEmail,
+        regPassword,
+        userName,
+        isEmployee
+      );
+      if (response.success) {
+        alert(response.message);
+        setLoginMode(true);
+      } 
+    } catch (error) {
+      alert(error.response.data.message)
+    }
   };
 
   return (
@@ -46,7 +63,7 @@ const AuthenticationPage = (props) => {
             setPassword={setRegPassword}
             isEmployee={isEmployee}
             setIsEmployee={setIsEmployee}
-            onRegister={handleRegister}
+            onRegister={() => handleRegister()}
           />
         )}
         ;

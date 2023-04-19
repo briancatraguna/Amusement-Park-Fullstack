@@ -1,19 +1,18 @@
-const axios = require('axios').default;
+import axios from "axios";
+
+const BASE_URL = "http://localhost:8080";
 
 export const registerUser = async (email, password, userName, isEmployee) => {
-    try {
-        const response = await axios.post(`${BASE_URL}/auth/register`, {
-            email: email,
-            password: password,
-            userName: userName,
-            isEmployee: isEmployee
-        });
-        if (response.status === 201) {
-            return { success: true, message: response.data.message }
-        }
-    } catch (error) {
-        if (error.response.status === 409) {
-            return { success: false, message: response.data.message}
-        }
-    }
-}
+  const url = `${BASE_URL}/auth/register`;
+  const response = await axios.post(url, {
+    email: email,
+    password: password,
+    userName: userName,
+    isEmployee: isEmployee ? "1" : "0",
+  });
+  if (response.status === 201) {
+    return { success: true, message: response.data.message };
+  } else {
+    throw new Error(response.data.message);
+  }
+};
