@@ -1,0 +1,12 @@
+.form-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.form-container .auth-textfield {
+    width: 100%;
+    margin-bottom: 16px;
+}
