@@ -1,67 +1,92 @@
-import { Button, Checkbox, FormControlLabel, TextField } from "@mui/material";
 import React, { useState } from "react";
-import VoaLogo from "../../components/voalogo";
-import './style.css'
+import VoaLogo from "../../components/VoaLogo";
+import "./style.css";
+import LoginForm from "../../components/LoginForm";
+import SignUpForm from "../../components/SignUpForm";
+import { loginUser, registerUser } from "../../utils/api";
 
 const AuthenticationPage = (props) => {
+  const [isLoginMode, setLoginMode] = useState(true);
 
-    const [isLoginMode, setLoginMode] = useState(true);
+  const [loginEmail, setLoginEmail] = useState("");
+  const [loginPassword, setLoginPassword] = useState("");
 
-    const LoginForm = () => {
-        return (
-            <div className="form-container">
-                <h3>Sign In</h3>
-                <TextField label="Email" variant="outlined" className="auth-textfield" />
-                <TextField label="Password" variant="outlined" type="password" className="auth-textfield" />
-                <Button variant="contained">Sign In</Button>
-                <span className="signup-link">Don't have an account? <a onClick={() => setLoginMode(false)}>Sign up</a></span>
-            </div>
-        )
+  const [userName, setUserName] = useState("");
+  const [regEmail, setRegEmail] = useState("");
+  const [regPassword, setRegPassword] = useState("");
+  const [isEmployee, setIsEmployee] = useState("");
+
+  const handleSignIn = async () => {
+    try {
+      const response = await loginUser(loginEmail, loginPassword);
+      if (response.success) {
+        const isEmployee =
+          response.data.user.is_ticketemployee === "1" ? true : false;
+        alert(`Succesfully logged in!`);
+      }
+    } catch (error) {
+      console.error(error);
+      alert(error.response.data.message);
     }
+  };
 
-    const SignUpForm = () => {
-        const [checked, setChecked] = useState(false);
-
-        const handleCheckboxChange = (event) => {
-            setChecked(event.target.checked);
-        };
-
-        return (
-            <div className="form-container">
-                <h3>Account Registration</h3>
-                <TextField label="Username" variant="outlined" className="auth-textfield" />
-                <TextField label="Email" variant="outlined" className="auth-textfield" />
-                <TextField label="Password" variant="outlined" type="password" className="auth-textfield" />
-                <FormControlLabel
-                    control={<Checkbox checked={checked} onChange={handleCheckboxChange} />}
-                    label="Are you an employee?"
-                />
-                <Button variant="contained" onClick={() => setLoginMode(true)}>Register</Button>
-            </div>
-        )
+  const handleRegister = async () => {
+    try {
+      const response = await registerUser(
+        regEmail,
+        regPassword,
+        userName,
+        isEmployee
+      );
+      if (response.success) {
+        alert(response.message);
+        setLoginMode(true);
+      }
+    } catch (error) {
+      alert(error.response.data.message);
     }
+  };
 
-    return (
-        <div className="auth-container">
-            <div className="left-side">
-
-                <div className="logo-container">
-                    <VoaLogo className="logo-top"/>
-                </div>
-                
-                {isLoginMode ? <LoginForm/> : <SignUpForm/>}
-
-            </div>
-
-            <div className="right-side">
-                <img 
-                src={require('./../../assets/theme-park-image.jpeg')}
-                className="auth-image"
-                />
-            </div>
-
+  return (
+    <div className="auth-container">
+      <div className="left-side">
+        <div className="logo-container">
+          <VoaLogo className="logo-top" />
         </div>
-    )
-}
+        {isLoginMode ? (
+          <LoginForm
+            email={loginEmail}
+            setEmail={setLoginEmail}
+            password={loginPassword}
+            setPassword={setLoginPassword}
+            onSignIn={() => handleSignIn()}
+            onClickSignUp={() => setLoginMode(false)}
+          />
+        ) : (
+          <SignUpForm
+            userName={userName}
+            setUserName={setUserName}
+            email={regEmail}
+            setEmail={setRegEmail}
+            password={regPassword}
+            setPassword={setRegPassword}
+            isEmployee={isEmployee}
+            setIsEmployee={setIsEmployee}
+            onRegister={() => handleRegister()}
+            onBackToLogin={() => setLoginMode(true)}
+          />
+        )}
+        ;
+      </div>
+
+      <div className="right-side">
+        <img
+          src={require("./../../assets/theme-park-image.jpeg")}
+          className="auth-image"
+        />
+      </div>
+    </div>
+  );
+};
 
 export default AuthenticationPage;
