@@ -22,9 +22,10 @@ const AuthenticationPage = (props) => {
       if (response.success) {
         const isEmployee =
           response.data.user.is_ticketemployee === "1" ? true : false;
-        alert(`Succesfully logged in!\n${isEmployee}`);
+        alert(`Succesfully logged in!`);
       }
     } catch (error) {
+      console.error(error);
       alert(error.response.data.message);
     }
   };

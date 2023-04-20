@@ -23,7 +23,7 @@ export const loginUser = async (email, password) => {
         email: email,
         password: password
     });
-    if (response.status === 200) {
+    if (response.status === 201) {
         return { success: true, data: response.data };
     } else {
         throw new Error(response.data.message);
