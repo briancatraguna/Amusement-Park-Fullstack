@@ -5,17 +5,16 @@ import LoginForm from "../../components/LoginForm";
 import SignUpForm from "../../components/SignUpForm";
 import { loginUser, registerUser } from "../../utils/api";
 import { useDispatch, useSelector } from "react-redux";
-import { setAccessToken } from "../../redux/tokenSlice";
+import { setAccessToken, setIsEmployeeState } from "../../redux/tokenSlice";
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from "../../routes";
 
 const AuthenticationPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const accessToken = useSelector((state) => state.token.accessToken);
+  const accessTokenState = useSelector((state) => state.token.accessToken);
   const isEmployeeState = useSelector((state) => state.token.isEmployee);
-  console.log(accessToken);
-  if (accessToken != null) {
+  if (accessTokenState != null) {
     if (isEmployeeState) {
       navigate(ROUTES.employee);
     } else {
@@ -41,9 +40,11 @@ const AuthenticationPage = () => {
           response.data.user.is_ticketemployee === "1" ? true : false;
         const accessToken = response.data.token;
         dispatch(setAccessToken(accessToken));
+        dispatch(setIsEmployeeState(isEmployee));
         alert(`Succesfully logged in!`);
       }
     } catch (error) {
+      console.error(error);
       alert(error.response.data.message);
     }
   };
