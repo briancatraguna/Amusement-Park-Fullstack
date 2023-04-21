@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import VoaLogo from "../../components/VoaLogo";
+import VoaLogo from "../../components/voalogo";
 import "./style.css";
 import LoginForm from "../../components/LoginForm";
 import SignUpForm from "../../components/SignUpForm";
