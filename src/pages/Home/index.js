@@ -1,13 +1,17 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import './style.css'
+import Header from "../../components/Header";
+import "./style.css";
 
 const HomePage = () => {
-    const accessToken = useSelector((state) => state.token.accessToken);
+  const accessTokenState = useSelector((state) => state.token.accessToken);
 
-    return (
-        <h1>{accessToken}</h1>
-    )
-}
+  return (
+    <div>
+      <Header />
+      <h1>{accessTokenState}</h1>
+    </div>
+  );
+};
 
 export default HomePage;

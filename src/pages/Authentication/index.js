@@ -1,11 +1,14 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import VoaLogo from "../../components/VoaLogo";
 import "./style.css";
 import LoginForm from "../../components/LoginForm";
 import SignUpForm from "../../components/SignUpForm";
 import { loginUser, registerUser } from "../../utils/api";
 import { useDispatch, useSelector } from "react-redux";
-import { setAccessToken, setIsEmployeeState } from "../../redux/tokenSlice";
+import {
+  setAccessTokenState,
+  setIsEmployeeState,
+} from "../../redux/tokenSlice";
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from "../../routes";
 
@@ -14,13 +17,15 @@ const AuthenticationPage = () => {
   const navigate = useNavigate();
   const accessTokenState = useSelector((state) => state.token.accessToken);
   const isEmployeeState = useSelector((state) => state.token.isEmployee);
-  if (accessTokenState != null) {
-    if (isEmployeeState) {
-      navigate(ROUTES.employee);
-    } else {
-      navigate(ROUTES.home);
+  useEffect(() => {
+    if (accessTokenState != null) {
+      if (isEmployeeState) {
+        navigate(ROUTES.employee);
+      } else {
+        navigate(ROUTES.home);
+      }
     }
-  }
+  });
 
   const [isLoginMode, setLoginMode] = useState(true);
 
@@ -39,12 +44,17 @@ const AuthenticationPage = () => {
         const isEmployee =
           response.data.user.is_ticketemployee === "1" ? true : false;
         const accessToken = response.data.token;
-        dispatch(setAccessToken(accessToken));
+        dispatch(setAccessTokenState(accessToken));
         dispatch(setIsEmployeeState(isEmployee));
         alert(`Succesfully logged in!`);
+        if (isEmployeeState) {
+          console.log("Navigate to employee")
+          navigate(ROUTES.employee);
+        } else {
+          navigate(ROUTES.home);
+        }
       }
     } catch (error) {
-      console.error(error);
       alert(error.response.data.message);
     }
   };
@@ -102,6 +112,7 @@ const AuthenticationPage = () => {
         <img
           src={require("./../../assets/theme-park-image.jpeg")}
           className="auth-image"
+          alt="theme park"
         />
       </div>
     </div>

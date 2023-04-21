@@ -7,14 +7,18 @@ export const tokenSlice = createSlice({
         isEmployee: false
     },
     reducers: {
-        setAccessToken(state, action) {
+        setAccessTokenState(state, action) {
             state.accessToken = action.payload
         },
         setIsEmployeeState(state, action) {
             state.isEmployee = action.payload
+        },
+        clearState(state) {
+            state.accessToken = null
+            state.isEmployee = false
         }
     }
 });
 
-export const {setAccessToken, setIsEmployeeState} = tokenSlice.actions;
+export const {setAccessTokenState, setIsEmployeeState, clearState} = tokenSlice.actions;
 export default tokenSlice.reducer;
