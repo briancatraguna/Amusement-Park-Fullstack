@@ -13,6 +13,7 @@ const Header = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const accessTokenState = useSelector((state) => state.auth.accessToken);
+  const user = useSelector((state) => state.userInfo.user);
 
   useEffect(() => {
     if (accessTokenState == null) {
@@ -28,7 +29,9 @@ const Header = () => {
   return (
     <header className="header-home">
       <nav>
-        <VoaLogo />
+        <Link to={ROUTES.home}>
+          <VoaLogo className="voa-logo-header" />
+        </Link>
         <ul>
           <li>
             <Link to={ROUTES.attractions}>Attractions</Link>
@@ -46,6 +49,9 @@ const Header = () => {
             <Link to={ROUTES.orders}>Orders</Link>
           </li>
         </ul>
+        <Link to={ROUTES.userProfile}>
+          <h3 className="username-title">{user ? user.username : ""}</h3>
+        </Link>
         <Button onClick={handleLogout}>Logout</Button>
       </nav>
     </header>

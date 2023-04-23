@@ -13,7 +13,7 @@ const store = configureStore({
             roleId: localStorage.getItem("roleId")
         },
         userInfo: {
-            user: localStorage.getItem("user")
+            user: JSON.parse(localStorage.getItem("user"))
         }
     }
 });
