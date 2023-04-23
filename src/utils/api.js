@@ -2,13 +2,13 @@ import axios from "axios";
 
 const BASE_URL = "http://localhost:8080";
 
-export const registerUser = async (email, password, userName, isEmployee) => {
+export const registerUser = async (email, password, userName, roleId) => {
   const url = `${BASE_URL}/auth/register`;
   const response = await axios.post(url, {
     email: email,
     password: password,
     userName: userName,
-    isEmployee: isEmployee ? "1" : "0",
+    roleId: roleId,
   });
   if (response.status === 201) {
     return { success: true, message: response.data.message };
@@ -29,3 +29,4 @@ export const loginUser = async (email, password) => {
         throw new Error(response.data.message);
     }
 }
+

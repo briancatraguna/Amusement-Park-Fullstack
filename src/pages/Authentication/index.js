@@ -7,19 +7,20 @@ import { loginUser, registerUser } from "../../utils/api";
 import { useDispatch, useSelector } from "react-redux";
 import {
   setAccessTokenState,
-  setIsEmployeeState,
-} from "../../redux/tokenSlice";
+  setRoleId,
+} from "../../redux/authSlice";
 import { useNavigate } from "react-router-dom";
-import { ROUTES } from "../../routes";
+import { ROLE_TO_ID, ROUTES } from "../../utils/enums";
+import { setUser } from "../../redux/userInfoSlice";
 
 const AuthenticationPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const accessTokenState = useSelector((state) => state.token.accessToken);
-  const isEmployeeState = useSelector((state) => state.token.isEmployee);
+  const accessTokenState = useSelector((state) => state.auth.accessToken);
+  const roleId = useSelector((state) => state.auth.roleId);
   useEffect(() => {
     if (accessTokenState != null) {
-      if (isEmployeeState) {
+      if (roleId === ROLE_TO_ID["Employee"]) {
         navigate(ROUTES.employee);
       } else {
         navigate(ROUTES.home);
@@ -41,18 +42,15 @@ const AuthenticationPage = () => {
     try {
       const response = await loginUser(loginEmail, loginPassword);
       if (response.success) {
-        const isEmployee =
-          response.data.user.is_ticketemployee === "1" ? true : false;
+        const roleName =
+          response.data.user.role_name;
+        const roleId = ROLE_TO_ID[roleName];
         const accessToken = response.data.token;
+        const user = response.data.user;
         dispatch(setAccessTokenState(accessToken));
-        dispatch(setIsEmployeeState(isEmployee));
+        dispatch(setRoleId(roleId));
+        dispatch(setUser(user));
         alert(`Succesfully logged in!`);
-        if (isEmployeeState) {
-          console.log("Navigate to employee")
-          navigate(ROUTES.employee);
-        } else {
-          navigate(ROUTES.home);
-        }
       }
     } catch (error) {
       alert(error.response.data.message);
@@ -61,11 +59,12 @@ const AuthenticationPage = () => {
 
   const handleRegister = async () => {
     try {
+      const roleId = isEmployee ? ROLE_TO_ID["Employee"] : ROLE_TO_ID["Customer"];
       const response = await registerUser(
         regEmail,
         regPassword,
         userName,
-        isEmployee
+        roleId
       );
       if (response.success) {
         alert(response.message);

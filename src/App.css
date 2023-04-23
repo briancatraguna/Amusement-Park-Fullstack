@@ -1,6 +1,5 @@
 header {
   background-color: #ffb347;
-  padding: 10px;
 }
 
 nav {
@@ -12,6 +11,8 @@ nav {
 ul {
   list-style: none;
   display: flex;
+  flex-grow: 1;
+  justify-content: center;
 }
 
 li {
