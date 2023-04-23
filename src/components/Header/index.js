@@ -3,7 +3,8 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import '../../App.css'
-import { clearState } from "../../redux/authSlice";
+import { clearAuthState } from "../../redux/authSlice";
+import { clearUserState } from "../../redux/userInfoSlice";
 import { ROUTES } from "../../utils/enums";
 import VoaLogo from "../voalogo";
 
@@ -19,7 +20,8 @@ const Header = () => {
   })
 
   const handleLogout = () => {
-    dispatch(clearState());
+    dispatch(clearAuthState());
+    dispatch(clearUserState());
   }
 
   return (
@@ -36,7 +38,7 @@ const Header = () => {
             <Link to={ROUTES.shows}>Shows</Link>
           </li>
           <li>
-            <Link to={ROUTES.foodStalls}>Food Stalls</Link>
+            <Link to={ROUTES.stores}>Stores</Link>
           </li>
           <li>
             <Link to={ROUTES.tickets}>Tickets</Link>
@@ -45,6 +47,9 @@ const Header = () => {
             <Link to={ROUTES.orders}>Orders</Link>
           </li>
         </ul>
+        <h3>
+          <Link to ={ROUTES.userProfile}></Link>
+        </h3>
         <Button onClick={handleLogout}>Logout</Button>
       </nav>
     </header>

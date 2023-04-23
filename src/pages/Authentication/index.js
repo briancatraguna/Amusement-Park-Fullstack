@@ -11,6 +11,7 @@ import {
 } from "../../redux/authSlice";
 import { useNavigate } from "react-router-dom";
 import { ROLE_TO_ID, ROUTES } from "../../utils/enums";
+import { setUser } from "../../redux/userInfoSlice";
 
 const AuthenticationPage = () => {
   const dispatch = useDispatch();
@@ -46,10 +47,10 @@ const AuthenticationPage = () => {
           response.data.user.role_name;
         const roleId = ROLE_TO_ID[roleName];
         const accessToken = response.data.token;
-        console.log(roleName);
-        console.log(roleId);
+        const user = response.data.user;
         dispatch(setAccessTokenState(accessToken));
         dispatch(setRoleId(roleId));
+        dispatch(setUser(user));
         alert(`Succesfully logged in!`);
       }
     } catch (error) {

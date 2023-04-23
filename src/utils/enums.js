@@ -4,9 +4,10 @@ export const ROUTES = {
     home: "/home",
     attractions: "/attractions",
     shows: "/shows",
-    foodStalls: "/food-stalls",
+    stores: "/stores",
     tickets: "/tickets",
-    orders: "/orders"
+    orders: "/orders",
+    userProfile: "/userProfile"
 };
 
 export const ROLE_TO_ID = {

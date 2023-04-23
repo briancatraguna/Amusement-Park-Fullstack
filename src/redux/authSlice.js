@@ -15,7 +15,7 @@ export const authSlice = createSlice({
             localStorage.setItem('roleId',action.payload);
             state.roleId = action.payload;
         },
-        clearState(state) {
+        clearAuthState(state) {
             localStorage.clear();
             state.accessToken = null;
             state.roleId = 0;
@@ -23,5 +23,5 @@ export const authSlice = createSlice({
     }
 });
 
-export const {setAccessTokenState, setRoleId, clearState} = authSlice.actions;
+export const {setAccessTokenState, setRoleId, clearAuthState} = authSlice.actions;
 export default authSlice.reducer;
