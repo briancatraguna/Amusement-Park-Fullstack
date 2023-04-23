@@ -19,7 +19,6 @@ const AuthenticationPage = () => {
   const accessTokenState = useSelector((state) => state.auth.accessToken);
   const roleId = useSelector((state) => state.auth.roleId);
   useEffect(() => {
-    console.log(roleId);
     if (accessTokenState != null) {
       if (roleId === ROLE_TO_ID["Employee"]) {
         navigate(ROUTES.employee);
@@ -48,7 +47,6 @@ const AuthenticationPage = () => {
         const roleId = ROLE_TO_ID[roleName];
         const accessToken = response.data.token;
         const user = response.data.user;
-        console.log(user);
         dispatch(setAccessTokenState(accessToken));
         dispatch(setRoleId(roleId));
         dispatch(setUser(user));
@@ -61,11 +59,12 @@ const AuthenticationPage = () => {
 
   const handleRegister = async () => {
     try {
+      const roleId = isEmployee ? ROLE_TO_ID["Employee"] : ROLE_TO_ID["Customer"];
       const response = await registerUser(
         regEmail,
         regPassword,
         userName,
-        isEmployee
+        roleId
       );
       if (response.success) {
         alert(response.message);

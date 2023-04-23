@@ -2,7 +2,8 @@ import { Button } from "@mui/material";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import '../../App.css'
+import "../../App.css";
+import "./style.css";
 import { clearAuthState } from "../../redux/authSlice";
 import { clearUserState } from "../../redux/userInfoSlice";
 import { ROUTES } from "../../utils/enums";
@@ -17,20 +18,18 @@ const Header = () => {
     if (accessTokenState == null) {
       navigate(ROUTES.auth);
     }
-  })
+  });
 
   const handleLogout = () => {
     dispatch(clearAuthState());
     dispatch(clearUserState());
-  }
+  };
 
   return (
-    <header>
+    <header className="header-home">
       <nav>
+        <VoaLogo />
         <ul>
-          <li>
-            <VoaLogo/>
-          </li>
           <li>
             <Link to={ROUTES.attractions}>Attractions</Link>
           </li>
@@ -47,9 +46,6 @@ const Header = () => {
             <Link to={ROUTES.orders}>Orders</Link>
           </li>
         </ul>
-        <h3>
-          <Link to ={ROUTES.userProfile}></Link>
-        </h3>
         <Button onClick={handleLogout}>Logout</Button>
       </nav>
     </header>
