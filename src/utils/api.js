@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = process.env.BASE_URL;
+const BASE_URL = "http://localhost:8080";
 
 export const registerUser = async (email, password, userName, roleId) => {
   const url = `${BASE_URL}/auth/register`;

@@ -10,7 +10,7 @@ import VoaLogo from "../voalogo";
 const Header = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const accessTokenState = useSelector((state) => state.token.accessToken);
+  const accessTokenState = useSelector((state) => state.auth.accessToken);
 
   useEffect(() => {
     if (accessTokenState == null) {

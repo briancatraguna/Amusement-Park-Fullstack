@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import './style.css'
 
 const EmployeeHomePage = () => {
-    const accessTokenState = useSelector((state) => state.token.accessToken);
+    const accessTokenState = useSelector((state) => state.auth.accessToken);
 
     return (
         <div>

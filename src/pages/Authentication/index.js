@@ -15,9 +15,10 @@ import { ROLE_TO_ID, ROUTES } from "../../utils/enums";
 const AuthenticationPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const accessTokenState = useSelector((state) => state.token.accessToken);
-  const roleId = useSelector((state) => state.token.isEmployee);
+  const accessTokenState = useSelector((state) => state.auth.accessToken);
+  const roleId = useSelector((state) => state.auth.roleId);
   useEffect(() => {
+    console.log(roleId);
     if (accessTokenState != null) {
       if (roleId === ROLE_TO_ID["Employee"]) {
         navigate(ROUTES.employee);
@@ -45,14 +46,11 @@ const AuthenticationPage = () => {
           response.data.user.role_name;
         const roleId = ROLE_TO_ID[roleName];
         const accessToken = response.data.token;
+        console.log(roleName);
+        console.log(roleId);
         dispatch(setAccessTokenState(accessToken));
         dispatch(setRoleId(roleId));
         alert(`Succesfully logged in!`);
-        if (roleName === "Employee") {
-          navigate(ROUTES.employee);
-        } else {
-          navigate(ROUTES.home);
-        }
       }
     } catch (error) {
       alert(error.response.data.message);

@@ -13,7 +13,7 @@ export const authSlice = createSlice({
         },
         setRoleId(state, action) {
             localStorage.setItem('roleId',action.payload);
-            state.isEmployee = action.payload;
+            state.roleId = action.payload;
         },
         clearState(state) {
             localStorage.clear();
