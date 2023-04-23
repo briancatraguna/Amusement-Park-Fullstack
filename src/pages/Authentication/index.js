@@ -7,19 +7,19 @@ import { loginUser, registerUser } from "../../utils/api";
 import { useDispatch, useSelector } from "react-redux";
 import {
   setAccessTokenState,
-  setIsEmployeeState,
-} from "../../redux/tokenSlice";
+  setRoleId,
+} from "../../redux/authSlice";
 import { useNavigate } from "react-router-dom";
-import { ROUTES } from "../../routes";
+import { ROLE_TO_ID, ROUTES } from "../../utils/enums";
 
 const AuthenticationPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const accessTokenState = useSelector((state) => state.token.accessToken);
-  const isEmployeeState = useSelector((state) => state.token.isEmployee);
+  const roleId = useSelector((state) => state.token.isEmployee);
   useEffect(() => {
     if (accessTokenState != null) {
-      if (isEmployeeState) {
+      if (roleId === ROLE_TO_ID["Employee"]) {
         navigate(ROUTES.employee);
       } else {
         navigate(ROUTES.home);
@@ -41,14 +41,14 @@ const AuthenticationPage = () => {
     try {
       const response = await loginUser(loginEmail, loginPassword);
       if (response.success) {
-        const isEmployee =
-          response.data.user.is_ticketemployee === "1" ? true : false;
+        const roleName =
+          response.data.user.role_name;
+        const roleId = ROLE_TO_ID[roleName];
         const accessToken = response.data.token;
         dispatch(setAccessTokenState(accessToken));
-        dispatch(setIsEmployeeState(isEmployee));
+        dispatch(setRoleId(roleId));
         alert(`Succesfully logged in!`);
-        if (isEmployeeState) {
-          console.log("Navigate to employee")
+        if (roleName === "Employee") {
           navigate(ROUTES.employee);
         } else {
           navigate(ROUTES.home);

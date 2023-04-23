@@ -3,8 +3,9 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import '../../App.css'
-import { clearState } from "../../redux/tokenSlice";
-import { ROUTES } from "../../routes";
+import { clearState } from "../../redux/authSlice";
+import { ROUTES } from "../../utils/enums";
+import VoaLogo from "../voalogo";
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -18,7 +19,6 @@ const Header = () => {
   })
 
   const handleLogout = () => {
-    console.log("Handle logout triggered");
     dispatch(clearState());
   }
 
@@ -26,6 +26,9 @@ const Header = () => {
     <header>
       <nav>
         <ul>
+          <li>
+            <VoaLogo/>
+          </li>
           <li>
             <Link to={ROUTES.attractions}>Attractions</Link>
           </li>

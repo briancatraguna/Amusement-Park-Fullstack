@@ -1,6 +1,8 @@
 import React from "react";
 import "./style.css";
 import { Button, Checkbox, FormControlLabel, TextField } from "@mui/material";
+import { useSelector } from "react-redux";
+import { ROLE_TO_ID } from "../../utils/enums";
 
 const SignUpForm = ({
     userName,
@@ -14,6 +16,8 @@ const SignUpForm = ({
     onRegister,
     onBackToLogin,
 }) => {
+
+  const roleId = useSelector((state) => state.auth.roleId);
 
   return (
     <div className="form-container">
@@ -41,15 +45,17 @@ const SignUpForm = ({
         value={password}
         onChange={(e) => setPassword(e.target.value)}
       />
-      <FormControlLabel
-        control={
-          <Checkbox
-            checked={isEmployee}
-            onChange={(e) => setIsEmployee(e.target.checked)}
-          />
-        }
-        label="Are you an employee?"
-      />
+      {roleId === ROLE_TO_ID["Employee"] || roleId === ROLE_TO_ID["Admin"] ? (
+        <FormControlLabel
+          control={
+            <Checkbox
+              checked={isEmployee}
+              onChange={(e) => setIsEmployee(e.target.checked)}
+            />
+          }
+          label="Are you an employee?"
+        />
+      ) : null}
       <Button
         variant="contained"
         onClick={() => onRegister()}

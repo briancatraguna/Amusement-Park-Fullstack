@@ -2,10 +2,10 @@ import "./App.css";
 import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
 import AuthenticationPage from "./pages/Authentication/index";
 import { Provider, useSelector } from "react-redux";
-import { ROUTES } from "./routes";
 import store from "./redux/store";
 import EmployeeHomePage from "./pages/EmployeeHome";
 import HomePage from "./pages/Home";
+import { ROUTES } from "./utils/enums";
 
 function App() {
 
