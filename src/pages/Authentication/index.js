@@ -48,6 +48,7 @@ const AuthenticationPage = () => {
         const roleId = ROLE_TO_ID[roleName];
         const accessToken = response.data.token;
         const user = response.data.user;
+        console.log(user);
         dispatch(setAccessTokenState(accessToken));
         dispatch(setRoleId(roleId));
         dispatch(setUser(user));

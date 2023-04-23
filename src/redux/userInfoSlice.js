@@ -8,6 +8,7 @@ export const userInfoSlice = createSlice({
     reducers: {
         setUser(state, action) {
             localStorage.setItem('user', action.payload);
+            state.user = action.payload;
         },
         clearUserState(state) {
             localStorage.clear();
