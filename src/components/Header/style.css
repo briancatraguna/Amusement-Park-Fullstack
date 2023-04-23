@@ -1,7 +1,52 @@
 .header-home {
+  background-color: #ffb347;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   padding: 5px;
 }
 
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+}
+
+nav li {
+  margin-right: 20px;
+}
+
+nav a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+nav button {
+  background-color: #ff5733;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-left: 10px; /* Add margin to separate username and logout button */
+}
+
+nav button:hover {
+  background-color: #ff704d;
+}
+
 .username-title {
+  color: #fff;
+  font-weight: bold;
   margin-right: 10px;
 }
