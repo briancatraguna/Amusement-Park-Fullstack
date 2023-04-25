@@ -30,8 +30,13 @@ export const loginUser = async (email, password) => {
     }
 }
 
-export const getAttractions = async (accessToken) => {
-  const url = `${BASE_URL}/attraction/list`;
+export const getAttractions = async (accessToken, lotSectionNo) => {
+  console.log(accessToken);
+
+  let url = `${BASE_URL}/attraction/list`;
+  if (lotSectionNo != null) {
+    url = `${BASE_URL}/attraction/list?lotSectionNo=${lotSectionNo}`;
+  }
   const response = await axios.get(url, {
     headers: {
       Authorization: `Bearer ${accessToken}`,
