@@ -29,30 +29,36 @@ const Header = () => {
   return (
     <header className="header-home">
       <nav>
-        <Link to={ROUTES.home}>
-          <VoaLogo className="voa-logo-header" />
-        </Link>
         <ul>
-          <li>
+          <li className="header-menu">
+            <Link to={ROUTES.home}>Home</Link>
+          </li>
+          <li className="header-menu">
             <Link to={ROUTES.attractions}>Attractions</Link>
           </li>
-          <li>
+          <li className="header-menu">
             <Link to={ROUTES.shows}>Shows</Link>
           </li>
-          <li>
+          <li className="header-menu">
             <Link to={ROUTES.stores}>Stores</Link>
           </li>
-          <li>
+          <li className="header-menu">
             <Link to={ROUTES.tickets}>Tickets</Link>
           </li>
-          <li>
+          <li className="header-menu">
             <Link to={ROUTES.orders}>Orders</Link>
           </li>
+          <li>
+            <Link to={ROUTES.userProfile}>
+              <h3 className="header-menu">{user ? user.username : ""}</h3>
+            </Link>
+          </li>
+          <li>
+            <Button variant="outlined" onClick={handleLogout}>
+              Logout
+            </Button>
+          </li>
         </ul>
-        <Link to={ROUTES.userProfile}>
-          <h3 className="username-title">{user ? user.username : ""}</h3>
-        </Link>
-        <Button onClick={handleLogout}>Logout</Button>
       </nav>
     </header>
   );
