@@ -6,7 +6,8 @@ import { getAttractions } from "../../utils/api";
 
 const AttractionsPage = () => {
     const accessToken= useSelector((state) => state.auth.accessToken);
-    const [attractions, setAttractions] = useState({});
+    const [attractionLots, setAttractionLots] = useState([]);
+    const [attractions, setAttractions] = useState([]);
 
     useEffect(() => {
         const fetchAttractions = async() => {
