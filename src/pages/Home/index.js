@@ -19,46 +19,46 @@ const HomePage = () => {
           <p>Experience the thrill of the rides and the attractions.</p>
         </div>
         <div className="menu-container">
-          <div className="menu-item">
-            <Link to={ROUTES.attractions}>
+          <Link to={ROUTES.attractions}>
+            <div className="menu-item">
               <img
                 src={require("../../assets/attractions-image.jpeg")}
                 alt="attractions"
                 className="rounded"
               />
               <p>Attractions</p>
-            </Link>
-          </div>
-          <div className="menu-item">
-            <Link to={ROUTES.shows}>
+            </div>
+          </Link>
+          <Link to={ROUTES.shows}>
+            <div className="menu-item">
               <img
                 src={require("../../assets/shows-image.jpeg")}
                 alt="shows"
                 className="rounded"
               />
               <p>Shows</p>
-            </Link>
-          </div>
-          <div className="menu-item">
-            <Link to={ROUTES.stores}>
+            </div>
+          </Link>
+          <Link to={ROUTES.stores}>
+            <div className="menu-item">
               <img
                 src={require("../../assets/stores-image.avif")}
                 alt="stores"
                 className="rounded"
               />
               <p>Stores</p>
-            </Link>
-          </div>
-          <div className="menu-item">
-            <Link to={ROUTES.tickets}>
+            </div>
+          </Link>
+          <Link to={ROUTES.tickets}>
+            <div className="menu-item">
               <img
                 src={require("../../assets/tickets-image.jpeg")}
                 alt="tickets"
                 className="rounded"
               />
               <p>Tickets</p>
-            </Link>
-          </div>
+            </div>
+          </Link>
         </div>
       </div>
     </div>

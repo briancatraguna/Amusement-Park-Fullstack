@@ -56,6 +56,10 @@
   background: var(--primary-periwinkle);
 }
 
+.menu-item:hover {
+    background: var(--ultra-violet);
+}
+
 .menu-item img {
   width: 100%;
   height: 100%;
