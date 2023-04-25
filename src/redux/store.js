@@ -13,13 +13,7 @@ const store = configureStore({
       roleId: localStorage.getItem("roleId"),
     },
     userInfo: {
-      user: (() => {
-        try {
-          return JSON.parse(localStorage.getItem("user"));
-        } catch (error) {
-          return null;
-        }
-      })(),
+      user: JSON.parse(localStorage.getItem("user"))
     },
   },
 });
@@ -30,7 +24,7 @@ store.subscribe(() => {
   localStorage.setItem("roleId", roleId);
 
   const { user } = store.getState().userInfo;
-  localStorage.setItem("user", user);
+  localStorage.setItem("user", JSON.stringify(user));
 });
 
 export default store;
