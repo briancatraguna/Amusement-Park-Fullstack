@@ -1,0 +1,23 @@
+.lot-section-filter-container {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.lot-section-filter {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.lot-section {
+  background-color: lightgray;
+  padding: 5px;
+  margin: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.lot-section.selected {
+  background-color: blue;
+  color: white;
+}

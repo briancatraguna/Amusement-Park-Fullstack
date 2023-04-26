@@ -6,6 +6,7 @@ import store from "./redux/store";
 import EmployeeHomePage from "./pages/EmployeeHome";
 import HomePage from "./pages/Home";
 import { ROUTES } from "./utils/enums";
+import AttractionsPage from "./pages/Attractions";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
           <Route path={ROUTES.auth} element={<AuthenticationPage />} />
           <Route path={ROUTES.employee} element={<EmployeeHomePage />} />
           <Route path={ROUTES.home} element={<HomePage />} />
+          <Route path={ROUTES.attractions} element={<AttractionsPage/>}/>
         </Routes>
       </BrowserRouter>
     </Provider>

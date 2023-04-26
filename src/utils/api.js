@@ -30,3 +30,33 @@ export const loginUser = async (email, password) => {
     }
 }
 
+export const getAttractions = async (accessToken, lotSectionNo) => {
+  let url = `${BASE_URL}/attraction/list`;
+  if (lotSectionNo != null) {
+    url = `${BASE_URL}/attraction/list?lotSectionNo=${lotSectionNo}`;
+  }
+  const response = await axios.get(url, {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+  if (response.status === 200) {
+    return { success: true, data: response.data };
+  } else {
+    throw new Error(response.data.message)
+  }
+}
+
+export const getLotSections = async (accessToken) => {
+  const url = `${BASE_URL}/attraction/lots`;
+  const response = await axios.get(url, {
+    headers: {
+      Authorization: `Bearer ${accessToken}`
+    },
+  });
+  if (response.status === 200) {
+    return { success: true, data: response.data };
+  } else {
+    throw new Error(response.data.message);
+  }
+}
