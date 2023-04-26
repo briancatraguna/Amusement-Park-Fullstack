@@ -13,6 +13,7 @@ function App() {
     <Provider store={store}>
       <BrowserRouter>
         <Routes>
+          <Route path={ROUTES.launch} element={<HomePage/>} />
           <Route path={ROUTES.auth} element={<AuthenticationPage />} />
           <Route path={ROUTES.employee} element={<EmployeeHomePage />} />
           <Route path={ROUTES.home} element={<HomePage />} />
