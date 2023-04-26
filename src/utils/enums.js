@@ -1,4 +1,5 @@
 export const ROUTES = {
+    launch: "*",
     auth: "/auth",
     employee: "/employee",
     home: "/home",
