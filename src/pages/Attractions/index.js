@@ -4,6 +4,7 @@ import AttractionList from "../../components/AttractionList";
 import Header from "../../components/Header";
 import LotSectionFilter from "../../components/SectionFilter";
 import { getAttractions, getLotSections } from "../../utils/api";
+import "./style.css";
 
 const AttractionsPage = () => {
   const accessToken = useSelector((state) => state.auth.accessToken);
@@ -23,7 +24,7 @@ const AttractionsPage = () => {
       }
     };
     fetchAttractions();
-  }, [selectedLotId]);
+  }, [selectedLotId, accessToken]);
 
   useEffect(() => {
     const fetchLotSections = async () => {
@@ -37,19 +38,23 @@ const AttractionsPage = () => {
       }
     };
     fetchLotSections();
-  }, []);
+  }, [accessToken]);
 
   return (
     <div>
       <Header />
-      <LotSectionFilter
-        attractionLots={attractionLots}
-        selectedLots={selectedLotId}
-        handleLotClick={(lot_id) => {
-          setSelectedLotId(lot_id);
-        }}
-      />
-      <AttractionList attractions={attractions}/>
+      <div className="attractions-container">
+        <div className="filter">
+          <LotSectionFilter
+            attractionLots={attractionLots}
+            selectedLots={selectedLotId}
+            handleLotClick={(lot_id) => {
+              setSelectedLotId(lot_id);
+            }}
+          />
+        </div>
+        <AttractionList attractions={attractions} />
+      </div>
     </div>
   );
 };

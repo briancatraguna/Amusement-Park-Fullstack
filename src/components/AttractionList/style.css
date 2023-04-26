@@ -1,50 +1,88 @@
+:root {
+  --primary-periwinkle: #d8dcff;
+  --secondary-periwinkle: #aeadf0;
+  --rosy-brown: #c38d94;
+  --china-rose: #a76571;
+  --ultra-violet: #565676;
+}
+
 .attraction-list {
-    display: flex;
-    flex-wrap: wrap;
-    margin: 20px;
-  }
-  
-  .attraction-item {
-    display: flex;
-    flex-direction: column;
-    margin: 10px;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    width: 200px;
-  }
-  
-  .attraction-name {
-    font-size: 20px;
-    font-weight: bold;
-    margin-bottom: 10px;
-  }
-  
-  .attraction-desc {
-    margin-bottom: 10px;
-  }
-  
-  .attraction-type {
-    margin-bottom: 10px;
-  }
-  
-  .attraction-status {
-    margin-bottom: 10px;
-  }
-  
-  .attraction-capacity {
-    margin-bottom: 10px;
-  }
-  
-  .attraction-height {
-    margin-bottom: 10px;
-  }
-  
-  .attraction-duration {
-    margin-bottom: 10px;
-  }
-  
-  .attraction-lot-section-id {
-    margin-bottom: 10px;
-  }
-  
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 20px;
+}
+
+.attraction-item {
+  background-color: var(--secondary-periwinkle);
+  border: 1px solid #d4d4d4;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  margin: 10px;
+  width: 300px;
+}
+
+.attraction-img-container {
+  height: 200px;
+  overflow: hidden;
+}
+
+.attraction-img {
+  height: 100%;
+  object-fit: cover;
+  width: 100%;
+}
+
+.attraction-details-container {
+  padding: 10px;
+}
+
+.attraction-name {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.attraction-desc {
+  font-size: 1rem;
+  margin-bottom: 10px;
+}
+
+.attraction-type {
+  font-size: 0.8rem;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.attraction-status {
+  font-size: 0.8rem;
+  margin-bottom: 5px;
+}
+
+.attraction-capacity {
+  font-size: 0.8rem;
+  margin-bottom: 5px;
+}
+
+.attraction-height {
+  font-size: 0.8rem;
+  margin-bottom: 5px;
+}
+
+.attraction-duration {
+  font-size: 0.8rem;
+  margin-bottom: 5px;
+}
+
+.attraction-lot-section-id {
+  font-size: 0.8rem;
+  font-style: italic;
+  margin-bottom: 5px;
+}
+
+.attraction-label {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
