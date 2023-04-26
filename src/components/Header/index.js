@@ -1,4 +1,4 @@
-import { Button, Dialog, DialogActions, DialogContent, DialogTitle } from "@mui/material";
+import { Button } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
@@ -7,19 +7,20 @@ import "./style.css";
 import { clearAuthState } from "../../redux/authSlice";
 import { clearUserState } from "../../redux/userInfoSlice";
 import { ROUTES } from "../../utils/enums";
+import AlertDialog from "../AlertDialog";
 
 const Header = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const accessTokenState = useSelector((state) => state.auth.accessToken);
   const user = useSelector((state) => state.userInfo.user);
-  const [showDialog, setShowDialog] = useState(false);
+  const [isLogoutDialogOpen, setIsLogoutDialogOpen] = useState(false);
 
   useEffect(() => {
-    if (accessTokenState == null) {
+    if (accessTokenState === "null" || accessTokenState === null) {
       navigate(ROUTES.auth);
     }
-  });
+  }, [accessTokenState, navigate]);
 
   const handleLogout = () => {
     dispatch(clearAuthState());
@@ -54,23 +55,18 @@ const Header = () => {
             </Link>
           </li>
           <li>
-            <Button variant="outlined" onClick={() => setShowDialog(true)}>
+            <Button variant="outlined" onClick={() => setIsLogoutDialogOpen(true)}>
               Logout
             </Button>
-            <Dialog open={showDialog} onClose={() => setShowDialog(false)}>
-              <DialogTitle>Confirm Logout</DialogTitle>
-              <DialogContent>
-                <p>Are you sure you want to logout?</p>
-              </DialogContent>
-              <DialogActions>
-                <Button onClick={() => setShowDialog(false)} color="primary">
-                  Cancel
-                </Button>
-                <Button onClick={handleLogout} color="primary">
-                  Logout
-                </Button>
-              </DialogActions>
-            </Dialog>
+            <AlertDialog
+              isOpen={isLogoutDialogOpen}
+              onCancel={() => setIsLogoutDialogOpen(false)}
+              onConfirm={handleLogout}
+              negativeButtonTitle="Cancel"
+              positiveButtonTitle="Logout"
+              dialogTitle="Confirm Logout"
+              dialogContent="Are you sure you want to logout?"
+            />
           </li>
         </ul>
       </nav>
