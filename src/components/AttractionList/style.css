@@ -1,0 +1,50 @@
+.attraction-list {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 20px;
+  }
+  
+  .attraction-item {
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 200px;
+  }
+  
+  .attraction-name {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .attraction-desc {
+    margin-bottom: 10px;
+  }
+  
+  .attraction-type {
+    margin-bottom: 10px;
+  }
+  
+  .attraction-status {
+    margin-bottom: 10px;
+  }
+  
+  .attraction-capacity {
+    margin-bottom: 10px;
+  }
+  
+  .attraction-height {
+    margin-bottom: 10px;
+  }
+  
+  .attraction-duration {
+    margin-bottom: 10px;
+  }
+  
+  .attraction-lot-section-id {
+    margin-bottom: 10px;
+  }
+  

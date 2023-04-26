@@ -6,7 +6,6 @@ import './style.css'
 const EmployeeHomePage = () => {
     const accessTokenState = useSelector((state) => state.auth.accessToken);
     const userState = useSelector((state) => state.userInfo.user);
-    console.log(userState);
 
     return (
         <div>
