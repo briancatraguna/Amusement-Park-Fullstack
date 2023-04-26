@@ -8,11 +8,9 @@ export const authSlice = createSlice({
     },
     reducers: {
         setAccessTokenState(state, action) {
-            localStorage.setItem('accessToken',action.payload);
             state.accessToken = action.payload
         },
         setRoleId(state, action) {
-            localStorage.setItem('roleId',action.payload);
             state.roleId = action.payload;
         },
         clearAuthState(state) {
