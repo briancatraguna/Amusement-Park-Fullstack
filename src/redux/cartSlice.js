@@ -9,22 +9,22 @@ export const cartSlice = createSlice({
     },
     reducers: {
         addTickets(state, action) {
-            const tickets = state.tickets;
-            tickets.push(action.payload);
-            state.tickets = tickets;
+            state.tickets.push(action.payload);
         },
         addParking(state, action) {
-            const parking = state.parking;
-            parking.push(action.payload);
-            state.parking = parking;
+            state.parking.push(action.payload);
         },
         addStoreOrder(state, action) {
-            const storeOrder = state.storeOrder;
-            storeOrder.push(action.payload);
-            state.storeOrder = storeOrder;
+            state.storeOrder.push(action.payload);
+        },
+        clearCartState(state) {
+            localStorage.clear();
+            state.tickets = [];
+            state.parking = [];
+            state.storeOrder = [];
         }
     }
 });
 
-export const {addTickets, addParking, addStoreOrder} = cartSlice.actions;
+export const {addTickets, addParking, addStoreOrder, clearCartState} = cartSlice.actions;
 export default cartSlice.reducer;

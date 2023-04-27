@@ -18,9 +18,9 @@ const store = configureStore({
       user: JSON.parse(localStorage.getItem("user")),
     },
     cart: {
-      tickets: JSON.parse(localStorage.getItem("tickets")),
-      parking: JSON.parse(localStorage.getItem("parking")),
-      storeOrder: JSON.parse(localStorage.getItem("storeOrder")),
+      tickets: localStorage.getItem("tickets") === "null" ? [] : JSON.parse(localStorage.getItem("tickets")),
+      parking: localStorage.getItem("parking") === "null" ? [] : JSON.parse(localStorage.getItem("parking")),
+      storeOrder: localStorage.getItem("storeOrder") === "null" ? [] : JSON.parse(localStorage.getItem("storeOrder")),
     },
   },
 });

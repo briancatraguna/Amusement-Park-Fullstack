@@ -8,6 +8,7 @@ import { clearAuthState } from "../../redux/authSlice";
 import { clearUserState } from "../../redux/userInfoSlice";
 import { ROUTES } from "../../utils/enums";
 import AlertDialog from "../AlertDialog";
+import { clearCartState } from "../../redux/cartSlice";
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -25,6 +26,7 @@ const Header = () => {
   const handleLogout = () => {
     dispatch(clearAuthState());
     dispatch(clearUserState());
+    dispatch(clearCartState());
   };
 
   return (
