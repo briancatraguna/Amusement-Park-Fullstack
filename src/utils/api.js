@@ -30,3 +30,21 @@ export const loginUser = async (email, password) => {
     }
 }
 
+export const getUserProfile = async (accessToken, userId) => {
+  if(userId === undefined || userId === null){
+    throw new Error("userId is null or undefined")
+  }
+  let url = `${BASE_URL}/userInfo?userId=${userId}`;
+  
+  const response = await axios.get(url, {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+  if (response.status === 200) {
+    return { success: true, data: response.data };
+  } else {
+    throw new Error(response.data.message)
+  }
+}
+

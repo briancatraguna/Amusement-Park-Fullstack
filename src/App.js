@@ -5,6 +5,7 @@ import { Provider } from "react-redux";
 import store from "./redux/store";
 import EmployeeHomePage from "./pages/EmployeeHome";
 import HomePage from "./pages/Home";
+import UserProfile from "./pages/UserProfile";
 import { ROUTES } from "./utils/enums";
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
           <Route path={ROUTES.auth} element={<AuthenticationPage />} />
           <Route path={ROUTES.employee} element={<EmployeeHomePage />} />
           <Route path={ROUTES.home} element={<HomePage />} />
+          <Route path={ROUTES.userProfile} element={<UserProfile/>} />
         </Routes>
       </BrowserRouter>
     </Provider>
