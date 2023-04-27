@@ -47,7 +47,7 @@ const Header = () => {
             <Link to={ROUTES.tickets}>Tickets</Link>
           </li>
           <li className="header-menu">
-            <Link to={ROUTES.orders}>Orders</Link>
+            <Link to={ROUTES.cart}>Cart</Link>
           </li>
           <li>
             <Link to={ROUTES.userProfile}>
