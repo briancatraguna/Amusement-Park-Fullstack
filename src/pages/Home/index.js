@@ -5,7 +5,6 @@ import { ROUTES } from "../../utils/enums";
 import "./style.css";
 
 const HomePage = () => {
-  
   return (
     <div className="background">
       <Header />
