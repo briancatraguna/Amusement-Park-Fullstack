@@ -1,11 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
 import authReducer from "./authSlice";
 import userInfoReducer from "./userInfoSlice";
+import cartReducer from "./cartSlice";
 
 const store = configureStore({
   reducer: {
     auth: authReducer,
     userInfo: userInfoReducer,
+    cart: cartReducer,
   },
   preloadedState: {
     auth: {
@@ -13,7 +15,12 @@ const store = configureStore({
       roleId: localStorage.getItem("roleId"),
     },
     userInfo: {
-      user: JSON.parse(localStorage.getItem("user"))
+      user: JSON.parse(localStorage.getItem("user")),
+    },
+    cart: {
+      tickets: JSON.parse(localStorage.getItem("tickets")),
+      parking: JSON.parse(localStorage.getItem("parking")),
+      storeOrder: JSON.parse(localStorage.getItem("storeOrder")),
     },
   },
 });
@@ -25,6 +32,11 @@ store.subscribe(() => {
 
   const { user } = store.getState().userInfo;
   localStorage.setItem("user", JSON.stringify(user));
+
+  const { tickets, parking, storeOrder } = store.getState().cart;
+  localStorage.setItem("tickets", JSON.stringify(tickets));
+  localStorage.setItem("parking", JSON.stringify(parking));
+  localStorage.setItem("storeOrder", JSON.stringify(storeOrder));
 });
 
 export default store;
