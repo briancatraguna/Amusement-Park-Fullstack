@@ -18,17 +18,17 @@ export const registerUser = async (email, password, userName, roleId) => {
 };
 
 export const loginUser = async (email, password) => {
-    const url = `${BASE_URL}/auth/login`;
-    const response = await axios.post(url, {
-        email: email,
-        password: password
-    });
-    if (response.status === 201) {
-        return { success: true, data: response.data };
-    } else {
-        throw new Error(response.data.message);
-    }
-}
+  const url = `${BASE_URL}/auth/login`;
+  const response = await axios.post(url, {
+    email: email,
+    password: password,
+  });
+  if (response.status === 201) {
+    return { success: true, data: response.data };
+  } else {
+    throw new Error(response.data.message);
+  }
+};
 
 export const getAttractions = async (accessToken, lotSectionNo) => {
   let url = `${BASE_URL}/attraction/list`;
@@ -43,16 +43,61 @@ export const getAttractions = async (accessToken, lotSectionNo) => {
   if (response.status === 200) {
     return { success: true, data: response.data };
   } else {
-    throw new Error(response.data.message)
+    throw new Error(response.data.message);
   }
-}
+};
 
 export const getLotSections = async (accessToken) => {
   const url = `${BASE_URL}/attraction/lots`;
   const response = await axios.get(url, {
     headers: {
-      Authorization: `Bearer ${accessToken}`
+      Authorization: `Bearer ${accessToken}`,
     },
+  });
+  if (response.status === 200) {
+    return { success: true, data: response.data };
+  } else {
+    throw new Error(response.data.message);
+  }
+};
+
+export const getStoreCategories = async (accessToken) => {
+  const url = `${BASE_URL}/store/categories`;
+  const response = await axios.get(url, {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+  if (response.status === 200) {
+    return { success: true, data: response.data };
+  } else {
+    throw new Error(response.data.message);
+  }
+};
+
+export const getStores = async (accessToken, categoryId) => {
+  let url = `${BASE_URL}/store/list`;
+  if (categoryId != null) {
+    url = `${BASE_URL}/store/list?categoryId=${categoryId}`;
+  }
+  const response = await axios.get(url, {
+    headers: {
+      Authorization: `Bearer ${accessToken}`
+    }
+  });
+  if (response.status === 200) {
+    return { success: true, data: response.data };
+  } else {
+    throw new Error(response.data.message);
+  }
+};
+
+export const getStoreMenu = async (accessToken, storeId) => {
+  const url = `${BASE_URL}/store/menu?storeId=${storeId}`;
+  const response = await axios.get(url, {
+    headers: {
+      Authorization: `Bearer ${accessToken}`
+    }
   });
   if (response.status === 200) {
     return { success: true, data: response.data };
