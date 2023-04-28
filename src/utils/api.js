@@ -62,7 +62,7 @@ export const getLotSections = async (accessToken) => {
 };
 
 export const postPayment = async (accessToken, stripeTransactionInfo) => {
-	const response = await axios({
+	return await axios({
 		url: `${BASE_URL}/order/payment`,
 		method: "post",
 		data: stripeTransactionInfo,
@@ -70,10 +70,4 @@ export const postPayment = async (accessToken, stripeTransactionInfo) => {
 			Authorization: `Bearer ${accessToken}`,
 		},
 	});
-	if (response.status === 200) {
-		alert("Payment Successful");
-		return { success: true, data: response.data };
-	} else {
-		throw new Error(response.data.message);
-	}
 };

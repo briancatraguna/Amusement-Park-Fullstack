@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import StripeCheckout from "react-stripe-checkout";
 import { postPayment } from "../../utils/api";
 
-const StripeButton = (totalAmount) => {
+const StripeButton = (prop) => {
 	const accessToken = useSelector((state) => state.auth.accessToken);
 
 	const publishableKey =
@@ -11,13 +11,20 @@ const StripeButton = (totalAmount) => {
 
 	const onToken = async (token) => {
 		const body = {
-			amount: totalAmount,
+			amount: prop.totalAmount,
 			token: token,
 		};
 
 		try {
-			await postPayment(accessToken, body);
+			const response = await postPayment(accessToken, body);
+			if (response.status === 200) {
+				alert("Payment Successful");
+				return { success: true, data: response.data };
+			} else {
+				throw new Error(response.data.message);
+			}
 		} catch (error) {
+			alert("Payment Failed");
 			alert(error.response.data.message);
 		}
 	};
@@ -27,7 +34,7 @@ const StripeButton = (totalAmount) => {
 			name="Voyage Of Amusement" //Modal Header
 			description="Have a nice vacation day!"
 			panelLabel="Pay" //Submit button in modal
-			amount={totalAmount} //Amount in cents $9.99
+			amount={prop.totalAmount} //Amount in cents $9.99
 			currency="USD"
 			token={onToken}
 			stripeKey={publishableKey}
