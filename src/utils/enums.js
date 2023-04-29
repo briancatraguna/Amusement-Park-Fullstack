@@ -6,6 +6,7 @@ export const ROUTES = {
     attractions: "/attractions",
     shows: "/shows",
     stores: "/stores",
+    storeDetail: "/stores/detail",
     tickets: "/tickets",
     cart: "/cart",
     orders: "/orders",

@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import Header from "../../components/Header";
 import SectionFilter from "../../components/SectionFilter";
 import { getStoreCategories, getStores } from "../../utils/api";
+import { ROUTES } from "../../utils/enums";
 import { SectionModel } from "../../utils/model_helper";
 import "./style.css";
 
@@ -18,8 +20,8 @@ const StoresPage = () => {
       try {
         const categoryId = selectedCategoryId === 0 ? null : selectedCategoryId;
         const storesResponse = await getStores(accessToken, categoryId);
-        console.log(storesResponse.data.stores);
         setStores(storesResponse.data.stores);
+        console.log(stores);
       } catch (error) {
         alert(error.response.data.message);
       }
@@ -56,6 +58,19 @@ const StoresPage = () => {
               setSelectedCategoryId(category_id);
             }}
           />
+        </div>
+        <div className="menu-container">
+          {stores.map((store) => {
+            const link = ROUTES.storeDetail + `?storeId=${store.store_id}`;
+            return (
+              <Link to={link}>
+                <div className="menu-item">
+                  <img src={store.store_logo_url} alt={store.store_name} />
+                  <p>{store.store_name}</p>
+                </div>
+              </Link>
+            );
+          })}
         </div>
       </div>
     </div>
