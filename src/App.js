@@ -9,6 +9,7 @@ import { ROUTES } from "./utils/enums";
 import AttractionsPage from "./pages/Attractions";
 import CartPage from "./pages/Cart";
 import StoresPage from "./pages/Stores";
+import StoreDetailPage from "./pages/StoreDetail";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           <Route path={ROUTES.home} element={<HomePage />} />
           <Route path={ROUTES.attractions} element={<AttractionsPage/>}/>
           <Route path={ROUTES.stores} element={<StoresPage/>}/>
+          <Route path={ROUTES.storeDetail} element={<StoreDetailPage/>}/>
           <Route path={ROUTES.cart} element={<CartPage/>}/>
         </Routes>
       </BrowserRouter>

@@ -21,7 +21,6 @@ const StoresPage = () => {
         const categoryId = selectedCategoryId === 0 ? null : selectedCategoryId;
         const storesResponse = await getStores(accessToken, categoryId);
         setStores(storesResponse.data.stores);
-        console.log(stores);
       } catch (error) {
         alert(error.response.data.message);
       }
@@ -61,7 +60,7 @@ const StoresPage = () => {
         </div>
         <div className="menu-container">
           {stores.map((store) => {
-            const link = ROUTES.storeDetail + `?storeId=${store.store_id}`;
+            const link = ROUTES.storeDetail + `?storeId=${store.store_id}&storeName=${store.store_name}`;
             return (
               <Link to={link}>
                 <div className="menu-item">
