@@ -2,8 +2,9 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import AttractionList from "../../components/AttractionList";
 import Header from "../../components/Header";
-import LotSectionFilter from "../../components/SectionFilter";
+import SectionFilter from "../../components/SectionFilter";
 import { getAttractions, getLotSections } from "../../utils/api";
+import { SectionModel } from "../../utils/model_helper";
 import "./style.css";
 
 const AttractionsPage = () => {
@@ -45,10 +46,13 @@ const AttractionsPage = () => {
       <Header />
       <div className="attractions-container">
         <div className="filter">
-          <LotSectionFilter
-            attractionLots={attractionLots}
-            selectedLots={selectedLotId}
-            handleLotClick={(lot_id) => {
+          <SectionFilter
+            filterName="Lot Section"
+            filterItems={attractionLots.map(
+              (lot) =>
+                new SectionModel(lot.lot_section_no, lot.lot_section_name)
+            )}
+            handleItemClick={(lot_id) => {
               setSelectedLotId(lot_id);
             }}
           />

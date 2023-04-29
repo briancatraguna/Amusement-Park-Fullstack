@@ -8,6 +8,7 @@ import { clearAuthState } from "../../redux/authSlice";
 import { clearUserState } from "../../redux/userInfoSlice";
 import { ROUTES } from "../../utils/enums";
 import AlertDialog from "../AlertDialog";
+import { clearCartState } from "../../redux/cartSlice";
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -25,6 +26,7 @@ const Header = () => {
   const handleLogout = () => {
     dispatch(clearAuthState());
     dispatch(clearUserState());
+    dispatch(clearCartState());
   };
 
   return (
@@ -47,7 +49,7 @@ const Header = () => {
             <Link to={ROUTES.tickets}>Tickets</Link>
           </li>
           <li className="header-menu">
-            <Link to={ROUTES.orders}>Orders</Link>
+            <Link to={ROUTES.cart}>Cart</Link>
           </li>
           <li>
             <Link to={ROUTES.userProfile}>
