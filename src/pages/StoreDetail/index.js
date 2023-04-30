@@ -8,7 +8,6 @@ import "./style.css";
 import { Button } from "@mui/material";
 import QuantitySelectorModal from "../../components/QuantitySelector";
 import { addStoreOrder } from "../../redux/cartSlice";
-import { CartItemModel } from "../../utils/model_helper";
 
 const StoreDetailPage = () => {
   const accessToken = useSelector((state) => state.auth.accessToken);
@@ -46,6 +45,7 @@ const StoreDetailPage = () => {
       quantity: quantity,
       item: selectedMenuItem
     }));
+    alert(`${quantity} ${selectedMenuItem.menu_item_name} is added to your cart!`)
   };
 
   const handleAddToCartButtonClick = (menuItem) => {

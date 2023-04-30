@@ -1,12 +1,17 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import Header from "../../components/Header";
+import StoreOrderCartItem from "../../components/StoreOrderCartItem";
 import "./style.css";
 
 const CartPage = () => {
   const tickets = useSelector((state) => state.cart.tickets);
   const parking = useSelector((state) => state.cart.parking);
   const storeOrder = useSelector((state) => state.cart.storeOrder);
+
+  useEffect(() => {
+    console.log(storeOrder);
+  }, [storeOrder]);
 
   return (
     <div className="cart-container">
@@ -32,7 +37,7 @@ const CartPage = () => {
         <h2>Store Order</h2>
         <ul>
           {storeOrder.map((storeItem) => (
-            <li key={storeItem.id}>{/* render store order details */}</li>
+            <StoreOrderCartItem key={storeItem.id} storeItem={storeItem} />
           ))}
         </ul>
       </div>
