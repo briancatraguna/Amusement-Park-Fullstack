@@ -1,17 +1,20 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import Header from "../../components/Header";
 import { ROUTES } from "../../utils/enums";
 import { getStoreMenu } from "../../utils/api";
 import "./style.css";
 import { Button } from "@mui/material";
-import QuantitySelector from "../../components/QuantitySelector";
+import QuantitySelectorModal from "../../components/QuantitySelector";
+import { addStoreOrder } from "../../redux/cartSlice";
+import { CartItemModel } from "../../utils/model_helper";
 
 const StoreDetailPage = () => {
   const accessToken = useSelector((state) => state.auth.accessToken);
   const [searchParams, _] = useSearchParams();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [storeName, setStoreName] = useState();
   const [storeMenu, setStoreMenu] = useState();
   const [selectedMenuItem, setSelectedMenuItem] = useState(null);
@@ -39,7 +42,10 @@ const StoreDetailPage = () => {
   }, [accessToken, navigate, searchParams]);
 
   const handleAddToCart = (quantity) => {
-    console.log(`The quantity is ${quantity} and the menu is ${selectedMenuItem}`);
+    dispatch(addStoreOrder({
+      quantity: quantity,
+      item: selectedMenuItem
+    }));
   };
 
   const handleAddToCartButtonClick = (menuItem) => {
@@ -73,7 +79,7 @@ const StoreDetailPage = () => {
               </div>
             ))}
           {selectedMenuItem && (
-            <QuantitySelector
+            <QuantitySelectorModal
               isOpen={isQuantitySelectorOpen}
               itemTitle={selectedMenuItem.menu_item_name}
               pricePerItem={selectedMenuItem.item_price}

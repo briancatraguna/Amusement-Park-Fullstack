@@ -1,9 +1,8 @@
 import { Button, Modal } from "@mui/material";
-import { red } from "@mui/material/colors";
 import React, { useState } from "react";
 import "./style.css";
 
-const QuantitySelector = ({
+const QuantitySelectorModal = ({
   isOpen,
   itemTitle,
   pricePerItem,
@@ -11,7 +10,7 @@ const QuantitySelector = ({
   onAddToCart,
 }) => {
   const [quantity, setQuantity] = useState(1);
-  const totalPrice = quantity * pricePerItem;
+  const totalPrice = (quantity * pricePerItem).toFixed(2);
 
   const handleAdd = () => {
     setQuantity(quantity + 1);
@@ -70,4 +69,4 @@ const QuantitySelector = ({
   );
 };
 
-export default QuantitySelector;
+export default QuantitySelectorModal;

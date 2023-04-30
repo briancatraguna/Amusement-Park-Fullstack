@@ -19,7 +19,6 @@ const AuthenticationPage = () => {
   const accessTokenState = useSelector((state) => state.auth.accessToken);
   const roleId = useSelector((state) => state.auth.roleId);
   useEffect(() => {
-    console.log(accessTokenState);
     if (accessTokenState !== null && accessTokenState !== 'null') {
       if (roleId === ROLE_TO_ID["Employee"]) {
         navigate(ROUTES.employee);

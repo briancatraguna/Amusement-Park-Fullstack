@@ -63,7 +63,7 @@ const StoresPage = () => {
             const link = ROUTES.storeDetail + `?storeId=${store.store_id}&storeName=${store.store_name}`;
             return (
               <Link to={link}>
-                <div className="menu-item">
+                <div key={store.store_id} className="menu-item">
                   <img src={store.store_logo_url} alt={store.store_name} />
                   <p>{store.store_name}</p>
                 </div>
