@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { produce } from "immer";
 
 export const cartSlice = createSlice({
     name: "cart",
@@ -18,7 +19,6 @@ export const cartSlice = createSlice({
             state.storeOrder.push(action.payload);
         },
         clearCartState(state) {
-            localStorage.clear();
             state.tickets = [];
             state.parking = [];
             state.storeOrder = [];

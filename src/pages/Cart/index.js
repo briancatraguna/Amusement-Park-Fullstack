@@ -1,12 +1,19 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import Header from "../../components/Header";
+import StoreOrderCartItem from "../../components/StoreOrderCartItem";
+import { clearCartState } from "../../redux/cartSlice";
 import "./style.css";
 
 const CartPage = () => {
+  const dispatch = useDispatch();
   const tickets = useSelector((state) => state.cart.tickets);
   const parking = useSelector((state) => state.cart.parking);
   const storeOrder = useSelector((state) => state.cart.storeOrder);
+
+  const handleClearCart = () => {
+    dispatch(clearCartState());
+  };
 
   return (
     <div className="cart-container">
@@ -32,11 +39,16 @@ const CartPage = () => {
         <h2>Store Order</h2>
         <ul>
           {storeOrder.map((storeItem) => (
-            <li key={storeItem.id}>{/* render store order details */}</li>
+            <StoreOrderCartItem key={storeItem.id} storeItem={storeItem} />
           ))}
         </ul>
       </div>
-      <button className="checkout-button">Checkout</button>
+      <div className="cart-buttons-container">
+        <button className="clear-cart-button" onClick={handleClearCart}>
+          Clear Cart
+        </button>
+        <button className="checkout-button">Checkout</button>
+      </div>
     </div>
   );
 };

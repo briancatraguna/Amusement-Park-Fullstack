@@ -1,18 +1,23 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import Header from "../../components/Header";
 import { ROUTES } from "../../utils/enums";
 import { getStoreMenu } from "../../utils/api";
 import "./style.css";
 import { Button } from "@mui/material";
+import QuantitySelectorModal from "../../components/QuantitySelector";
+import { addStoreOrder } from "../../redux/cartSlice";
 
 const StoreDetailPage = () => {
   const accessToken = useSelector((state) => state.auth.accessToken);
   const [searchParams, _] = useSearchParams();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [storeName, setStoreName] = useState();
   const [storeMenu, setStoreMenu] = useState();
+  const [selectedMenuItem, setSelectedMenuItem] = useState(null);
+  const [isQuantitySelectorOpen, setQuantitySelectorOpen] = useState();
 
   useEffect(() => {
     if (!searchParams.get("storeId") || !searchParams.get("storeName")) {
@@ -35,6 +40,20 @@ const StoreDetailPage = () => {
     fetchStoreMenu();
   }, [accessToken, navigate, searchParams]);
 
+  const handleAddToCart = (quantity) => {
+    dispatch(addStoreOrder({
+      quantity: quantity,
+      item: selectedMenuItem,
+      id: selectedMenuItem.menu_item_id
+    }));
+    alert(`${quantity} ${selectedMenuItem.menu_item_name} is added to your cart!`)
+  };
+
+  const handleAddToCartButtonClick = (menuItem) => {
+    setQuantitySelectorOpen(true);
+    setSelectedMenuItem(menuItem);
+  };
+
   return (
     <div>
       <Header />
@@ -54,10 +73,21 @@ const StoreDetailPage = () => {
                   <h2>{menuItem.menu_item_name}</h2>
                   <p>{menuItem.item_desc}</p>
                   <p>{menuItem.item_price}</p>
-                  <Button>Add to Cart</Button>
+                  <Button onClick={() => handleAddToCartButtonClick(menuItem)}>
+                    Add to Cart
+                  </Button>
                 </div>
               </div>
             ))}
+          {selectedMenuItem && (
+            <QuantitySelectorModal
+              isOpen={isQuantitySelectorOpen}
+              itemTitle={selectedMenuItem.menu_item_name}
+              pricePerItem={selectedMenuItem.item_price}
+              onClose={() => setQuantitySelectorOpen(false)}
+              onAddToCart={(quantity) => handleAddToCart(quantity)}
+            />
+          )}
         </div>
       </div>
     </div>
