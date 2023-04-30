@@ -43,7 +43,8 @@ const StoreDetailPage = () => {
   const handleAddToCart = (quantity) => {
     dispatch(addStoreOrder({
       quantity: quantity,
-      item: selectedMenuItem
+      item: selectedMenuItem,
+      id: selectedMenuItem.menu_item_id
     }));
     alert(`${quantity} ${selectedMenuItem.menu_item_name} is added to your cart!`)
   };

@@ -1,17 +1,19 @@
 import React, { useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Header from "../../components/Header";
 import StoreOrderCartItem from "../../components/StoreOrderCartItem";
+import { clearCartState } from "../../redux/cartSlice";
 import "./style.css";
 
 const CartPage = () => {
+  const dispatch = useDispatch();
   const tickets = useSelector((state) => state.cart.tickets);
   const parking = useSelector((state) => state.cart.parking);
   const storeOrder = useSelector((state) => state.cart.storeOrder);
 
-  useEffect(() => {
-    console.log(storeOrder);
-  }, [storeOrder]);
+  const handleClearCart = () => {
+    dispatch(clearCartState());
+  };
 
   return (
     <div className="cart-container">
@@ -41,7 +43,12 @@ const CartPage = () => {
           ))}
         </ul>
       </div>
-      <button className="checkout-button">Checkout</button>
+      <div className="cart-buttons-container">
+        <button className="clear-cart-button" onClick={handleClearCart}>
+          Clear Cart
+        </button>
+        <button className="checkout-button">Checkout</button>
+      </div>
     </div>
   );
 };

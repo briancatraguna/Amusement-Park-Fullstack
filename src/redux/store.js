@@ -18,9 +18,9 @@ const store = configureStore({
       user: JSON.parse(localStorage.getItem("user")),
     },
     cart: {
-      tickets: localStorage.getItem("tickets") === "null" ? [] : JSON.parse(localStorage.getItem("tickets")),
-      parking: localStorage.getItem("parking") === "null" ? [] : JSON.parse(localStorage.getItem("parking")),
-      storeOrder: localStorage.getItem("storeOrder") === "null" ? [] : JSON.parse(localStorage.getItem("storeOrder")),
+      tickets: [],
+      parking: [],
+      storeOrder: [],
     },
   },
 });
@@ -32,11 +32,6 @@ store.subscribe(() => {
 
   const { user } = store.getState().userInfo;
   localStorage.setItem("user", JSON.stringify(user));
-
-  const { tickets, parking, storeOrder } = store.getState().cart;
-  localStorage.setItem("tickets", JSON.stringify(tickets));
-  localStorage.setItem("parking", JSON.stringify(parking));
-  localStorage.setItem("storeOrder", JSON.stringify(storeOrder));
 });
 
 export default store;
