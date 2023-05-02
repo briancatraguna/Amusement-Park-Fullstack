@@ -18,8 +18,3 @@
 .signup-stepper-container {
     margin-bottom: 20px;
 }
-
-.step-buttons-container {
-    display:flex;
-    justify-content: space-evenly;
-}
