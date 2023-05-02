@@ -33,7 +33,7 @@ const SignUpForm = ({ onRegister, onBackToLogin }) => {
   const getStepContent = (stepIndex) => {
     switch (stepIndex) {
       case 0:
-        return <VisitorDataForm />;
+        return <VisitorDataForm handleNext={handleNext} />;
       case 1:
         return null;
       default:
@@ -41,21 +41,25 @@ const SignUpForm = ({ onRegister, onBackToLogin }) => {
     }
   };
 
-  const handleNext = () => {
-    if (
-      !firstName ||
-      !lastName ||
-      !streetName ||
-      !streetNumber ||
-      !city ||
-      !zipcode ||
-      !cellNo ||
-      !birthDate
-    ) {
-      setIsVisitorDataError(true);
-    } else {
-      setActiveStep(activeStep + 1);
-    }
+  const handleNext = (
+    firstName,
+    lastName,
+    streetName,
+    streetNumber,
+    city,
+    zipcode,
+    cellNo,
+    birthDate
+  ) => {
+    setFirstName(firstName);
+    setLastName(lastName);
+    setStreetName(streetName);
+    setStreetNumber(streetNumber);
+    setCity(city);
+    setZipcode(zipcode);
+    setCellNo(cellNo);
+    setBirthDate(birthDate);
+    setActiveStep(activeStep + 1);
   };
 
   const handleBack = () => {
@@ -79,15 +83,6 @@ const SignUpForm = ({ onRegister, onBackToLogin }) => {
       <span className="signup-link">
         Back to <a onClick={() => onBackToLogin()}>Login</a>
       </span>
-      <Snackbar
-        open={isVisitorDataError}
-        autoHideDuration={3000}
-        onClose={() => setIsVisitorDataError(false)}
-      >
-        <Alert onClose={() => setIsVisitorDataError(false)} severity="error">
-          Visitor data is not completed!
-        </Alert>
-      </Snackbar>
     </div>
   );
 };
