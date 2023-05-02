@@ -33,11 +33,6 @@ const AuthenticationPage = () => {
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
 
-  const [userName, setUserName] = useState("");
-  const [regEmail, setRegEmail] = useState("");
-  const [regPassword, setRegPassword] = useState("");
-  const [isEmployee, setIsEmployee] = useState("");
-
   const handleSignIn = async () => {
     try {
       const response = await loginUser(loginEmail, loginPassword);
@@ -57,15 +52,9 @@ const AuthenticationPage = () => {
     }
   };
 
-  const handleRegister = async () => {
+  const handleRegister = async (registerBody) => {
     try {
-      const roleId = isEmployee ? ROLE_TO_ID["Employee"] : ROLE_TO_ID["Customer"];
-      const response = await registerUser(
-        regEmail,
-        regPassword,
-        userName,
-        roleId
-      );
+      const response = await registerUser(registerBody);
       if (response.success) {
         alert(response.message);
         setLoginMode(true);
@@ -92,15 +81,9 @@ const AuthenticationPage = () => {
           />
         ) : (
           <SignUpForm
-            userName={userName}
-            setUserName={setUserName}
-            email={regEmail}
-            setEmail={setRegEmail}
-            password={regPassword}
-            setPassword={setRegPassword}
-            isEmployee={isEmployee}
-            setIsEmployee={setIsEmployee}
-            onRegister={() => handleRegister()}
+            onRegister={(
+              registerBody
+            ) => handleRegister(registerBody)}
             onBackToLogin={() => setLoginMode(true)}
           />
         )}

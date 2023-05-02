@@ -1,27 +1,105 @@
-import React from "react";
+import React, { useState } from "react";
 import "./style.css";
-import { Button, Checkbox, FormControlLabel, TextField } from "@mui/material";
-import { useSelector } from "react-redux";
-import { ROLE_TO_ID } from "../../utils/enums";
+import { Button, TextField } from "@mui/material";
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import { formatDate } from "../../utils/function_helper";
 
-const SignUpForm = ({
-    userName,
-    setUserName,
-    email,
-    setEmail,
-    password,
-    setPassword,
-    isEmployee,
-    setIsEmployee,
-    onRegister,
-    onBackToLogin,
-}) => {
-
-  const roleId = useSelector((state) => state.auth.roleId);
+const SignUpForm = ({ onRegister, onBackToLogin }) => {
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [streetName, setStreetName] = useState("");
+  const [streetNumber, setStreetNumber] = useState("");
+  const [city, setCity] = useState("");
+  const [zipcode, setZipcode] = useState("");
+  const [cellNo, setCellNo] = useState("");
+  const [birthDate, setBirthDate] = useState("");
+  const [isMember, setIsMember] = useState(false);
+  const [isStudent, setIsStudent] = useState(false);
+  const [userName, setUserName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   return (
     <div className="form-container">
       <h3>Account Registration</h3>
+      <TextField
+        required
+        label="First Name"
+        variant="outlined"
+        className="auth-textfield"
+        value={firstName}
+        onChange={(e) => setFirstName(e.target.value)}
+      />
+      <TextField
+        required
+        label="Last Name"
+        variant="outlined"
+        className="auth-textfield"
+        value={lastName}
+        onChange={(e) => setLastName(e.target.value)}
+      />
+      <TextField
+        required
+        label="Street Name"
+        variant="outlined"
+        className="auth-textfield"
+        value={streetName}
+        onChange={(e) => setStreetName(e.target.value)}
+      />
+      <TextField
+        required
+        label="Street Number"
+        type="number"
+        variant="outlined"
+        className="auth-textfield"
+        value={streetNumber}
+        onChange={(e) => setStreetNumber(e.target.value)}
+        inputProps={{
+          pattern: "[0-9]{1}", 
+          maxLength: 1,
+        }}
+      />
+      <TextField
+        required
+        label="City"
+        variant="outlined"
+        className="auth-textfield"
+        value={city}
+        onChange={(e) => setCity(e.target.value)}
+      />
+      <TextField
+        required
+        label="Zip Code"
+        variant="outlined"
+        className="auth-textfield"
+        value={zipcode}
+        onChange={(e) => setZipcode(e.target.value)}
+        inputProps={{
+          pattern: "[0-9]{5}", 
+          inputMode: "numeric", 
+          maxLength: 5, 
+        }}
+      />
+      <TextField
+        required
+        label="Cell No"
+        variant="outlined"
+        className="auth-textfield"
+        value={cellNo}
+        onChange={(e) => setCellNo(e.target.value)}
+        inputProps={{
+          pattern: "[0-9]{10}", 
+          inputMode: "numeric", 
+          maxLength: 10, 
+        }}
+      />
+      <DatePicker 
+      label="birthdate"
+      value={birthDate}
+      onChange={(newValue) => 
+        console.log(formatDate(newValue))
+      }
+      />
       <TextField
         required
         label="Username"
@@ -45,20 +123,26 @@ const SignUpForm = ({
         value={password}
         onChange={(e) => setPassword(e.target.value)}
       />
-      {roleId === ROLE_TO_ID["Employee"] || roleId === ROLE_TO_ID["Admin"] ? (
-        <FormControlLabel
-          control={
-            <Checkbox
-              checked={isEmployee}
-              onChange={(e) => setIsEmployee(e.target.checked)}
-            />
-          }
-          label="Are you an employee?"
-        />
-      ) : null}
       <Button
         variant="contained"
-        onClick={() => onRegister()}
+        onClick={() =>
+          onRegister({
+            firstName: firstName,
+            lastName: lastName,
+            streetName: streetName,
+            streetNumber: streetNumber,
+            city: city,
+            zipcode: zipcode,
+            cellNo: cellNo,
+            birthDate: birthDate,
+            isMember: isMember,
+            isStudent: isStudent,
+            email: email,
+            password: password,
+            userName: userName,
+            roleId: 3,
+          })
+        }
       >
         Register
       </Button>
