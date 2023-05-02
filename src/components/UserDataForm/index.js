@@ -1,11 +1,24 @@
 import { Button } from "@mui/base";
-import { TextField } from "@mui/material";
+import { Alert, Snackbar, TextField } from "@mui/material";
 import React, { useState } from "react";
 
 const UserDataForm = ({handleBack, handleRegister}) => {
   const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isUserDataError, setIsUserDataError] = useState(false);
+
+  const validate = () => {
+    if (
+        !userName ||
+        !email ||
+        !password
+    ) {
+        setIsUserDataError(true);
+    } else {
+        handleRegister(userName, email, password);
+    }
+  }
 
   return (
     <div>
@@ -38,11 +51,20 @@ const UserDataForm = ({handleBack, handleRegister}) => {
         </Button>
         <Button
           variant="contained"
-          onClick={() => handleRegister(userName, email, password)}
+          onClick={validate}
         >
           Register
         </Button>
       </div>
+      <Snackbar
+        open={isUserDataError}
+        autoHideDuration={3000}
+        onClose={() => setIsUserDataError(false)}
+      >
+        <Alert onClose={() => setIsUserDataError(false)} severity="error">
+          User data is not completed!
+        </Alert>
+      </Snackbar>
     </div>
   );
 };

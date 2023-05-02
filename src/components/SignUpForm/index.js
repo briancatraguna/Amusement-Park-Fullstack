@@ -34,7 +34,6 @@ const SignUpForm = ({ onRegister, onBackToLogin }) => {
   };
 
   const handleRegister = (userName, email, password) => {
-    console.log("Test");
     onRegister({
       firstName: firstName,
       lastName: lastName,
