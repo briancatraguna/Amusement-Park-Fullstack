@@ -2,8 +2,10 @@ import { Button } from "@mui/base";
 import { TextField } from "@mui/material";
 import React, { useState } from "react";
 
-const UserDataForm = () => {
+const UserDataForm = ({handleBack, handleRegister}) => {
   const [userName, setUserName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   return (
     <div>
@@ -36,24 +38,7 @@ const UserDataForm = () => {
         </Button>
         <Button
           variant="contained"
-          onClick={() =>
-            onRegister({
-              firstName: firstName,
-              lastName: lastName,
-              streetName: streetName,
-              streetNumber: streetNumber,
-              city: city,
-              zipcode: zipcode,
-              cellNo: cellNo,
-              birthDate: formatDate(birthDate),
-              isMember: isMember,
-              isStudent: isStudent,
-              email: email,
-              password: password,
-              userName: userName,
-              roleId: 3,
-            })
-          }
+          onClick={() => handleRegister(userName, email, password)}
         >
           Register
         </Button>
@@ -61,3 +46,5 @@ const UserDataForm = () => {
     </div>
   );
 };
+
+export default UserDataForm;

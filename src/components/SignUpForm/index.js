@@ -1,17 +1,13 @@
 import React, { useState } from "react";
 import "./style.css";
 import {
-  Alert,
-  Button,
-  Snackbar,
   Step,
   StepLabel,
   Stepper,
-  TextField,
 } from "@mui/material";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-import { formatDate } from "../../utils/function_helper";
 import VisitorDataForm from "../VisitorDataForm";
+import UserDataForm from "../UserDataForm";
+import { formatDate } from "../../utils/function_helper";
 
 const SignUpForm = ({ onRegister, onBackToLogin }) => {
   const [activeStep, setActiveStep] = useState(0);
@@ -25,21 +21,37 @@ const SignUpForm = ({ onRegister, onBackToLogin }) => {
   const [birthDate, setBirthDate] = useState(null);
   const [isMember, setIsMember] = useState(false);
   const [isStudent, setIsStudent] = useState(false);
-  const [userName, setUserName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [isVisitorDataError, setIsVisitorDataError] = useState(false);
 
   const getStepContent = (stepIndex) => {
     switch (stepIndex) {
       case 0:
         return <VisitorDataForm handleNext={handleNext} />;
       case 1:
-        return null;
+        return <UserDataForm handleBack={handleBack} handleRegister={handleRegister}/>;
       default:
         return null;
     }
   };
+
+  const handleRegister = (userName, email, password) => {
+    console.log("Test");
+    onRegister({
+      firstName: firstName,
+      lastName: lastName,
+      streetName: streetName,
+      streetNumber: streetNumber,
+      city: city,
+      zipcode: zipcode,
+      cellNo: cellNo,
+      birthDate: formatDate(birthDate),
+      isMember: isMember,
+      isStudent: isStudent,
+      email: email,
+      password: password,
+      userName: userName,
+      roleId: 3
+    })
+  }
 
   const handleNext = (
     firstName,
