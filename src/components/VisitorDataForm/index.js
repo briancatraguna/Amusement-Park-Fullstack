@@ -46,7 +46,7 @@ const VisitorDataForm = ({ handleNext }) => {
         cellNo,
         birthDate,
         isMember,
-        isStudent
+        isStudent,
       );
     }
   };

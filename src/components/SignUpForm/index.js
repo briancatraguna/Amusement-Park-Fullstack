@@ -49,7 +49,9 @@ const SignUpForm = ({ onRegister, onBackToLogin }) => {
     city,
     zipcode,
     cellNo,
-    birthDate
+    birthDate,
+    isMember,
+    isStudent
   ) => {
     setFirstName(firstName);
     setLastName(lastName);
@@ -59,6 +61,8 @@ const SignUpForm = ({ onRegister, onBackToLogin }) => {
     setZipcode(zipcode);
     setCellNo(cellNo);
     setBirthDate(birthDate);
+    setIsMember(isMember);
+    setIsStudent(isStudent);
     setActiveStep(activeStep + 1);
   };
 
