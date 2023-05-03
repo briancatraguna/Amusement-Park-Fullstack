@@ -2,9 +2,11 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import Header from "../../components/Header";
 import SectionFilter from "../../components/SectionFilter";
+import ShowList from "../../components/ShowsList";
 import { getShows, getShowTypes } from "../../utils/api";
 import { emitNotification } from "../../utils/emitNotification";
 import { SectionModel } from "../../utils/model_helper";
+import './style.css'
 
 const ShowsPage = () => {
     const accessToken = useSelector((state) => state.auth.accessToken);
@@ -18,7 +20,6 @@ const ShowsPage = () => {
             try {
                 const showTypeId = selectedShowTypeId === 0 ? null : selectedShowTypeId;
                 const showsResponse = await getShows(accessToken, showTypeId);
-                console.log(showsResponse.data.shows);
                 setShows(showsResponse.data.shows);
             } catch (error) {
                 emitNotification("error", error.response.data.message);
@@ -63,7 +64,7 @@ const ShowsPage = () => {
                     }}
                     />
                 </div>
-
+                <ShowList shows={shows}/>
             </div>
         </div>
     )
