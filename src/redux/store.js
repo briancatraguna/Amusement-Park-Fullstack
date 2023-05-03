@@ -1,11 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
 import authReducer from "./authSlice";
 import userInfoReducer from "./userInfoSlice";
+import cartReducer from "./cartSlice";
 
 const store = configureStore({
   reducer: {
     auth: authReducer,
     userInfo: userInfoReducer,
+    cart: cartReducer,
   },
   preloadedState: {
     auth: {
@@ -13,7 +15,12 @@ const store = configureStore({
       roleId: localStorage.getItem("roleId"),
     },
     userInfo: {
-      user: JSON.parse(localStorage.getItem("user"))
+      user: JSON.parse(localStorage.getItem("user")),
+    },
+    cart: {
+      tickets: [],
+      parking: [],
+      storeOrder: [],
     },
   },
 });

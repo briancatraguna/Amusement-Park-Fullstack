@@ -14,7 +14,7 @@ const AttractionList = ({ attractions }) => {
             />
           </div>
           <div className="attraction-details-container">
-          <div className="attraction-label">Name:</div>
+          <div className="attraction-label"></div>
             <div className="attraction-name">{attraction.attr_name}</div>
             <div className="attraction-label">Description:</div>
             <div className="attraction-desc">{attraction.attr_desc}</div>

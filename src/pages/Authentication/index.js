@@ -50,10 +50,7 @@ const AuthenticationPage = () => {
 				emitNotification("success", `Succesfully logged in!`);
 			}
 		} catch (error) {
-			emitNotification(
-				"error",
-				`Error during login - ${error.response.data.message}`
-			);
+			emitNotification("error", error.response.data.message);
 		}
 	};
 
@@ -69,8 +66,8 @@ const AuthenticationPage = () => {
 				roleId
 			);
 			if (response.success) {
-				setLoginMode(true);
 				emitNotification("success", response.message);
+				setLoginMode(true);
 			}
 		} catch (error) {
 			emitNotification("error", error.response.data.message);
