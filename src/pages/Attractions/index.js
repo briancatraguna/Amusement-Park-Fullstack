@@ -31,7 +31,7 @@ const AttractionsPage = () => {
 	useEffect(() => {
 		const fetchLotSections = async () => {
 			try {
-				const lotResponse = await getLotSections(accessToken, null);
+				const lotResponse = await getLotSections(accessToken);
 				const lotSections = lotResponse.data.lotSections;
 				lotSections.push({
 					lot_section_no: 0,

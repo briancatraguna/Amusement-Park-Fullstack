@@ -56,9 +56,6 @@ const AuthenticationPage = () => {
 
 	const handleRegister = async (registerBody) => {
 		try {
-			const roleId = isEmployee
-				? ROLE_TO_ID["Employee"]
-				: ROLE_TO_ID["Customer"];
 			const response = await registerUser(registerBody);
 			if (response.success) {
 				emitNotification("success", response.message);
