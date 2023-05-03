@@ -15,10 +15,10 @@ const ShowList = ({ shows }) => {
   return (
     <Box sx={{ display: "flex", flexWrap: "wrap", justifyContent: "center" }}>
       {shows.map((show) => (
-        <Card key={show.sw_id} sx={{ width: 300, m: 2 }}>
+        <Card key={show.sw_id} sx={{ width: 300, m: 2, backgroundColor:"#aeadf0" }}>
           <CardMedia
+          className="card-media-show"
             component="img"
-            height="140"
             image={show.sw_img_url}
             alt={show.sw_name}
           />
