@@ -2,19 +2,14 @@ import axios from "axios";
 
 const BASE_URL = "http://localhost:8080";
 
-export const registerUser = async (email, password, userName, roleId) => {
-	const url = `${BASE_URL}/auth/register`;
-	const response = await axios.post(url, {
-		email: email,
-		password: password,
-		userName: userName,
-		roleId: roleId,
-	});
-	if (response.status === 201) {
-		return { success: true, message: response.data.message };
-	} else {
-		throw new Error(response.data.message);
-	}
+export const registerUser = async (registerBody) => {
+  const url = `${BASE_URL}/auth/register`;
+  const response = await axios.post(url, registerBody);
+  if (response.status === 201) {
+    return { success: true, message: response.data.message };
+  } else {
+    throw new Error(response.data.message);
+  }
 };
 
 export const loginUser = async (email, password) => {
@@ -82,8 +77,8 @@ export const getStores = async (accessToken, categoryId) => {
   }
   const response = await axios.get(url, {
     headers: {
-      Authorization: `Bearer ${accessToken}`
-    }
+      Authorization: `Bearer ${accessToken}`,
+    },
   });
   if (response.status === 200) {
     return { success: true, data: response.data };
@@ -96,23 +91,23 @@ export const getStoreMenu = async (accessToken, storeId) => {
   const url = `${BASE_URL}/store/menu?storeId=${storeId}`;
   const response = await axios.get(url, {
     headers: {
-      Authorization: `Bearer ${accessToken}`
-    }
+      Authorization: `Bearer ${accessToken}`,
+    },
   });
   if (response.status === 200) {
     return { success: true, data: response.data };
   } else {
     throw new Error(response.data.message);
   }
-}
+};
 
 export const postPayment = async (accessToken, stripeTransactionInfo) => {
-	return await axios({
-		url: `${BASE_URL}/order/payment`,
-		method: "post",
-		data: stripeTransactionInfo,
-		headers: {
-			Authorization: `Bearer ${accessToken}`,
-		},
-	});
+  return await axios({
+    url: `${BASE_URL}/order/payment`,
+    method: "post",
+    data: stripeTransactionInfo,
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
 };

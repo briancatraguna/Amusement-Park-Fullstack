@@ -1,67 +1,100 @@
-import React from "react";
+import React, { useState } from "react";
 import "./style.css";
-import { Button, Checkbox, FormControlLabel, TextField } from "@mui/material";
-import { useSelector } from "react-redux";
-import { ROLE_TO_ID } from "../../utils/enums";
+import {
+  Step,
+  StepLabel,
+  Stepper,
+} from "@mui/material";
+import VisitorDataForm from "../VisitorDataForm";
+import UserDataForm from "../UserDataForm";
+import { formatDate } from "../../utils/function_helper";
 
-const SignUpForm = ({
-    userName,
-    setUserName,
-    email,
-    setEmail,
-    password,
-    setPassword,
-    isEmployee,
-    setIsEmployee,
-    onRegister,
-    onBackToLogin,
-}) => {
+const SignUpForm = ({ onRegister, onBackToLogin }) => {
+  const [activeStep, setActiveStep] = useState(0);
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [streetName, setStreetName] = useState("");
+  const [streetNumber, setStreetNumber] = useState("");
+  const [city, setCity] = useState("");
+  const [zipcode, setZipcode] = useState("");
+  const [cellNo, setCellNo] = useState("");
+  const [birthDate, setBirthDate] = useState(null);
+  const [isMember, setIsMember] = useState(false);
+  const [isStudent, setIsStudent] = useState(false);
 
-  const roleId = useSelector((state) => state.auth.roleId);
+  const getStepContent = (stepIndex) => {
+    switch (stepIndex) {
+      case 0:
+        return <VisitorDataForm handleNext={handleNext} />;
+      case 1:
+        return <UserDataForm handleBack={handleBack} handleRegister={handleRegister}/>;
+      default:
+        return null;
+    }
+  };
+
+  const handleRegister = (userName, email, password) => {
+    onRegister({
+      firstName: firstName,
+      lastName: lastName,
+      streetName: streetName,
+      streetNumber: streetNumber,
+      city: city,
+      zipcode: zipcode,
+      cellNo: cellNo,
+      birthDate: formatDate(birthDate),
+      isMember: isMember,
+      isStudent: isStudent,
+      email: email,
+      password: password,
+      userName: userName,
+      roleId: 3
+    })
+  }
+
+  const handleNext = (
+    firstName,
+    lastName,
+    streetName,
+    streetNumber,
+    city,
+    zipcode,
+    cellNo,
+    birthDate,
+    isMember,
+    isStudent
+  ) => {
+    setFirstName(firstName);
+    setLastName(lastName);
+    setStreetName(streetName);
+    setStreetNumber(streetNumber);
+    setCity(city);
+    setZipcode(zipcode);
+    setCellNo(cellNo);
+    setBirthDate(birthDate);
+    setIsMember(isMember);
+    setIsStudent(isStudent);
+    setActiveStep(activeStep + 1);
+  };
+
+  const handleBack = () => {
+    setActiveStep(activeStep - 1);
+  };
 
   return (
     <div className="form-container">
       <h3>Account Registration</h3>
-      <TextField
-        required
-        label="Username"
-        variant="outlined"
-        className="auth-textfield"
-        value={userName}
-        onChange={(e) => setUserName(e.target.value)}
-      />
-      <TextField
-        label="Email"
-        variant="outlined"
-        className="auth-textfield"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-      />
-      <TextField
-        label="Password"
-        variant="outlined"
-        type="password"
-        className="auth-textfield"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
-      {roleId === ROLE_TO_ID["Employee"] || roleId === ROLE_TO_ID["Admin"] ? (
-        <FormControlLabel
-          control={
-            <Checkbox
-              checked={isEmployee}
-              onChange={(e) => setIsEmployee(e.target.checked)}
-            />
-          }
-          label="Are you an employee?"
-        />
-      ) : null}
-      <Button
-        variant="contained"
-        onClick={() => onRegister()}
-      >
-        Register
-      </Button>
+      <div className="signup-stepper-container">
+        <Stepper activeStep={activeStep}>
+          <Step>
+            <StepLabel>Visitor Data</StepLabel>
+          </Step>
+          <Step>
+            <StepLabel>User Data</StepLabel>
+          </Step>
+        </Stepper>
+      </div>
+      {getStepContent(activeStep)}
       <span className="signup-link">
         Back to <a onClick={() => onBackToLogin()}>Login</a>
       </span>
