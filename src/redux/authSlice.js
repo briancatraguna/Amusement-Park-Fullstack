@@ -5,13 +5,18 @@ export const authSlice = createSlice({
   initialState: {
     accessToken: null,
     roleId: 0,
+    shouldOpenLoginSnackbar: false
   },
   reducers: {
     setAccessTokenState(state, action) {
       state.accessToken = action.payload;
+      state.shouldOpenLoginSnackbar = true;
     },
     setRoleId(state, action) {
       state.roleId = action.payload;
+    },
+    setShouldOpenLoginSnackbar(state, action) {
+      state.shouldOpenLoginSnackbar = action.payload;
     },
     clearAuthState(state) {
       localStorage.clear();
@@ -24,7 +29,7 @@ export const authSlice = createSlice({
 export const {
   setAccessTokenState,
   setRoleId,
-  setIsLoginSuccessful,
+  setShouldOpenLoginSnackbar,
   clearAuthState,
 } = authSlice.actions;
 export default authSlice.reducer;

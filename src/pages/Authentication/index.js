@@ -5,7 +5,7 @@ import LoginForm from "../../components/LoginForm";
 import SignUpForm from "../../components/SignUpForm";
 import { loginUser, registerUser } from "../../utils/api";
 import { useDispatch, useSelector } from "react-redux";
-import { setAccessTokenState, setIsLoginSuccessful, setRoleId, setVisitorId } from "../../redux/authSlice";
+import { setAccessTokenState, setIsLoginSuccessful, setRoleId, setShouldOpenLoginSnackbar, setVisitorId } from "../../redux/authSlice";
 import { useNavigate } from "react-router-dom";
 import { ROLE_TO_ID, ROUTES } from "../../utils/enums";
 import { setUser } from "../../redux/userInfoSlice";
@@ -45,7 +45,7 @@ const AuthenticationPage = () => {
         dispatch(setAccessTokenState(accessToken));
         dispatch(setRoleId(roleId));
         dispatch(setUser(user));
-        alert("Login successful!");
+        dispatch(setShouldOpenLoginSnackbar(true));
       }
     } catch (error) {
       setErrorMessage(error.response.data.message);
