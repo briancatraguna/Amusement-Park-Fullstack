@@ -1,38 +1,14 @@
-import { Snackbar } from "@mui/base";
-import { Alert } from "@mui/material";
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React from "react";
 import { Link } from "react-router-dom";
 import Header from "../../components/Header";
-import { setShouldOpenLoginSnackbar } from "../../redux/authSlice";
 import { ROUTES } from "../../utils/enums";
 import "./style.css";
 
 const HomePage = () => {
-  const shouldOpenLoginSnackbar = useSelector(
-    (state) => state.auth.shouldOpenLoginSnackbar
-  );
-  const dispatch = useDispatch();
 
   return (
     <div className="background">
       <Header />
-      <Snackbar
-        open={shouldOpenLoginSnackbar}
-        autoHideDuration={2000}
-        onClose={() => dispatch(setShouldOpenLoginSnackbar(false))}
-        anchorOrigin={{
-          vertical: 'top',
-          horizontal: 'right',
-        }}
-      >
-        <Alert
-          onClose={() => dispatch(setShouldOpenLoginSnackbar(false))}
-          severity="success"
-        >
-          Login successful!
-        </Alert>
-      </Snackbar>
       <div className="image-container">
         <img
           src={require("../../assets/theme-park-image-home.jpeg")}

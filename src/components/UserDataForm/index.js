@@ -1,12 +1,12 @@
 import { Button } from "@mui/base";
-import { Alert, Snackbar, TextField } from "@mui/material";
+import { TextField } from "@mui/material";
 import React, { useState } from "react";
+import { emitNotification } from "../../utils/emitNotification";
 
 const UserDataForm = ({handleBack, handleRegister}) => {
   const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [isUserDataError, setIsUserDataError] = useState(false);
 
   const validate = () => {
     if (
@@ -14,7 +14,7 @@ const UserDataForm = ({handleBack, handleRegister}) => {
         !email ||
         !password
     ) {
-        setIsUserDataError(true);
+        emitNotification("error","User data is not completed!")
     } else {
         handleRegister(userName, email, password);
     }
@@ -56,15 +56,6 @@ const UserDataForm = ({handleBack, handleRegister}) => {
           Register
         </Button>
       </div>
-      <Snackbar
-        open={isUserDataError}
-        autoHideDuration={3000}
-        onClose={() => setIsUserDataError(false)}
-      >
-        <Alert onClose={() => setIsUserDataError(false)} severity="error">
-          User data is not completed!
-        </Alert>
-      </Snackbar>
     </div>
   );
 };

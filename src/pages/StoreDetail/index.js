@@ -5,7 +5,7 @@ import Header from "../../components/Header";
 import { ROUTES } from "../../utils/enums";
 import { getStoreMenu } from "../../utils/api";
 import "./style.css";
-import { Alert, Button, Snackbar } from "@mui/material";
+import { Button } from "@mui/material";
 import QuantitySelectorModal from "../../components/QuantitySelector";
 import { addStoreOrder } from "../../redux/cartSlice";
 import { emitNotification } from "../../utils/emitNotification";
@@ -19,7 +19,6 @@ const StoreDetailPage = () => {
 	const [storeMenu, setStoreMenu] = useState();
 	const [selectedMenuItem, setSelectedMenuItem] = useState(null);
 	const [isQuantitySelectorOpen, setQuantitySelectorOpen] = useState();
-	const [isSnackbarOpen, setIsSnackbarOpen] = useState(false);
 
 	useEffect(() => {
 		if (!searchParams.get("storeId") || !searchParams.get("storeName")) {
@@ -50,7 +49,7 @@ const StoreDetailPage = () => {
 				id: selectedMenuItem.menu_item_id,
 			})
 		);
-		setIsSnackbarOpen(true);
+		emitNotification("success","Item added to cart!");
 	};
 
 	const handleAddToCartButtonClick = (menuItem) => {
@@ -103,18 +102,6 @@ const StoreDetailPage = () => {
 					)}
 				</div>
 			</div>
-			<Snackbar
-				open={isSnackbarOpen}
-				autoHideDuration={3000}
-				onClose={() => setIsSnackbarOpen(false)}
-			>
-				<Alert
-					onClose={() => setIsSnackbarOpen(false)}
-					severity="success"
-				>
-					Item added to cart!
-				</Alert>
-			</Snackbar>
 		</div>
 	);
 };

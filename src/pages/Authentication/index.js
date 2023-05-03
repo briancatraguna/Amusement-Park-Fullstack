@@ -54,17 +54,12 @@ const AuthenticationPage = () => {
 		}
 	};
 
-	const handleRegister = async () => {
+	const handleRegister = async (registerBody) => {
 		try {
 			const roleId = isEmployee
 				? ROLE_TO_ID["Employee"]
 				: ROLE_TO_ID["Customer"];
-			const response = await registerUser(
-				regEmail,
-				regPassword,
-				userName,
-				roleId
-			);
+			const response = await registerUser(registerBody);
 			if (response.success) {
 				emitNotification("success", response.message);
 				setLoginMode(true);
@@ -99,7 +94,7 @@ const AuthenticationPage = () => {
 						setPassword={setRegPassword}
 						isEmployee={isEmployee}
 						setIsEmployee={setIsEmployee}
-						onRegister={() => handleRegister()}
+						onRegister={(registerBody) => handleRegister(registerBody)}
 						onBackToLogin={() => setLoginMode(true)}
 					/>
 				)}

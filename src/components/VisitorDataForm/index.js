@@ -1,14 +1,13 @@
 import {
-  Alert,
   Checkbox,
   FormControlLabel,
-  Snackbar,
   TextField,
 } from "@mui/material";
 import React, { useState } from "react";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { Button } from "@mui/base";
 import "./style.css";
+import { emitNotification } from "../../utils/emitNotification";
 
 const VisitorDataForm = ({ handleNext }) => {
   const [firstName, setFirstName] = useState("");
@@ -21,7 +20,6 @@ const VisitorDataForm = ({ handleNext }) => {
   const [birthDate, setBirthDate] = useState(null);
   const [isMember, setIsMember] = useState(false);
   const [isStudent, setIsStudent] = useState(false);
-  const [isVisitorDataError, setIsVisitorDataError] = useState(false);
 
   const validate = () => {
     if (
@@ -34,7 +32,7 @@ const VisitorDataForm = ({ handleNext }) => {
       !cellNo ||
       !birthDate
     ) {
-      setIsVisitorDataError(true);
+      emitNotification("error","Visitor data is not completed!");
     } else {
       handleNext(
         firstName,
@@ -162,15 +160,6 @@ const VisitorDataForm = ({ handleNext }) => {
           Next
         </Button>
       </div>
-      <Snackbar
-        open={isVisitorDataError}
-        autoHideDuration={3000}
-        onClose={() => setIsVisitorDataError(false)}
-      >
-        <Alert onClose={() => setIsVisitorDataError(false)} severity="error">
-          Visitor data is not completed!
-        </Alert>
-      </Snackbar>
     </div>
   );
 };
