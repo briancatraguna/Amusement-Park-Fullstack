@@ -5,7 +5,13 @@ import LoginForm from "../../components/LoginForm";
 import SignUpForm from "../../components/SignUpForm";
 import { loginUser, registerUser } from "../../utils/api";
 import { useDispatch, useSelector } from "react-redux";
-import { setAccessTokenState, setIsLoginSuccessful, setRoleId, setShouldOpenLoginSnackbar, setVisitorId } from "../../redux/authSlice";
+import {
+  setAccessTokenState,
+  setIsLoginSuccessful,
+  setRoleId,
+  setShouldOpenLoginSnackbar,
+  setVisitorId,
+} from "../../redux/authSlice";
 import { useNavigate } from "react-router-dom";
 import { ROLE_TO_ID, ROUTES } from "../../utils/enums";
 import { setUser } from "../../redux/userInfoSlice";
@@ -33,6 +39,7 @@ const AuthenticationPage = () => {
   const [loginPassword, setLoginPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [isError, setIsError] = useState(false);
+  const [isRegisterSuccess, setIsRegisterSuccess] = useState(false);
 
   const handleSignIn = async () => {
     try {
@@ -57,7 +64,7 @@ const AuthenticationPage = () => {
     try {
       const response = await registerUser(registerBody);
       if (response.success) {
-        alert(response.message);
+        setIsRegisterSuccess(true);
         setLoginMode(true);
       }
     } catch (error) {
@@ -95,6 +102,15 @@ const AuthenticationPage = () => {
         >
           <Alert onClose={() => setIsError(false)} severity="error">
             {errorMessage}
+          </Alert>
+        </Snackbar>
+        <Snackbar
+          open={isRegisterSuccess}
+          autoHideDuration={1000}
+          onClose={() => setIsRegisterSuccess(false)}
+        >
+          <Alert onClose={() => setIsRegisterSuccess(false)} severity="success">
+            Account created!
           </Alert>
         </Snackbar>
       </div>
