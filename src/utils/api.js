@@ -101,6 +101,37 @@ export const getStoreMenu = async (accessToken, storeId) => {
   }
 };
 
+export const getShows = async (accessToken, showTypeId) => {
+  let url = `${BASE_URL}/shows/list`;
+  if (showTypeId != null) {
+    url = `${BASE_URL}/shows/list?showTypeId=${showTypeId}`;
+  }
+  const response = await axios.get(url, {
+    headers: {
+      Authorization: `Bearer ${accessToken}`
+    }
+  });
+  if (response.status === 200) {
+    return { success: true, data: response.data};
+  } else {
+    throw new Error(response.data.message);
+  }
+};
+
+export const getShowTypes = async (accessToken) => {
+  const url = `${BASE_URL}/shows/types`;
+  const response = await axios.get(url, {
+    headers: {
+      Authorization: `Bearer: ${accessToken}`
+    }
+  });
+  if (response.status === 200) {
+    return { success: true, data: response.data};
+  } else {
+    throw new Error(response.data.message);
+  }
+}
+
 export const postPayment = async (accessToken, stripeTransactionInfo) => {
   return await axios({
     url: `${BASE_URL}/order/payment`,
