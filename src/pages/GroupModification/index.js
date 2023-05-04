@@ -17,8 +17,7 @@ import Header from "../../components/Header";
 import { Divider } from "@mui/material";
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
-import GroupDetails from "../../components/GroupDetails";
-import UserDetails from "../../components/UserDetails";
+import CreateNewGroup from "../../components/CreateNewGroup";
 import { getUserProfile } from "../../utils/api";
 
 
@@ -35,7 +34,6 @@ const UserProfile = () => {
   useEffect(() => {
     const fetchUserProfile = async () => {
       try {
-       //change this later
         const userProfileResponse = await getUserProfile(accessToken, 2);
         setuserProfileInfo(userProfileResponse);
       } catch (error) {
@@ -59,29 +57,13 @@ const UserProfile = () => {
             <Header/>
     </div>
     <Box sx={{ flexGrow: 1 }}>
-      <Grid container spacing={2}>
-        <Grid item xs={6}>
-          {
-            userProfileInfo!==undefined && 
-            userProfileInfo.data!==undefined &&
-            userProfileInfo.data.userInfo!==undefined &&
-            userProfileInfo.data.userInfo!==null && 
-            <UserDetails userInfo={userProfileInfo.data.userInfo} /> 
-          }
-                       
-        </Grid>
-        <Divider sx={{ boxShadow: 5 , border: 1 , marginTop: "30px" }} orientation="vertical" variant="middle" flexItem />                             
-        <Grid item xs={5}>
-          {
-            userProfileInfo!==undefined && 
-            userProfileInfo.data!==undefined &&
-            userProfileInfo.data.newGroupData!==undefined &&
-            userProfileInfo.data.newGroupData!==null && 
-            <GroupDetails groupData={userProfileInfo.data.newGroupData}/> 
-          }
-            
-        </Grid>
-      </Grid>
+      <Grid container spacing={2} sx={{paddingTop: "50px", paddingBottom: "50px" }}>
+          <Grid item xs={2}></Grid>
+          <Grid item xs={8} sx={{ boxShadow: 3, paddingBottom: "20px" ,paddingRight:"20px"}}>
+            <CreateNewGroup/>
+          </Grid>
+          <Grid item xs={2}></Grid>
+      </Grid>    
     </Box>
 
     

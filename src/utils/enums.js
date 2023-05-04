@@ -1,4 +1,5 @@
 export const ROUTES = {
+    launch: "*",
     auth: "/auth",
     employee: "/employee",
     home: "/home",
@@ -7,7 +8,8 @@ export const ROUTES = {
     stores: "/stores",
     tickets: "/tickets",
     orders: "/orders",
-    userProfile: "/userProfile"
+    userProfile: "/userProfile",
+    groupModification : "/editGroups"
 };
 
 export const ROLE_TO_ID = {

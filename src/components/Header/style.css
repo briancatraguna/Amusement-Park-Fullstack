@@ -1,16 +1,26 @@
+:root {
+  --primary-periwinkle: #d8dcff;
+  --secondary-periwinkle: #aeadf0;
+  --rosy-brown: #c38d94;
+  --china-rose: #a76571;
+  --ultra-violet: #565676;
+}
+
 .header-home {
   background-color: #ffb347;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 5px;
+  height: 70px;
 }
 
 nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 100%;
+  flex-grow: 1; /* Grow to fill available space */
+  margin: 0 20px; /* Add some margin on both sides */
 }
 
 nav ul {
@@ -19,16 +29,23 @@ nav ul {
   justify-content: center;
   align-items: center;
   margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+nav ul li:last-child {
+  flex-grow: 1;
 }
 
 nav li {
-  margin-right: 20px;
+  margin: 0 10px; /* Add some margin on both sides */
 }
 
 nav a {
   color: #fff;
   text-decoration: none;
   font-weight: bold;
+  padding: 10px; /* Add some padding to make it easier to click */
 }
 
 nav button {
@@ -38,15 +55,21 @@ nav button {
   padding: 10px 20px;
   border-radius: 5px;
   cursor: pointer;
-  margin-left: 10px; /* Add margin to separate username and logout button */
+  margin-left: 10px;
 }
 
 nav button:hover {
   background-color: #ff704d;
 }
 
-.username-title {
+.header-menu {
   color: #fff;
   font-weight: bold;
   margin-right: 10px;
+  padding: 10px; /* Add some padding to make it easier to click */
+  border-radius: 5px;
+}
+
+.header-menu:hover {
+  background-color: var(--rosy-brown);
 }

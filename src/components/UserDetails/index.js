@@ -11,7 +11,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import { ROLE_TO_ID, ROUTES } from "../../utils/enums";
 import { setUser } from "../../redux/userInfoSlice";
-import { getUserProfile } from "../../utils/api";
+import { saveUserProfileAPI } from "../../utils/api";
 
 
 
@@ -78,6 +78,20 @@ const UserDetails = ({userInfo}) => {
       setIsMember(userInfo.is_member)
   }
 
+  //set userInfo from save response
+  const setUserInfoFromSave = () => {
+    userInfo.username = userName	
+    userInfo.user_email = email
+    userInfo.street_name =	streetName
+    userInfo.street_number = streetNo
+    userInfo.city = city		
+    userInfo.zip_code = zipCode	
+    userInfo.birth_date = dateofBirth	
+    userInfo.cell_no = 	mobileNo	
+    userInfo.is_member = isStudent	
+    userInfo.is_student = 	isMember    
+  }
+
   const setDisableFields = (field) => {
     setDisableUsername(field)
     setDisableEmail(field)
@@ -91,10 +105,29 @@ const UserDetails = ({userInfo}) => {
     setDisableIsMember(field)
   }
 
+  //user object for save data
+  const createUserDetailsObject = () => {
+    console.log(userInfo);
+    return  {
+      userFullName	,
+      userName 		,
+      email			,
+      streetNo 		,
+      streetName 		,
+      city 			,
+      zipCode 		,
+      mobileNo 		,
+      dateofBirth		,
+      isStudent		,
+      isMember	,
+      visitorId : userInfo.visitor_id,
+      userId :userInfo.user_id
+    }
+  }
+
   useEffect(() => {
     
     if(userInfo!==undefined &&  userInfo!==null){
-      // console.log(userInfo.userInfo)
       setUserInfoFromProps()
     }
       
@@ -109,14 +142,19 @@ const UserDetails = ({userInfo}) => {
       setDisableFields(false)
 
   }
+
   //save user data by calling API
   const saveUserProfileToDB = async () => {
     try {
-      const userProfileResponse = await getUserProfile(accessToken, 2);
-      // setuserProfileInfo(userProfileResponse);
+      let userDetailsObject = createUserDetailsObject();
+      // const userProfileResponse = 
+      await saveUserProfileAPI(accessToken, userDetailsObject);
+      setUserInfoFromSave();
     } catch (error) {
       alert(error.response.data.message);
-    }
+    }finally{
+      setUserInfoFromProps()
+    };
   };
 
   //handle user save button
@@ -126,9 +164,12 @@ const UserDetails = ({userInfo}) => {
     //start spinner before calling API to save data
     setOpen(true);
     saveUserProfileToDB().then(res=>{
-
+        
     }).finally(()=>{
-      setOpen(false);
+      setTimeout(()=>{
+        setOpen(false);
+      },1000)
+      
     })
     //call api to save fields
     //stop spinner
@@ -137,13 +178,16 @@ const UserDetails = ({userInfo}) => {
 
   //handle user cancel button
   const cancelUserProfile = ()=>{
+    setOpen(true);
     setDisableSaveCancelButton(false);
     setDisableEditButton(true);
 
     setUserInfoFromProps();
 
     setDisableFields(true)
-
+    setTimeout(()=>{
+      setOpen(false);
+    },1000)
 
   }
 
@@ -195,6 +239,7 @@ const UserDetails = ({userInfo}) => {
                         onChange={(e) => setMobileNo(e.target.value)}
                       />
                   <TextField
+                         type="date"  
                         disabled = {disableDateofBirth}                      
                         label="Date of Birth (YYYY-MM-DD)"
                         variant="outlined"
@@ -210,6 +255,7 @@ const UserDetails = ({userInfo}) => {
               <h4>Address</h4>
               <div style={{flexDirection : "row"}}>
                 <TextField
+                        type="number"
                         disabled={disableStreetNo}
                         label="Street No."
                         variant="outlined"
