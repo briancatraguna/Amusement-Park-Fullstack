@@ -6,14 +6,10 @@
   --ultra-violet: #565676;
 }
 
-.attractions-container {
+.shows-container {
   background-color: var(--primary-periwinkle);
   display: flex;
   flex-direction: column;
   align-items: center;
-}
-
-.filter {
-  margin-bottom: 3%;
-  margin-top: 3%;
+  padding-bottom: 32px;
 }

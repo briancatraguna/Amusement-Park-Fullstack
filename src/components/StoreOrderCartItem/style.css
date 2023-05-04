@@ -1,0 +1,27 @@
+:root {
+  --primary-periwinkle: #d8dcff;
+  --secondary-periwinkle: #aeadf0;
+  --rosy-brown: #c38d94;
+  --china-rose: #a76571;
+  --ultra-violet: #565676;
+}
+
+.store-order-cart-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin-right: 200px;
+  background-color: var(--secondary-periwinkle);
+  margin-top: 30px;
+  border-radius: 40px;
+}
+
+.store-order-cart-item img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  margin-right: 20px;
+}

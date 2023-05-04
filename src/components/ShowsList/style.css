@@ -1,0 +1,59 @@
+:root {
+  --primary-periwinkle: #d8dcff;
+  --secondary-periwinkle: #aeadf0;
+  --rosy-brown: #c38d94;
+  --china-rose: #a76571;
+  --ultra-violet: #565676;
+}
+
+.show-card {
+  border: 1px solid #ccc;
+  padding: 16px;
+  background-color: var(--secondary-periwinkle);
+  border-radius: 4px;
+  max-width: 300px;
+}
+
+.show-card h2 {
+  margin-bottom: 8px;
+}
+
+.show-card p {
+  margin-bottom: 4px;
+}
+
+.show-card hr {
+  margin: 8px 0;
+}
+
+.accessibility {
+  display: flex;
+  align-items: center;
+}
+
+.accessible,
+.disabled {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  margin-right: 4px;
+  vertical-align: middle;
+}
+
+.accessible {
+  background-color: green;
+}
+
+.disabled {
+  background-color: red;
+}
+
+.accessibility p {
+  margin-left: 8px;
+}
+
+.card-media-show {
+    width: 100%;
+    height: 140px;
+    object-fit: cover;
+}
