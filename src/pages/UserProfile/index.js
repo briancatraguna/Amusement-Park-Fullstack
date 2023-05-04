@@ -28,7 +28,7 @@ const UserProfile = () => {
   const navigate = useNavigate();
   const accessToken = useSelector((state) => state.auth.accessToken);
   const roleId = useSelector((state) => state.auth.roleId);
-  const user = useSelector((state) => state.user)
+  const user = useSelector((state) => state.userInfo.user)
   // console.log("user data")
   // console.log(user);
   const [userProfileInfo, setuserProfileInfo] = useState("");
@@ -36,7 +36,7 @@ const UserProfile = () => {
     const fetchUserProfile = async () => {
       try {
        //change this later
-        const userProfileResponse = await getUserProfile(accessToken, 2);
+        const userProfileResponse = await getUserProfile(accessToken, user.user_id);
         setuserProfileInfo(userProfileResponse);
       } catch (error) {
         alert(error.response.data.message);

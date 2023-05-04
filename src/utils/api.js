@@ -26,6 +26,7 @@ export const loginUser = async (email, password) => {
 };
 
 export const getUserProfile = async (accessToken, userId) => {
+  console.log(userId)
   if(userId === undefined || userId === null){
     throw new Error("userId is null or undefined")
   }

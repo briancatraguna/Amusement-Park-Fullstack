@@ -28,6 +28,7 @@ const CreateNewGroup = () => {
   // const dispatch = useDispatch();
   const navigate = useNavigate();
   const accessToken = useSelector((state) => state.auth.accessToken);
+  const user = useSelector((state) => state.userInfo.user)
   // const roleId = useSelector((state) => state.auth.roleId);
   const [activeStep, setActiveStep] = React.useState(0);
   const [skipped, setSkipped] = React.useState(new Set());
@@ -123,7 +124,7 @@ const CreateNewGroup = () => {
       groupData : {
         groupName,
         //change this later
-        userId : "2"
+        userId : user.user_id
       }
     }
   }
