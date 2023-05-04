@@ -5,8 +5,12 @@ import { Provider } from "react-redux";
 import store from "./redux/store";
 import EmployeeHomePage from "./pages/EmployeeHome";
 import HomePage from "./pages/Home";
+import UserProfile from "./pages/UserProfile";
 import { ROUTES } from "./utils/enums";
 import AttractionsPage from "./pages/Attractions";
+import GroupModification from "./pages/GroupModification";
+
+
 import CartPage from "./pages/Cart";
 import StoresPage from "./pages/Stores";
 import StoreDetailPage from "./pages/StoreDetail";
@@ -34,6 +38,8 @@ function App() {
             <Route path={ROUTES.shows} element={<ShowsPage />} />
             <Route path={ROUTES.storeDetail} element={<StoreDetailPage />} />
             <Route path={ROUTES.cart} element={<CartPage />} />
+            <Route path={ROUTES.groupModification} element={<GroupModification/>}/>
+            <Route path={ROUTES.userProfile} element={<UserProfile/>} />
           </Routes>
         </BrowserRouter>
       </Provider>

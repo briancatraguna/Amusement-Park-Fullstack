@@ -10,7 +10,8 @@ export const ROUTES = {
     tickets: "/tickets",
     cart: "/cart",
     orders: "/orders",
-    userProfile: "/userProfile"
+    userProfile: "/userProfile",
+    groupModification : "/editGroups"
 };
 
 export const ROLE_TO_ID = {
