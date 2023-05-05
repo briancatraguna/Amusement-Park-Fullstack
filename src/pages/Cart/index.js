@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import AlertDialog from "../../components/AlertDialog";
 import Header from "../../components/Header";
@@ -11,10 +11,10 @@ const CartPage = () => {
   const tickets = useSelector((state) => state.cart.tickets);
   const parking = useSelector((state) => state.cart.parking);
   const storeOrder = useSelector((state) => state.cart.storeOrder);
-  const [isConfirmOpen, setIsConfirmOpen] = useState(false);
+  const [isConfirmClearCartOpen, setIsConfirmClearCartOpen] = useState(false);
 
   const handleClearCart = () => {
-    setIsConfirmOpen(false);
+    setIsConfirmClearCartOpen(false);
     dispatch(clearCartState());
   };
 
@@ -47,19 +47,22 @@ const CartPage = () => {
         </ul>
       </div>
       <div className="cart-buttons-container">
-        <button className="clear-cart-button" onClick={() => setIsConfirmOpen(true)}>
+        <button
+          className="clear-cart-button"
+          onClick={() => setIsConfirmOpen(true)}
+        >
           Clear Cart
         </button>
         <button className="checkout-button">Checkout</button>
       </div>
       <AlertDialog
-      isOpen={isConfirmOpen}
-      onCancel={() => setIsConfirmOpen(false)}
-      onConfirm={handleClearCart}
-      negativeButtonTitle="Cancel"
-      positiveButtonTitle="Clear"
-      dialogTitle="Confirm Clear Cart"
-      dialogContent="Are you sure you want to clear cart?"
+        isOpen={isConfirmClearCartOpen}
+        onCancel={() => setIsConfirmClearCartOpen(false)}
+        onConfirm={handleClearCart}
+        negativeButtonTitle="Cancel"
+        positiveButtonTitle="Clear"
+        dialogTitle="Confirm Clear Cart"
+        dialogContent="Are you sure you want to clear cart?"
       />
     </div>
   );
