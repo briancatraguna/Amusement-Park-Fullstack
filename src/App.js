@@ -40,6 +40,7 @@ function App() {
             <Route path={ROUTES.cart} element={<CartPage />} />
             <Route path={ROUTES.groupModification} element={<GroupModification/>}/>
             <Route path={ROUTES.userProfile} element={<UserProfile/>} />
+            <Route path={ROUTES.invoices} element={<AttractionsPage/>} />
           </Routes>
         </BrowserRouter>
       </Provider>
