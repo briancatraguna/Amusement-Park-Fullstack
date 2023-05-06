@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Button from "@mui/material/Button";
 import Modal from "@mui/material/Modal";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 
-const QuantitySelectorModal = ({
+const QuantitySelectorWithGroupModal = ({
   isOpen,
   itemTitle,
   pricePerItem,
@@ -12,21 +12,19 @@ const QuantitySelectorModal = ({
   onAddToCart,
   groupData,
 }) => {
-  const [quantity, setQuantity] = useState(1);
+  const [quantity, setQuantity] = useState(0);
   const [selectedGroup, setSelectedGroup] = useState(null);
   const totalPrice = (quantity * pricePerItem).toFixed(2);
 
-  const handleAdd = () => {
-    setQuantity(quantity + 1);
-  };
-
-  const handleMinus = () => {
-    if (quantity === 1) {
-      handleClose();
+  useEffect(() => {
+    if (selectedGroup == null) {
+      setQuantity(0);
     } else {
-      setQuantity(quantity - 1);
+      const childrenCount = selectedGroup.children.length;
+      setQuantity(childrenCount);
     }
-  };
+  },[selectedGroup]);
+
 
   const handleAddToCart = () => {
     onAddToCart(selectedGroup, quantity);
@@ -74,21 +72,7 @@ const QuantitySelectorModal = ({
           <div className="quantity-selector-quantity-details">
             <div>Quantity:</div>
             <div>
-              <Button
-                variant="outlined"
-                style={{ margin: "20px" }}
-                onClick={handleMinus}
-              >
-                -
-              </Button>
               <span>{quantity}</span>
-              <Button
-                variant="outlined"
-                style={{ margin: "20px" }}
-                onClick={handleAdd}
-              >
-                +
-              </Button>
             </div>
           </div>
           <div className="quantity-selector-total-details">
@@ -110,5 +94,5 @@ const QuantitySelectorModal = ({
   );
 };
 
-export default QuantitySelectorModal;
+export default QuantitySelectorWithGroupModal;
 
