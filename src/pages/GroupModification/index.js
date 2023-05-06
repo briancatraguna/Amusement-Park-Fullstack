@@ -14,37 +14,29 @@ import { setUser } from "../../redux/userInfoSlice";
 
 
 import Header from "../../components/Header";
-import { Divider } from "@mui/material";
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import CreateNewGroup from "../../components/CreateNewGroup";
 import { getUserProfile } from "../../utils/api";
+import { emitNotification } from "../../utils/emitNotification";
 
 
 
 const UserProfile = () => {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
   const accessToken = useSelector((state) => state.auth.accessToken);
-  const roleId = useSelector((state) => state.auth.roleId);
   const user = useSelector((state) => state.user)
-  // console.log("user data")
-  // console.log(user);
   const [userProfileInfo, setuserProfileInfo] = useState("");
   useEffect(() => {
     const fetchUserProfile = async () => {
       try {
-        const userProfileResponse = await getUserProfile(accessToken, 2);
+        const userProfileResponse = await getUserProfile(accessToken, user.user_id);
         setuserProfileInfo(userProfileResponse);
       } catch (error) {
-        alert(error.response.data.message);
+        emitNotification(error.response.data.message);
       }
     };
 
     fetchUserProfile()
-    //   .then(()=>{
-    //   console.log(userProfileInfo)
-    // });
 
   },[accessToken, user]);
 

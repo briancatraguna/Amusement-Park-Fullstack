@@ -49,7 +49,7 @@ const CartPage = () => {
       <div className="cart-buttons-container">
         <button
           className="clear-cart-button"
-          onClick={() => setIsConfirmOpen(true)}
+          onClick={() => setIsConfirmClearCartOpen(true)}
         >
           Clear Cart
         </button>

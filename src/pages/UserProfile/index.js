@@ -1,18 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./style.css";
 
-import { loginUser, registerUser } from "../../utils/api";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  setAccessTokenState,
-  setRoleId,
-} from "../../redux/authSlice";
-import { useNavigate } from "react-router-dom";
-import { ROLE_TO_ID, ROUTES } from "../../utils/enums";
-import { setUser } from "../../redux/userInfoSlice";
-
-
-
+import { useSelector } from "react-redux";
 import Header from "../../components/Header";
 import { Divider } from "@mui/material";
 import Box from '@mui/material/Box';
@@ -24,30 +13,19 @@ import { getUserProfile } from "../../utils/api";
 
 
 const UserProfile = () => {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
   const accessToken = useSelector((state) => state.auth.accessToken);
-  const roleId = useSelector((state) => state.auth.roleId);
   const user = useSelector((state) => state.userInfo.user)
-  // console.log("user data")
-  // console.log(user);
   const [userProfileInfo, setuserProfileInfo] = useState("");
   useEffect(() => {
     const fetchUserProfile = async () => {
       try {
-       //change this later
         const userProfileResponse = await getUserProfile(accessToken, user.user_id);
         setuserProfileInfo(userProfileResponse);
       } catch (error) {
         alert(error.response.data.message);
       }
     };
-
     fetchUserProfile()
-    //   .then(()=>{
-    //   console.log(userProfileInfo)
-    // });
-
   },[accessToken, user]);
 
 
