@@ -4,6 +4,7 @@ import Header from "../../components/Header";
 import QuantitySelectorWithGroupModal from "../../components/QuantitySelectorWithGroup";
 import SectionFilter from "../../components/SectionFilter";
 import ShowList from "../../components/ShowsList";
+import { addShowTickets } from "../../redux/cartSlice";
 import { getShows, getShowTypes, getUserProfile } from "../../utils/api";
 import { emitNotification } from "../../utils/emitNotification";
 import { SectionModel } from "../../utils/model_helper";
@@ -67,7 +68,15 @@ const ShowsPage = () => {
     }
 
     const handleAddToCart = (selectedGroup, quantity) => {
-        
+        dispatch(
+            addShowTickets({
+                quantity: quantity,
+                item: selectedShowItem,
+                group: selectedGroup,
+                id: selectedShowItem.sw_id
+            })
+        );
+        emitNotification("success","Tickets added to cart!")
     }
 
     return (
