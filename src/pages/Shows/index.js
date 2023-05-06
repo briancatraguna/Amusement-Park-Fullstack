@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Header from "../../components/Header";
 import QuantitySelectorWithGroupModal from "../../components/QuantitySelectorWithGroup";
 import SectionFilter from "../../components/SectionFilter";
@@ -10,6 +10,7 @@ import { SectionModel } from "../../utils/model_helper";
 import './style.css'
 
 const ShowsPage = () => {
+    const dispatch = useDispatch();
     const accessToken = useSelector((state) => state.auth.accessToken);
     const user = useSelector((state) => state.userInfo.user);
 
@@ -65,6 +66,10 @@ const ShowsPage = () => {
         setSelectedShowItem(show);
     }
 
+    const handleAddToCart = (selectedGroup, quantity) => {
+        
+    }
+
     return (
         <div>
             <Header/>
@@ -91,7 +96,7 @@ const ShowsPage = () => {
                 itemTitle={selectedShowItem.sw_name}
                 pricePerItem={selectedShowItem.sw_price}
                 onClose={() => setIsQuantitySelectorOpen(false)}
-                onAddToCart={(quantity) => console.log(quantity)}
+                onAddToCart={(selectedGroup, quantity) => handleAddToCart(selectedGroup, quantity)}
                 groupData={groups}
                 />
             )}

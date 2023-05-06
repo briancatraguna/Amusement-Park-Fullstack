@@ -19,8 +19,8 @@ const store = configureStore({
       groups: JSON.parse(localStorage.getItem("groups"))
     },
     cart: {
-      tickets: [],
-      parking: [],
+      entryTickets: [],
+      showTickets: [],
       storeOrder: [],
     },
   },
