@@ -5,6 +5,9 @@ import { ROUTES } from "../../utils/enums";
 import "./style.css";
 
 const HomePage = () => {
+  const handleBuyTicketsClick = () => {
+    console.log("Buy tickets clicked"); // Replace with your desired functionality
+  };
 
   return (
     <div className="background">
@@ -18,6 +21,12 @@ const HomePage = () => {
         <div className="text-container">
           <h1>Welcome to Voyage of Amusements!</h1>
           <p>Experience the thrill of the rides and the attractions.</p>
+          <button
+            className="buy-tickets-button"
+            onClick={handleBuyTicketsClick}
+          >
+            Buy Entry Tickets
+          </button>
         </div>
         <div className="menu-container">
           <Link to={ROUTES.attractions}>
