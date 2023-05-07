@@ -54,7 +54,6 @@ const ShowsPage = () => {
             try {
                 const userProfileResponse = await getUserProfile(accessToken, user.user_id);
                 setGroups(userProfileResponse.data.newGroupData);
-                console.log(groups);
             } catch (error) {
                 emitNotification("error", error.response.data.message);
             }
@@ -76,7 +75,7 @@ const ShowsPage = () => {
                 id: selectedShowItem.sw_id
             })
         );
-        emitNotification("success","Tickets added to cart!")
+        emitNotification("success","Show tickets added to cart!")
     }
 
     return (

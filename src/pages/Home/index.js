@@ -1,12 +1,54 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import Header from "../../components/Header";
+import QuantitySelectorWithGroupModal from "../../components/QuantitySelectorWithGroup";
+import { addEntryTickets } from "../../redux/cartSlice";
+import { getUserProfile } from "../../utils/api";
+import { emitNotification } from "../../utils/emitNotification";
 import { ROUTES } from "../../utils/enums";
 import "./style.css";
 
+const TICKET_PRICE = 30;
+
 const HomePage = () => {
+  const dispatch = useDispatch();
+  const accessToken = useSelector((state) => state.auth.accessToken);
+  const user = useSelector((state) => state.userInfo.user);
+  const [isQuantitySelectorOpen, setIsQuantitySelectorOpen] = useState();
+  const [groups, setGroups] = useState([]);
+
+  useEffect(() => {
+    const fetchUserProfile = async () => {
+      try {
+        const userProfileResponse = await getUserProfile(
+          accessToken,
+          user.user_id
+        );
+        setGroups(userProfileResponse.data.newGroupData);
+      } catch (error) {
+        emitNotification("error", error.response.data.message);
+      }
+    };
+    fetchUserProfile();
+  },[accessToken, user]);
+
   const handleBuyTicketsClick = () => {
-    console.log("Buy tickets clicked"); // Replace with your desired functionality
+    setIsQuantitySelectorOpen(true);
+  };
+
+  const handleAddToCart = (selectedGroup, quantity) => {
+    dispatch(
+      addEntryTickets({
+        quantity: quantity,
+        item: {
+          //TODO ADD NECESSARY TICKETS
+        },
+        group: selectedGroup,
+        id: 0 // ADD PROPER ID
+      })
+    );
+    emitNotification("success","Entry tickets added to cart!")
   };
 
   return (
@@ -71,6 +113,18 @@ const HomePage = () => {
           </Link>
         </div>
       </div>
+      {isQuantitySelectorOpen && (
+        <QuantitySelectorWithGroupModal
+          isOpen={isQuantitySelectorOpen}
+          itemTitle="Entry Tickets"
+          pricePerItem={TICKET_PRICE}
+          onClose={() => setIsQuantitySelectorOpen(false)}
+          onAddToCart={(selectedGroup, quantity) =>
+            handleAddToCart(selectedGroup, quantity)
+          }
+          groupData={groups}
+        />
+      )}
     </div>
   );
 };
