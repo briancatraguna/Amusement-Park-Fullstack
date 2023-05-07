@@ -10,7 +10,6 @@ import { ROUTES } from "./utils/enums";
 import AttractionsPage from "./pages/Attractions";
 import GroupModification from "./pages/GroupModification";
 
-
 import CartPage from "./pages/Cart";
 import StoresPage from "./pages/Stores";
 import StoreDetailPage from "./pages/StoreDetail";
@@ -19,45 +18,64 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ShowsPage from "./pages/Shows";
+import { Invoices } from "./pages/Invoices";
 
 function App() {
-  return (
-    <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <Provider store={store}>
-        <BrowserRouter>
-          <Routes>
-            <Route
-              path={ROUTES.launch}
-              element={<Navigate to={ROUTES.home} />}
-            />
-            <Route path={ROUTES.auth} element={<AuthenticationPage />} />
-            <Route path={ROUTES.employee} element={<EmployeeHomePage />} />
-            <Route path={ROUTES.home} element={<HomePage />} />
-            <Route path={ROUTES.attractions} element={<AttractionsPage />} />
-            <Route path={ROUTES.stores} element={<StoresPage />} />
-            <Route path={ROUTES.shows} element={<ShowsPage />} />
-            <Route path={ROUTES.storeDetail} element={<StoreDetailPage />} />
-            <Route path={ROUTES.cart} element={<CartPage />} />
-            <Route path={ROUTES.groupModification} element={<GroupModification/>}/>
-            <Route path={ROUTES.userProfile} element={<UserProfile/>} />
-            <Route path={ROUTES.invoices} element={<AttractionsPage/>} />
-          </Routes>
-        </BrowserRouter>
-      </Provider>
-      <ToastContainer
-        position="top-right"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={true}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="colored"
-      />
-    </LocalizationProvider>
-  );
+	return (
+		<LocalizationProvider dateAdapter={AdapterDayjs}>
+			<Provider store={store}>
+				<BrowserRouter>
+					<Routes>
+						<Route
+							path={ROUTES.launch}
+							element={<Navigate to={ROUTES.home} />}
+						/>
+						<Route
+							path={ROUTES.auth}
+							element={<AuthenticationPage />}
+						/>
+						<Route
+							path={ROUTES.employee}
+							element={<EmployeeHomePage />}
+						/>
+						<Route path={ROUTES.home} element={<HomePage />} />
+						<Route
+							path={ROUTES.attractions}
+							element={<AttractionsPage />}
+						/>
+						<Route path={ROUTES.stores} element={<StoresPage />} />
+						<Route path={ROUTES.shows} element={<ShowsPage />} />
+						<Route
+							path={ROUTES.storeDetail}
+							element={<StoreDetailPage />}
+						/>
+						<Route path={ROUTES.cart} element={<CartPage />} />
+						<Route
+							path={ROUTES.groupModification}
+							element={<GroupModification />}
+						/>
+						<Route
+							path={ROUTES.userProfile}
+							element={<UserProfile />}
+						/>
+						<Route path={ROUTES.invoices} element={<Invoices />} />
+					</Routes>
+				</BrowserRouter>
+			</Provider>
+			<ToastContainer
+				position="top-right"
+				autoClose={5000}
+				hideProgressBar={false}
+				newestOnTop={true}
+				closeOnClick
+				rtl={false}
+				pauseOnFocusLoss
+				draggable
+				pauseOnHover
+				theme="colored"
+			/>
+		</LocalizationProvider>
+	);
 }
 
 export default App;
