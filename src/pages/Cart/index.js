@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import AlertDialog from "../../components/AlertDialog";
+import EntryTicketCartItem from "../../components/EntryTicketCartItem";
 import Header from "../../components/Header";
 import ShowTicketCartItem from "../../components/ShowTicketCartItem";
 import StoreOrderCartItem from "../../components/StoreOrderCartItem";
@@ -13,6 +14,7 @@ const CartPage = () => {
   const showTickets = useSelector((state) => state.cart.showTickets);
   const storeOrder = useSelector((state) => state.cart.storeOrder);
   const [isConfirmClearCartOpen, setIsConfirmClearCartOpen] = useState(false);
+
 
   const handleClearCart = () => {
     setIsConfirmClearCartOpen(false);
@@ -27,7 +29,7 @@ const CartPage = () => {
         <h2>Entry Tickets</h2>
         <ul>
           {entryTickets.map((entryTicket) => (
-            <li key={entryTicket.id}>{/* render ticket details */}</li>
+            <EntryTicketCartItem entryTicketItem={entryTicket} />
           ))}
         </ul>
       </div>

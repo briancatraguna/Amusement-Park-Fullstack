@@ -41,11 +41,8 @@ const HomePage = () => {
     dispatch(
       addEntryTickets({
         quantity: quantity,
-        item: {
-          //TODO ADD NECESSARY TICKETS
-        },
+        price: TICKET_PRICE,
         group: selectedGroup,
-        id: 0 // ADD PROPER ID
       })
     );
     emitNotification("success","Entry tickets added to cart!")
