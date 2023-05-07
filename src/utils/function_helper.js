@@ -8,3 +8,13 @@ export function formatDate(dateString) {
   const seconds = String(date.getSeconds()).padStart(2, "0");
   return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
 }
+
+export function convertToPlaceOrderRequestBody(
+  entryTickets,
+  showTickets,
+  storeOrder,
+  userId
+) {
+  // TODO DO THE CONVERSION
+  return "";
+}

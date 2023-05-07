@@ -178,7 +178,7 @@ export const getShowTypes = async (accessToken) => {
   const url = `${BASE_URL}/shows/types`;
   const response = await axios.get(url, {
     headers: {
-      Authorization: `Bearer: ${accessToken}`
+      Authorization: `Bearer ${accessToken}`
     }
   });
   if (response.status === 200) {
@@ -188,8 +188,19 @@ export const getShowTypes = async (accessToken) => {
   }
 }
 
-
-
+export const postPlaceOrder = async (accessToken, requestBody) => {
+  const url = `${BASE_URL}/order/placeOrder`
+  const response = await axios.post(url, {
+    headers: {
+      Authorization: `Bearer ${accessToken}`
+    }
+  });
+  if (response.status === 200) {
+    return { success: true, data: response.data };
+  } else {
+    throw new Error(response.data.message);
+  }
+}
 
 
 export const postPayment = async (accessToken, stripeTransactionInfo) => {

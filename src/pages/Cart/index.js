@@ -6,19 +6,46 @@ import Header from "../../components/Header";
 import ShowTicketCartItem from "../../components/ShowTicketCartItem";
 import StoreOrderCartItem from "../../components/StoreOrderCartItem";
 import { clearCartState } from "../../redux/cartSlice";
+import { postPlaceOrder } from "../../utils/api";
+import { emitNotification } from "../../utils/emitNotification";
+import { convertToPlaceOrderRequestBody } from "../../utils/function_helper";
 import "./style.css";
 
 const CartPage = () => {
   const dispatch = useDispatch();
+  const user = useSelector((state) => state.userInfo.user);
+  const accessToken = useSelector((state) => state.auth.accessToken);
   const entryTickets = useSelector((state) => state.cart.entryTickets);
   const showTickets = useSelector((state) => state.cart.showTickets);
   const storeOrder = useSelector((state) => state.cart.storeOrder);
   const [isConfirmClearCartOpen, setIsConfirmClearCartOpen] = useState(false);
 
-
   const handleClearCart = () => {
     setIsConfirmClearCartOpen(false);
     dispatch(clearCartState());
+  };
+
+  const handleCheckout = () => {
+    const requestBody = convertToPlaceOrderRequestBody(
+      entryTickets,
+      showTickets,
+      storeOrder,
+      user.user_id
+    );
+    const placeOrder = async () => {
+      try {
+        const placeOrderResponse = await postPlaceOrder(
+          accessToken,
+          requestBody
+        );
+        const message = placeOrderResponse.data.message;
+        const allotedParkingLots = placeOrderResponse.data.allotedParkingLots;
+        //TODO PROCEED TO PAYMENT
+      } catch (error) {
+        emitNotification("error", error.response.data.message);
+      }
+    };
+    placeOrder();
   };
 
   return (
@@ -37,7 +64,10 @@ const CartPage = () => {
         <h2>Show Tickets</h2>
         <ul>
           {showTickets.map((showTicket) => (
-            <ShowTicketCartItem key={showTicket.id} showTicketItem={showTicket}/>
+            <ShowTicketCartItem
+              key={showTicket.id}
+              showTicketItem={showTicket}
+            />
           ))}
         </ul>
       </div>
@@ -56,7 +86,9 @@ const CartPage = () => {
         >
           Clear Cart
         </button>
-        <button className="checkout-button">Checkout</button>
+        <button className="checkout-button" onClick={handleCheckout}>
+          Checkout
+        </button>
       </div>
       <AlertDialog
         isOpen={isConfirmClearCartOpen}
