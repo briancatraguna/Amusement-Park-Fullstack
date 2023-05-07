@@ -2,14 +2,15 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import AlertDialog from "../../components/AlertDialog";
 import Header from "../../components/Header";
+import ShowTicketCartItem from "../../components/ShowTicketCartItem";
 import StoreOrderCartItem from "../../components/StoreOrderCartItem";
 import { clearCartState } from "../../redux/cartSlice";
 import "./style.css";
 
 const CartPage = () => {
   const dispatch = useDispatch();
-  const tickets = useSelector((state) => state.cart.tickets);
-  const parking = useSelector((state) => state.cart.parking);
+  const entryTickets = useSelector((state) => state.cart.entryTickets);
+  const showTickets = useSelector((state) => state.cart.showTickets);
   const storeOrder = useSelector((state) => state.cart.storeOrder);
   const [isConfirmClearCartOpen, setIsConfirmClearCartOpen] = useState(false);
 
@@ -23,18 +24,18 @@ const CartPage = () => {
       <Header />
       <h1>Cart</h1>
       <div className="cart-section">
-        <h2>Tickets</h2>
+        <h2>Entry Tickets</h2>
         <ul>
-          {tickets.map((ticket) => (
-            <li key={ticket.id}>{/* render ticket details */}</li>
+          {entryTickets.map((entryTicket) => (
+            <li key={entryTicket.id}>{/* render ticket details */}</li>
           ))}
         </ul>
       </div>
       <div className="cart-section">
-        <h2>Parking</h2>
+        <h2>Show Tickets</h2>
         <ul>
-          {parking.map((parkingItem) => (
-            <li key={parkingItem.id}>{/* render parking details */}</li>
+          {showTickets.map((showTicket) => (
+            <ShowTicketCartItem key={showTicket.id} showTicketItem={showTicket}/>
           ))}
         </ul>
       </div>

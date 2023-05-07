@@ -1,9 +1,7 @@
 import React from "react";
-import { useDispatch } from "react-redux";
 import './style.css'
 
 const StoreOrderCartItem = ({ storeItem }) => {
-  const dispatch = useDispatch();
   const { item, quantity } = storeItem;
 
   return (
