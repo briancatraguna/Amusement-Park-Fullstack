@@ -21,6 +21,8 @@ const CartPage = () => {
   const storeOrder = useSelector((state) => state.cart.storeOrder);
   const [isConfirmClearCartOpen, setIsConfirmClearCartOpen] = useState(false);
 
+  console.log(showTickets);
+
   const handleClearCart = () => {
     setIsConfirmClearCartOpen(false);
     dispatch(clearCartState());
@@ -37,10 +39,11 @@ const CartPage = () => {
       try {
         const placeOrderResponse = await postPlaceOrder(
           accessToken,
-          cartData
+          requestBody
         );
         const message = placeOrderResponse.data.message;
         const allotedParkingLots = placeOrderResponse.data.allotedParkingLots;
+        emitNotification("success",placeOrderResponse.data.message);
         //TODO PROCEED TO PAYMENT
       } catch (error) {
         emitNotification("error", error.response.data.message);

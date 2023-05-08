@@ -10,11 +10,79 @@ export function formatDate(dateString) {
 }
 
 export function convertToPlaceOrderRequestBody(
+  includeParking,
   entryTickets,
   showTickets,
   storeOrder,
   userId
 ) {
-  // TODO DO THE CONVERSION
-  return "";
+  const parkingArr = [];
+  const ticketsArr = [];
+  // entry tickets
+  for (let ticket of entryTickets) {
+    const group = ticket.group;
+    const price = ticket.price;
+    for (let child of group.children) {
+      const visitorId = child.visitor_id;
+      if (includeParking) {
+        parkingArr.push({
+          visitorId: visitorId
+        })
+      }
+      ticketsArr.push({
+        method: "ONLINE",
+        visitDate: getCurrentDate(),
+        price: price,
+        discount: 0,
+        visitorId: visitorId,
+        ticketType: 2
+      })
+    }
+  };
+  // show tickets
+  for (let ticket of showTickets) {
+    const group = ticket.group;
+    const price = ticket.item.sw_price;
+    const showId = ticket.item.sw_id;
+    for (let child of group.children) {
+      const visitorId = child.visitor_id;
+      ticketsArr.push({
+        method: "ONLINE",
+        visitDate: getCurrentDate(),
+        price: price,
+        discount: 0,
+        visitorId: visitorId,
+        ticketType: 1,
+        showId: showId
+      })
+    }
+  };
+
+  
+  const storeOrderArr = [];
+  
+  return {
+    tickets: ticketsArr,
+    parking: parkingArr,
+    storeOrder: storeOrderArr,
+    userId: userId
+  };
+}
+
+function getCurrentDate() {
+  let currentDate = new Date();
+  let year = currentDate.getFullYear();
+  let month = currentDate.getMonth() + 1;
+  let day = currentDate.getDate();
+
+  // Add leading zeros to month and day if necessary
+  if (month < 10) {
+    month = "0" + month;
+  }
+  if (day < 10) {
+    day = "0" + day;
+  }
+
+  let formattedDate = year + "-" + month + "-" + day;
+  return formattedDate;
 }
