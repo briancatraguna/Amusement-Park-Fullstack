@@ -41,5 +41,5 @@ export const cartData = {
       storeId: 2,
     },
   ],
-  userId: 1,
+  userId: 12,
 };

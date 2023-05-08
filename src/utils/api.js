@@ -190,7 +190,7 @@ export const getShowTypes = async (accessToken) => {
 
 export const postPlaceOrder = async (accessToken, requestBody) => {
   const url = `${BASE_URL}/order/placeOrder`
-  const response = await axios.post(url, {
+  const response = await axios.post(url, requestBody, {
     headers: {
       Authorization: `Bearer ${accessToken}`
     }

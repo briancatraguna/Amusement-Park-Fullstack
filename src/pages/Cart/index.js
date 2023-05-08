@@ -7,6 +7,7 @@ import ShowTicketCartItem from "../../components/ShowTicketCartItem";
 import StoreOrderCartItem from "../../components/StoreOrderCartItem";
 import { clearCartState } from "../../redux/cartSlice";
 import { postPlaceOrder } from "../../utils/api";
+import { cartData } from "../../utils/dummy_data";
 import { emitNotification } from "../../utils/emitNotification";
 import { convertToPlaceOrderRequestBody } from "../../utils/function_helper";
 import "./style.css";
@@ -36,7 +37,7 @@ const CartPage = () => {
       try {
         const placeOrderResponse = await postPlaceOrder(
           accessToken,
-          requestBody
+          cartData
         );
         const message = placeOrderResponse.data.message;
         const allotedParkingLots = placeOrderResponse.data.allotedParkingLots;
