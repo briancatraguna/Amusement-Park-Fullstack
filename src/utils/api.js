@@ -185,6 +185,7 @@ export const getShowTypes = async (accessToken) => {
 }
 
 export const postPlaceOrder = async (accessToken, requestBody) => {
+  console.log(requestBody);
   const url = `${BASE_URL}/order/placeOrder`
   const response = await axios.post(url, requestBody, {
     headers: {
