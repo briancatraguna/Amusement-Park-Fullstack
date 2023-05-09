@@ -4,7 +4,7 @@ import StripeCheckout from "react-stripe-checkout";
 import { postPayment } from "../../utils/api";
 import { emitNotification } from "../../utils/emitNotification";
 
-const StripeButton = (prop) => {
+const StripeButton = ({totalAmount}) => {
 	const accessToken = useSelector((state) => state.auth.accessToken);
 
 	const publishableKey =
@@ -12,7 +12,7 @@ const StripeButton = (prop) => {
 
 	const onToken = async (token) => {
 		const body = {
-			amount: prop.totalAmount,
+			amount: totalAmount,
 			token: token,
 		};
 
@@ -38,7 +38,7 @@ const StripeButton = (prop) => {
 				name="Voyage Of Amusement" //Modal Header
 				description="Have a nice vacation day!"
 				panelLabel="Pay" //Submit button in modal
-				amount={prop.totalAmount * 1} //Amount in cents $9.99
+				amount={totalAmount * 1} //Amount in cents $9.99
 				currency="USD"
 				token={onToken}
 				stripeKey={publishableKey}

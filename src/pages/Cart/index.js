@@ -1,3 +1,4 @@
+import { Checkbox, FormControlLabel } from "@mui/material";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import AlertDialog from "../../components/AlertDialog";
@@ -7,7 +8,6 @@ import ShowTicketCartItem from "../../components/ShowTicketCartItem";
 import StoreOrderCartItem from "../../components/StoreOrderCartItem";
 import { clearCartState } from "../../redux/cartSlice";
 import { postPlaceOrder } from "../../utils/api";
-import { cartData } from "../../utils/dummy_data";
 import { emitNotification } from "../../utils/emitNotification";
 import { convertToPlaceOrderRequestBody } from "../../utils/function_helper";
 import "./style.css";
@@ -20,8 +20,8 @@ const CartPage = () => {
   const showTickets = useSelector((state) => state.cart.showTickets);
   const storeOrder = useSelector((state) => state.cart.storeOrder);
   const [isConfirmClearCartOpen, setIsConfirmClearCartOpen] = useState(false);
+  const [includeParking, setIncludeParking] = useState(false);
 
-  console.log(showTickets);
 
   const handleClearCart = () => {
     setIsConfirmClearCartOpen(false);
@@ -30,9 +30,11 @@ const CartPage = () => {
 
   const handleCheckout = () => {
     const requestBody = convertToPlaceOrderRequestBody(
+      includeParking,
       entryTickets,
       showTickets,
       storeOrder,
+      user.visitor_id,
       user.user_id
     );
     const placeOrder = async () => {
@@ -44,7 +46,6 @@ const CartPage = () => {
         const message = placeOrderResponse.data.message;
         const allotedParkingLots = placeOrderResponse.data.allotedParkingLots;
         emitNotification("success",placeOrderResponse.data.message);
-        //TODO PROCEED TO PAYMENT
       } catch (error) {
         emitNotification("error", error.response.data.message);
       }
@@ -83,7 +84,18 @@ const CartPage = () => {
           ))}
         </ul>
       </div>
+      
       <div className="cart-buttons-container">
+      <FormControlLabel
+        key="includeparking"
+        control={
+          <Checkbox
+            checked={includeParking}
+            onChange={(e) => setIncludeParking(e.target.checked)}
+          />
+        }
+        label="Include Parking Tickets?"
+      />
         <button
           className="clear-cart-button"
           onClick={() => setIsConfirmClearCartOpen(true)}

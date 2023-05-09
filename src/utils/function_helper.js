@@ -14,6 +14,7 @@ export function convertToPlaceOrderRequestBody(
   entryTickets,
   showTickets,
   storeOrder,
+  rootVisitorId,
   userId
 ) {
   const parkingArr = [];
@@ -60,7 +61,19 @@ export function convertToPlaceOrderRequestBody(
 
   
   const storeOrderArr = [];
-  
+  // store order
+  for (let storeOrderItem of storeOrder) {
+    const quantity = storeOrderItem.quantity;
+    const pricePerQuantity = storeOrderItem.item.item_price;
+    const storeId = storeOrderItem.item.store_id;
+    storeOrderArr.push({
+      quantity: quantity,
+      pricePerQuantity: pricePerQuantity,
+      visitorId: rootVisitorId,
+      storeId: storeId
+    })
+  };
+
   return {
     tickets: ticketsArr,
     parking: parkingArr,
