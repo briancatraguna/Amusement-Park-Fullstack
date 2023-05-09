@@ -6,7 +6,7 @@ import EntryTicketCartItem from "../../components/EntryTicketCartItem";
 import Header from "../../components/Header";
 import ShowTicketCartItem from "../../components/ShowTicketCartItem";
 import StoreOrderCartItem from "../../components/StoreOrderCartItem";
-import { clearCartState } from "../../redux/cartSlice";
+import { clearCartState, setTotalInvoiceAmount, setTotalUnpaidInvoiceAmount } from "../../redux/cartSlice";
 import { postPlaceOrder } from "../../utils/api";
 import { emitNotification } from "../../utils/emitNotification";
 import { convertToPlaceOrderRequestBody } from "../../utils/function_helper";
@@ -19,6 +19,7 @@ const CartPage = () => {
   const entryTickets = useSelector((state) => state.cart.entryTickets);
   const showTickets = useSelector((state) => state.cart.showTickets);
   const storeOrder = useSelector((state) => state.cart.storeOrder);
+  const totalInvoiceAmount = useSelector((state) => state.cart.totalInvoiceAmount);
   const [isConfirmClearCartOpen, setIsConfirmClearCartOpen] = useState(false);
   const [includeParking, setIncludeParking] = useState(false);
 
@@ -43,8 +44,11 @@ const CartPage = () => {
           accessToken,
           requestBody
         );
-        const message = placeOrderResponse.data.message;
         const allotedParkingLots = placeOrderResponse.data.allotedParkingLots;
+        const totalInvoiceAmount = placeOrderResponse.data.totalInvoiceAmount;
+        const totalUnpaidInvoiceAmount = placeOrderResponse.data.totalUnpaidInvoiceAmount;
+        dispatch(setTotalInvoiceAmount(totalInvoiceAmount));
+        dispatch(setTotalUnpaidInvoiceAmount(totalUnpaidInvoiceAmount));
         emitNotification("success",placeOrderResponse.data.message);
       } catch (error) {
         emitNotification("error", error.response.data.message);

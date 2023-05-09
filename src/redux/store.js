@@ -16,12 +16,14 @@ const store = configureStore({
     },
     userInfo: {
       user: JSON.parse(localStorage.getItem("user")),
-      groups: JSON.parse(localStorage.getItem("groups"))
+      groups: JSON.parse(localStorage.getItem("groups")),
     },
     cart: {
       entryTickets: [],
       showTickets: [],
       storeOrder: [],
+      totalInvoiceAmount: 0.0,
+      totalUnpaidInvoiceAmount: 0.0,
     },
   },
 });
