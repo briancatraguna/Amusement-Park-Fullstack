@@ -9,6 +9,9 @@ import UserProfile from "./pages/UserProfile";
 import { ROUTES } from "./utils/enums";
 import AttractionsPage from "./pages/Attractions";
 import GroupModification from "./pages/GroupModification";
+// import EmployeeHomePage from "./pages/EmployeeHome";
+import EmployeeLogin from "./pages/EmployeeLogin";
+import SearchUser from "./pages/SearchUser";
 
 
 import CartPage from "./pages/Cart";
@@ -40,6 +43,8 @@ function App() {
             <Route path={ROUTES.cart} element={<CartPage />} />
             <Route path={ROUTES.groupModification} element={<GroupModification/>}/>
             <Route path={ROUTES.userProfile} element={<UserProfile/>} />
+            <Route path={ROUTES.employeeLogin} element={<EmployeeLogin/>} />
+            <Route path={ROUTES.searchUser} element={<SearchUser/>} />
           </Routes>
         </BrowserRouter>
       </Provider>

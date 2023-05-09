@@ -1,6 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import authReducer from "./authSlice";
 import userInfoReducer from "./userInfoSlice";
+import employeeInfoReducer from  "./employeeInfoSlice"
 import cartReducer from "./cartSlice";
 
 const store = configureStore({
@@ -8,6 +9,7 @@ const store = configureStore({
     auth: authReducer,
     userInfo: userInfoReducer,
     cart: cartReducer,
+    employeeInfo : employeeInfoReducer
   },
   preloadedState: {
     auth: {
@@ -22,6 +24,9 @@ const store = configureStore({
       parking: [],
       storeOrder: [],
     },
+    employeeInfo: {
+      employee: JSON.parse(localStorage.getItem("employee")),
+    },
   },
 });
 
@@ -32,6 +37,9 @@ store.subscribe(() => {
 
   const { user } = store.getState().userInfo;
   localStorage.setItem("user", JSON.stringify(user));
+
+  const { employee } = store.getState().employeeInfo;
+  localStorage.setItem("employee", JSON.stringify(employee));
 });
 
 export default store;

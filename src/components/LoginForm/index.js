@@ -9,11 +9,20 @@ const LoginForm = ({
     password,
     setPassword,
     onSignIn, 
-    onClickSignUp 
+    onClickSignUp,
+    onEmployeeLogin,
+    isEmployeeLogin,
+    onOnlineUserLogin 
 }) => {
   return (
     <div className="form-container">
-      <h3>Sign In</h3>
+      {
+        !isEmployeeLogin ?
+        (       <h3>Sign In</h3> ) 
+        :
+        ( <h3> Employee Sign In</h3> )
+      }
+      
       <TextField
         label="Email"
         variant="outlined"
@@ -32,9 +41,30 @@ const LoginForm = ({
       <Button variant="contained" onClick={onSignIn}>
         Sign In
       </Button>
-      <span className="signup-link">
-        Don't have an account? <a onClick={() => onClickSignUp()}>Sign up</a>
-      </span>
+      { 
+        !isEmployeeLogin &&
+          <span className="signup-link">
+          Don't have an account? <a onClick={() => onClickSignUp()}>Sign up</a>
+        </span>
+      }
+      
+      {
+        isEmployeeLogin ? (
+        <>
+           <span className="signup-link">
+           Not an Employee ? <a onClick={() => onOnlineUserLogin()}>Click here to login as online user</a>
+          </span>
+        </>) 
+        :
+        (<>
+        <span className="signup-link">
+            Are you an employee ? <a onClick={() => onEmployeeLogin()}>Click here to login as employee</a>
+          </span>
+         
+        </>)
+      }
+      
+      
     </div>
   );
 };

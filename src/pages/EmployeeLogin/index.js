@@ -9,32 +9,33 @@ import { setAccessTokenState, setRoleId } from "../../redux/authSlice";
 import { useNavigate } from "react-router-dom";
 import { ROLE_TO_ID, ROUTES } from "../../utils/enums";
 import { setUser } from "../../redux/userInfoSlice";
+import { setEmployee } from "../../redux/employeeInfoSlice"
 import { emitNotification } from "../../utils/emitNotification";
 
-const AuthenticationPage = () => {
+const EmployeeLogin = () => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const accessTokenState = useSelector((state) => state.auth.accessToken);
-	const roleId = useSelector((state) => state.auth.roleId);
+	const stateRoleId = useSelector((state) => state.auth.roleId);
 	useEffect(() => {
 		if (accessTokenState !== null && accessTokenState !== "null") {
-			if (roleId === ROLE_TO_ID["Employee"]) {
-				navigate(ROUTES.employee);
-			} else {
-				navigate(ROUTES.home);
-			}
+			// if (roleId === ROLE_TO_ID["Employee"]) {
+			// 	navigate(ROUTES.employee);
+			// } else {
+				navigate(ROUTES.searchUser);
+			// }
 		}
 	});
 
-	const [isLoginMode, setLoginMode] = useState(true);
+	// const [isLoginMode, setLoginMode] = useState(true);
 
 	const [loginEmail, setLoginEmail] = useState("");
 	const [loginPassword, setLoginPassword] = useState("");
 
-	const [userName, setUserName] = useState("");
-	const [regEmail, setRegEmail] = useState("");
-	const [regPassword, setRegPassword] = useState("");
-	const [isEmployee, setIsEmployee] = useState("");
+	// const [userName, setUserName] = useState("");
+	// const [regEmail, setRegEmail] = useState("");
+	// const [regPassword, setRegPassword] = useState("");
+	// const [isEmployee, setIsEmployee] = useState("");
 
 	const handleSignIn = async () => {
 		try {
@@ -44,9 +45,16 @@ const AuthenticationPage = () => {
 				const roleId = ROLE_TO_ID[roleName];
 				const accessToken = response.data.token;
 				const user = response.data.user;
+				const employee = {...user}
+				if(roleId != 2 ){
+					emitNotification("error", "User is not an employee");
+					return; 
+				}
 				dispatch(setAccessTokenState(accessToken));
 				dispatch(setRoleId(roleId));
 				dispatch(setUser(user));
+				dispatch(setEmployee(employee))
+				
 				emitNotification("success", `Succesfully logged in!`);
 			}
 		} catch (error) {
@@ -54,20 +62,9 @@ const AuthenticationPage = () => {
 		}
 	};
 
-	const handleRegister = async (registerBody) => {
-		try {
-			const response = await registerUser(registerBody);
-			if (response.success) {
-				emitNotification("success", response.message);
-				setLoginMode(true);
-			}
-		} catch (error) {
-			emitNotification("error", error.response.data.message);
-		}
-	};
 
-	const handleEmployeeLogin = async () => {
-		navigate(ROUTES.employeeLogin);
+	const handleOnlineUserLogin = async () => {
+		navigate(ROUTES.auth);
 	}
 
 	return (
@@ -76,32 +73,16 @@ const AuthenticationPage = () => {
 				<div className="logo-container">
 					<VoaLogo className="logo-top" />
 				</div>
-				{isLoginMode ? (
-					<LoginForm
+				<LoginForm
 						email={loginEmail}
 						setEmail={setLoginEmail}
 						password={loginPassword}
 						setPassword={setLoginPassword}
 						onSignIn={() => handleSignIn()}
-						onClickSignUp={() => setLoginMode(false)}
-						onEmployeeLogin={() => handleEmployeeLogin()}
-						isEmployeeLogin={false}
-					/>
-				) : (
-					<SignUpForm
-						userName={userName}
-						setUserName={setUserName}
-						email={regEmail}
-						setEmail={setRegEmail}
-						password={regPassword}
-						setPassword={setRegPassword}
-						isEmployee={isEmployee}
-						setIsEmployee={setIsEmployee}
-						onRegister={(registerBody) => handleRegister(registerBody)}
-						onBackToLogin={() => setLoginMode(true)}
-					/>
-				)}
-				;
+						isEmployeeLogin={true}
+						onOnlineUserLogin={(handleOnlineUserLogin)}
+
+				/>
 			</div>
 
 			<div className="right-side">
@@ -115,4 +96,4 @@ const AuthenticationPage = () => {
 	);
 };
 
-export default AuthenticationPage;
+export default EmployeeLogin;

@@ -11,7 +11,9 @@ export const ROUTES = {
     cart: "/cart",
     orders: "/orders",
     userProfile: "/userProfile",
-    groupModification : "/editGroups"
+    groupModification : "/editGroups",
+    employeeLogin : "/employeeLogin",
+    searchUser : "/searchUser"
 };
 
 export const ROLE_TO_ID = {

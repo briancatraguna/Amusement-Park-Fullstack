@@ -9,13 +9,5 @@
 .form-container .auth-textfield {
     width: 100%;
     margin-bottom: 16px;
-}
-
-.signup-link {
-    margin-top: 30px;
-}
-
-a {
-     cursor: pointer;
-     color: blue;
+    margin-top: 16px;
 }

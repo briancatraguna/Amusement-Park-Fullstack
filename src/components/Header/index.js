@@ -1,4 +1,4 @@
-import { Button } from "@mui/material";
+import { Button, Grid, Divider } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
@@ -6,6 +6,7 @@ import "../../App.css";
 import "./style.css";
 import { clearAuthState } from "../../redux/authSlice";
 import { clearUserState } from "../../redux/userInfoSlice";
+import { clearEmployeeState } from "../../redux/employeeInfoSlice";
 import { ROUTES } from "../../utils/enums";
 import AlertDialog from "../AlertDialog";
 import { clearCartState } from "../../redux/cartSlice";
@@ -15,11 +16,15 @@ const Header = () => {
   const navigate = useNavigate();
   const accessTokenState = useSelector((state) => state.auth.accessToken);
   const user = useSelector((state) => state.userInfo.user);
+  const employee = useSelector((state) => state.employeeInfo.employee);
   const [isLogoutDialogOpen, setIsLogoutDialogOpen] = useState(false);
+  const roleId = useSelector((state) => state.auth.roleId);
 
   useEffect(() => {
     if (accessTokenState === "null" || accessTokenState === null) {
       navigate(ROUTES.auth);
+      console.log(employee)
+      console.log(user)
     }
   }, [accessTokenState, navigate]);
 
@@ -27,15 +32,23 @@ const Header = () => {
     dispatch(clearAuthState());
     dispatch(clearUserState());
     dispatch(clearCartState());
+    dispatch(clearEmployeeState())
   };
 
   return (
+    <>
     <header className="header-home">
       <nav>
         <ul>
           <li className="header-menu">
             <Link to={ROUTES.home}>Home</Link>
           </li>
+          {
+            (employee !== null && employee !== "null") && 
+            <li className="header-menu">
+            <Link to={ROUTES.searchUser}>Search Users</Link>
+            </li>
+          }
           <li className="header-menu">
             <Link to={ROUTES.attractions}>Attractions</Link>
           </li>
@@ -51,11 +64,23 @@ const Header = () => {
           <li className="header-menu">
             <Link to={ROUTES.cart}>Cart</Link>
           </li>
-          <li>
-            <Link to={ROUTES.userProfile}>
-              <h3 className="header-menu">{user ? user.username : ""}</h3>
-            </Link>
-          </li>
+          {  
+            employee==null ? 
+              (<li>
+                <Link to={ROUTES.userProfile}>
+                  <h3 className="header-menu">{employee !== null && employee !== "null" ? employee.username  :(user ? user.username : "")}</h3>
+                </Link>
+              </li>) :  <>
+                {
+                  (employee.user_id === user.user_id) &&
+                    <li>
+                      <Link to={ROUTES.userProfile}>
+                        <h3 className="header-menu">{employee !== null && employee !== "null" ? employee.username  :(user ? user.username : "")}</h3>
+                      </Link>
+                    </li>
+                }
+              </>
+          }
           <li>
             <Button variant="outlined" onClick={() => setIsLogoutDialogOpen(true)}>
               Logout
@@ -73,6 +98,24 @@ const Header = () => {
         </ul>
       </nav>
     </header>
+    {
+      roleId == 2 && employee!=null && user!=null &&
+      employee.user_id != user.user_id  && 
+      (
+      <>
+        <Divider />
+        <Grid container 
+          style={{backgroundColor : "#ffb347" , color: "#fff"}}
+        >
+          <Grid item xs={12} sx={{textAlign:'center'}}>
+            <h3> Currenly doing transaction for  <Link to={ROUTES.userProfile}><u>{user.email}</u></Link> </h3>
+          </Grid>
+        </Grid>
+      </>
+      )
+    } 
+    
+    </>
   );
 };
 
