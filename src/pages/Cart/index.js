@@ -108,7 +108,7 @@ const CartPage = () => {
           label="Include Parking Tickets?"
         />
         {totalInvoiceAmount !== 0.0 ? (
-          <StripeButton totalAmount={totalInvoiceAmount} />
+          <StripeButton totalAmount={totalInvoiceAmount * 100} />
         ) : (
           <>
             <button
