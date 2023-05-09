@@ -29,6 +29,8 @@ export const cartSlice = createSlice({
       state.entryTickets = [];
       state.showTickets = [];
       state.storeOrder = [];
+      state.totalInvoiceAmount = 0.0;
+      state.totalUnpaidInvoiceAmount = 0.0;
     },
   },
 });

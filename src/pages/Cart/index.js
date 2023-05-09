@@ -1,5 +1,5 @@
 import { Checkbox, FormControlLabel } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import AlertDialog from "../../components/AlertDialog";
 import EntryTicketCartItem from "../../components/EntryTicketCartItem";
@@ -27,6 +27,7 @@ const CartPage = () => {
   const totalInvoiceAmount = useSelector(
     (state) => state.cart.totalInvoiceAmount
   );
+  const totalUnpaidInvoiceAmount = useSelector((state) => state.cart.totalUnpaidInvoiceAmount);
   const [isConfirmClearCartOpen, setIsConfirmClearCartOpen] = useState(false);
   const [includeParking, setIncludeParking] = useState(false);
 
@@ -53,10 +54,11 @@ const CartPage = () => {
         const allotedParkingLots = placeOrderResponse.data.allotedParkingLots;
         const totalInvoiceAmount = placeOrderResponse.data.totalInvoiceAmount;
         const totalUnpaidInvoiceAmount =
-          placeOrderResponse.data.totalUnpaidInvoiceAmount;
+          placeOrderResponse.data.totalUnpaidInvoicesAmount;
         dispatch(setTotalInvoiceAmount(totalInvoiceAmount));
         dispatch(setTotalUnpaidInvoiceAmount(totalUnpaidInvoiceAmount));
         emitNotification("success", placeOrderResponse.data.message);
+        dispatch(clearCartState());
       } catch (error) {
         emitNotification("error", error.response.data.message);
       }
@@ -107,8 +109,8 @@ const CartPage = () => {
           }
           label="Include Parking Tickets?"
         />
-        {totalInvoiceAmount !== 0.0 ? (
-          <StripeButton totalAmount={totalInvoiceAmount * 100} />
+        {totalInvoiceAmount + totalUnpaidInvoiceAmount !== 0.0 ? (
+          <StripeButton totalAmount={(totalInvoiceAmount + totalUnpaidInvoiceAmount) * 100} />
         ) : (
           <>
             <button
