@@ -24,6 +24,7 @@ nav {
 }
 
 nav ul {
+  width: 100%;
   list-style: none;
   display: flex;
   justify-content: center;
@@ -72,4 +73,8 @@ nav button:hover {
 
 .header-menu:hover {
   background-color: var(--rosy-brown);
+}
+
+.float-right{
+  float:right;
 }
