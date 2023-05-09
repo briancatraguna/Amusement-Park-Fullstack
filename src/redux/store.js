@@ -16,10 +16,11 @@ const store = configureStore({
     },
     userInfo: {
       user: JSON.parse(localStorage.getItem("user")),
+      groups: JSON.parse(localStorage.getItem("groups"))
     },
     cart: {
-      tickets: [],
-      parking: [],
+      entryTickets: [],
+      showTickets: [],
       storeOrder: [],
     },
   },
@@ -30,8 +31,9 @@ store.subscribe(() => {
   localStorage.setItem("accessToken", accessToken);
   localStorage.setItem("roleId", roleId);
 
-  const { user } = store.getState().userInfo;
+  const { user, groups } = store.getState().userInfo;
   localStorage.setItem("user", JSON.stringify(user));
+  localStorage.setItem("groups", JSON.stringify(groups));
 });
 
 export default store;

@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
 import "./style.css";
 
+import { useSelector } from "react-redux";
 import { loginUser, registerUser } from "../../utils/api";
 import { useDispatch, useSelector } from "react-redux";
 import { setAccessTokenState, setRoleId } from "../../redux/authSlice";
 import { useNavigate } from "react-router-dom";
 import { ROLE_TO_ID, ROUTES } from "../../utils/enums";
 import { setUser } from "../../redux/userInfoSlice";
+
 
 import Header from "../../components/Header";
 import { Divider } from "@mui/material";
@@ -18,27 +20,20 @@ import { getUserProfile } from "../../utils/api";
 import { emitNotification } from "../../utils/emitNotification";
 
 const UserProfile = () => {
-	const dispatch = useDispatch();
-	const navigate = useNavigate();
-	const accessToken = useSelector((state) => state.auth.accessToken);
-	const roleId = useSelector((state) => state.auth.roleId);
-	const user = useSelector((state) => state.userInfo.user);
-	// console.log("user data")
-	// console.log(user);
-	const [userProfileInfo, setuserProfileInfo] = useState("");
-	useEffect(() => {
-		const fetchUserProfile = async () => {
-			try {
-				//change this later
-				const userProfileResponse = await getUserProfile(
-					accessToken,
-					user.user_id
-				);
-				setuserProfileInfo(userProfileResponse);
-			} catch (error) {
-				emitNotification("error", error.response.data.message);
-			}
-		};
+  const accessToken = useSelector((state) => state.auth.accessToken);
+  const user = useSelector((state) => state.userInfo.user)
+  const [userProfileInfo, setuserProfileInfo] = useState("");
+  useEffect(() => {
+    const fetchUserProfile = async () => {
+      try {
+        const userProfileResponse = await getUserProfile(accessToken, user.user_id);
+        setuserProfileInfo(userProfileResponse);
+      } catch (error) {
+        alert(error.response.data.message);
+      }
+    };
+    fetchUserProfile()
+  },[accessToken, user]);
 
 		fetchUserProfile();
 		//   .then(()=>{

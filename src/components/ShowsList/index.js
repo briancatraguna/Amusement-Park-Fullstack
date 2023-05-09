@@ -2,15 +2,11 @@ import { Box, Button, Card, CardMedia } from "@mui/material";
 import React from "react";
 import "./style.css";
 
-const ShowList = ({ shows }) => {
+const ShowList = ({ shows, handleAddToCart }) => {
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     return date.toLocaleString();
   };
-
-  const handleAddToCart = () => {
-    console.log("Add to cart placeholder");
-  }
 
   return (
     <Box sx={{ display: "flex", flexWrap: "wrap", justifyContent: "center" }}>
