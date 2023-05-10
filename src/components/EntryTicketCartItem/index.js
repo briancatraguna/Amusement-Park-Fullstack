@@ -2,7 +2,7 @@ import React from "react";
 import "./style.css";
 
 const EntryTicketCartItem = ({ entryTicketItem }) => {
-  const { group, name, price, quantity } = entryTicketItem;
+  const { group, name, price, quantity, isSelfSelected } = entryTicketItem;
 
   return (
     <li className="entry-ticket-cart-item">
@@ -11,7 +11,7 @@ const EntryTicketCartItem = ({ entryTicketItem }) => {
         <div>
           <h3>{name}</h3>
           <p>Price per item: ${price}</p>
-          <p>Quantity: {quantity}</p>
+          <p>Quantity: {isSelfSelected? quantity + 1: quantity}</p>
           {group && (
             <div>
               <p>Group:</p>
@@ -22,6 +22,7 @@ const EntryTicketCartItem = ({ entryTicketItem }) => {
               </ul>
             </div>
           )}
+          {isSelfSelected && <p>You</p>}
         </div>
       </div>
     </li>

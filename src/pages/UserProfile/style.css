@@ -1,70 +1,76 @@
 :root {
-    --primary-periwinkle: #d8dcff;
-    --secondary-periwinkle: #aeadf0;
-    --rosy-brown: #c38d94;
-    --china-rose: #a76571;
-    --ultra-violet: #565676;
-  }
+  --primary-periwinkle: #d8dcff;
+  --secondary-periwinkle: #aeadf0;
+  --rosy-brown: #c38d94;
+  --china-rose: #a76571;
+  --ultra-violet: #565676;
+}
+
+.background {
+  width: 100vw;
+  height: 100vh;
+  background: var(--primary-periwinkle);
+  background-size: cover;
+}
 
 .auth-container {
-    display: flex;
-    height: 100vh;
+  display: flex;
+  height: 100vh;
 }
 
 .left-side {
-    display: flex;
-    flex-direction: column;
-    width: 50%;
-    background-color: var(--primary-periwinkle);
-    padding: 32px;
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  background-color: var(--primary-periwinkle);
+  padding: 32px;
 }
 
 .form-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
 }
 
 .form-container {
-    width: 100%;
-    margin-bottom: 16px;
+  width: 100%;
+  margin-bottom: 16px;
 }
 
 .right-side {
-    width: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
 }
 
 /* --------------------------------------------- */
 
-
 .form-container-1 {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    padding-block-end: 20;
-    margin-left: 20px;
-    margin-right: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding-block-end: 20;
+  margin-left: 20px;
+  margin-right: 20px;
 }
 
 .form-container-1 .auth-textfield-1 {
-    width: 100%;
-    margin-bottom: 16px;
+  width: 100%;
+  margin-bottom: 16px;
 }
 
 .signup-link-1 {
-    margin-top: 30px;
+  margin-top: 30px;
 }
 
-.divider{
-    width:5px;
-    height:auto;
-    display:inline-block;
+.divider {
+  width: 5px;
+  height: auto;
+  display: inline-block;
 }

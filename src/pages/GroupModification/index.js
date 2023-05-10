@@ -45,7 +45,7 @@ const UserProfile = () => {
 	}, [accessToken, user]);
 
 	return (
-		<>
+		<div className="background">
 			<div>
 				<Header />
 			</div>
@@ -70,7 +70,7 @@ const UserProfile = () => {
 					<Grid item xs={2}></Grid>
 				</Grid>
 			</Box>
-		</>
+		</div>
 	);
 };
 

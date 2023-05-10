@@ -23,12 +23,23 @@ export function convertToPlaceOrderRequestBody(
   for (let ticket of entryTickets) {
     const group = ticket.group;
     const price = ticket.price;
+    const isSelfSelected = ticket.isSelfSelected;
+    if (isSelfSelected) {
+      ticketsArr.push({
+        method: "ONLINE",
+        visitDate: getCurrentDate(),
+        price: price,
+        discount: 0,
+        visitorId: rootVisitorId,
+        ticketType: 1,
+      });
+    }
     for (let child of group.children) {
       const visitorId = child.visitor_id;
       if (includeParking) {
         parkingArr.push({
-          visitorId: visitorId
-        })
+          visitorId: visitorId,
+        });
       }
       ticketsArr.push({
         method: "ONLINE",
@@ -36,15 +47,27 @@ export function convertToPlaceOrderRequestBody(
         price: price,
         discount: 0,
         visitorId: visitorId,
-        ticketType: 1
-      })
+        ticketType: 1,
+      });
     }
-  };
+  }
   // show tickets
   for (let ticket of showTickets) {
     const group = ticket.group;
     const price = ticket.item.sw_price;
     const showId = ticket.item.sw_id;
+    const isSelfSelected = ticket.isSelfSelected;
+    if (isSelfSelected) {
+      ticketsArr.push({
+        method: "ONLINE",
+        visitDate: getCurrentDate(),
+        price: price,
+        discount: 0,
+        visitorId: rootVisitorId,
+        ticketType: 2,
+        showId: showId,
+      });
+    }
     for (let child of group.children) {
       const visitorId = child.visitor_id;
       ticketsArr.push({
@@ -54,12 +77,11 @@ export function convertToPlaceOrderRequestBody(
         discount: 0,
         visitorId: visitorId,
         ticketType: 2,
-        showId: showId
-      })
+        showId: showId,
+      });
     }
-  };
+  }
 
-  
   const storeOrderArr = [];
   // store order
   for (let storeOrderItem of storeOrder) {
@@ -70,15 +92,15 @@ export function convertToPlaceOrderRequestBody(
       quantity: quantity,
       pricePerQuantity: pricePerQuantity,
       visitorId: rootVisitorId,
-      storeId: storeId
-    })
-  };
+      storeId: storeId,
+    });
+  }
 
   return {
     tickets: ticketsArr,
     parking: parkingArr,
     storeOrder: storeOrderArr,
-    userId: userId
+    userId: userId,
   };
 }
 

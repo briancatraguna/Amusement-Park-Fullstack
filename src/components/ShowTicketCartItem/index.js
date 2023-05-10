@@ -2,7 +2,7 @@ import React from "react";
 import "./style.css";
 
 const ShowTicketCartItem = ({ showTicketItem }) => {
-  const { group, item, quantity } = showTicketItem;
+  const { group, item, quantity, isSelfSelected} = showTicketItem;
   const { sw_name, sw_desc, sw_price, sw_img_url } = item;
 
   return (
@@ -13,7 +13,7 @@ const ShowTicketCartItem = ({ showTicketItem }) => {
           <h3>{sw_name}</h3>
           <p>{sw_desc}</p>
           <p>Price per item: ${sw_price}</p>
-          <p>Quantity: {quantity}</p>
+          <p>Quantity: {isSelfSelected ? quantity + 1: quantity}</p>
           {group && (
             <div>
               <p>Group:</p>
@@ -24,6 +24,7 @@ const ShowTicketCartItem = ({ showTicketItem }) => {
               </ul>
             </div>
           )}
+          {isSelfSelected && <p>You</p>}
         </div>
       </div>
     </li>

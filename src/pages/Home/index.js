@@ -37,12 +37,13 @@ const HomePage = () => {
     setIsQuantitySelectorOpen(true);
   };
 
-  const handleAddToCart = (selectedGroup, quantity) => {
+  const handleAddToCart = (selectedGroup, quantity, isSelfSelected) => {
     dispatch(
       addEntryTickets({
         quantity: quantity,
         price: TICKET_PRICE,
         group: selectedGroup,
+        isSelfSelected: isSelfSelected
       })
     );
     emitNotification("success","Entry tickets added to cart!")
@@ -116,8 +117,8 @@ const HomePage = () => {
           itemTitle="Entry Tickets"
           pricePerItem={TICKET_PRICE}
           onClose={() => setIsQuantitySelectorOpen(false)}
-          onAddToCart={(selectedGroup, quantity) =>
-            handleAddToCart(selectedGroup, quantity)
+          onAddToCart={(selectedGroup, quantity, isSelfSelected) =>
+            handleAddToCart(selectedGroup, quantity, isSelfSelected)
           }
           groupData={groups}
         />
