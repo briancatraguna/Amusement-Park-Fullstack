@@ -1,21 +1,69 @@
+import { Checkbox, FormControlLabel } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import AlertDialog from "../../components/AlertDialog";
+import EntryTicketCartItem from "../../components/EntryTicketCartItem";
 import Header from "../../components/Header";
+import ShowTicketCartItem from "../../components/ShowTicketCartItem";
 import StoreOrderCartItem from "../../components/StoreOrderCartItem";
-import { clearCartState } from "../../redux/cartSlice";
+import StripeButton from "../../components/StripeButton";
+import {
+  clearCartState,
+  setTotalInvoiceAmount,
+  setTotalUnpaidInvoiceAmount,
+} from "../../redux/cartSlice";
+import { postPlaceOrder } from "../../utils/api";
+import { emitNotification } from "../../utils/emitNotification";
+import { convertToPlaceOrderRequestBody } from "../../utils/function_helper";
 import "./style.css";
 
 const CartPage = () => {
   const dispatch = useDispatch();
-  const tickets = useSelector((state) => state.cart.tickets);
-  const parking = useSelector((state) => state.cart.parking);
+  const user = useSelector((state) => state.userInfo.user);
+  const accessToken = useSelector((state) => state.auth.accessToken);
+  const entryTickets = useSelector((state) => state.cart.entryTickets);
+  const showTickets = useSelector((state) => state.cart.showTickets);
   const storeOrder = useSelector((state) => state.cart.storeOrder);
-  const [isConfirmOpen, setIsConfirmOpen] = useState(false);
+  const totalInvoiceAmount = useSelector(
+    (state) => state.cart.totalInvoiceAmount
+  );
+  const totalUnpaidInvoiceAmount = useSelector((state) => state.cart.totalUnpaidInvoiceAmount);
+  const [isConfirmClearCartOpen, setIsConfirmClearCartOpen] = useState(false);
+  const [includeParking, setIncludeParking] = useState(false);
 
   const handleClearCart = () => {
-    setIsConfirmOpen(false);
+    setIsConfirmClearCartOpen(false);
     dispatch(clearCartState());
+  };
+
+  const handleCheckout = () => {
+    const requestBody = convertToPlaceOrderRequestBody(
+      includeParking,
+      entryTickets,
+      showTickets,
+      storeOrder,
+      user.visitor_id,
+      user.user_id
+    );
+    const placeOrder = async () => {
+      try {
+        const placeOrderResponse = await postPlaceOrder(
+          accessToken,
+          requestBody
+        );
+        const allotedParkingLots = placeOrderResponse.data.allotedParkingLots;
+        const totalInvoiceAmount = placeOrderResponse.data.totalInvoiceAmount;
+        const totalUnpaidInvoiceAmount =
+          placeOrderResponse.data.totalUnpaidInvoicesAmount;
+        dispatch(setTotalInvoiceAmount(totalInvoiceAmount));
+        dispatch(setTotalUnpaidInvoiceAmount(totalUnpaidInvoiceAmount));
+        emitNotification("success", placeOrderResponse.data.message);
+        dispatch(clearCartState());
+      } catch (error) {
+        emitNotification("error", error.response.data.message);
+      }
+    };
+    placeOrder();
   };
 
   return (
@@ -23,18 +71,21 @@ const CartPage = () => {
       <Header />
       <h1>Cart</h1>
       <div className="cart-section">
-        <h2>Tickets</h2>
+        <h2>Entry Tickets</h2>
         <ul>
-          {tickets.map((ticket) => (
-            <li key={ticket.id}>{/* render ticket details */}</li>
+          {entryTickets.map((entryTicket) => (
+            <EntryTicketCartItem entryTicketItem={entryTicket} />
           ))}
         </ul>
       </div>
       <div className="cart-section">
-        <h2>Parking</h2>
+        <h2>Show Tickets</h2>
         <ul>
-          {parking.map((parkingItem) => (
-            <li key={parkingItem.id}>{/* render parking details */}</li>
+          {showTickets.map((showTicket) => (
+            <ShowTicketCartItem
+              key={showTicket.id}
+              showTicketItem={showTicket}
+            />
           ))}
         </ul>
       </div>
@@ -46,20 +97,42 @@ const CartPage = () => {
           ))}
         </ul>
       </div>
+
       <div className="cart-buttons-container">
-        <button className="clear-cart-button" onClick={() => setIsConfirmOpen(true)}>
-          Clear Cart
-        </button>
-        <button className="checkout-button">Checkout</button>
+        <FormControlLabel
+          key="includeparking"
+          control={
+            <Checkbox
+              checked={includeParking}
+              onChange={(e) => setIncludeParking(e.target.checked)}
+            />
+          }
+          label="Include Parking Tickets?"
+        />
+        {totalInvoiceAmount + totalUnpaidInvoiceAmount !== 0.0 ? (
+          <StripeButton totalAmount={(totalInvoiceAmount + totalUnpaidInvoiceAmount) * 100} />
+        ) : (
+          <>
+            <button
+              className="clear-cart-button"
+              onClick={() => setIsConfirmClearCartOpen(true)}
+            >
+              Clear Cart
+            </button>
+            <button className="checkout-button" onClick={handleCheckout}>
+              Checkout
+            </button>
+          </>
+        )}
       </div>
       <AlertDialog
-      isOpen={isConfirmOpen}
-      onCancel={() => setIsConfirmOpen(false)}
-      onConfirm={handleClearCart}
-      negativeButtonTitle="Cancel"
-      positiveButtonTitle="Clear"
-      dialogTitle="Confirm Clear Cart"
-      dialogContent="Are you sure you want to clear cart?"
+        isOpen={isConfirmClearCartOpen}
+        onCancel={() => setIsConfirmClearCartOpen(false)}
+        onConfirm={handleClearCart}
+        negativeButtonTitle="Cancel"
+        positiveButtonTitle="Clear"
+        dialogTitle="Confirm Clear Cart"
+        dialogContent="Are you sure you want to clear cart?"
       />
     </div>
   );

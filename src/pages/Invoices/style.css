@@ -1,0 +1,51 @@
+:root {
+    --primary-periwinkle: #e0e2f8;
+    --secondary-periwinkle: #aeadf0;
+    --rosy-brown: #c38d94;
+    --china-rose: #a76571;
+    --ultra-violet: #adadc0;
+  }
+
+  .order-container{
+    background-color: var(--primary-periwinkle);
+    height: 100%;
+    width: 100%;
+  }
+
+  .orders {
+    max-width: 40rem;
+    width: 90%;
+    margin: 0 auto;
+    animation: orders-appear 1s ease-out forwards;
+    padding-top: 2rem;
+    padding-bottom: 1rem;
+  }
+  
+  .orders ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .filterBlock{
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    padding-top: 1rem;
+  }
+
+  .invoiceType{
+    width: 9rem
+  }
+
+  @keyframes orders-appear {
+    from {
+      opacity: 0;
+      transform: translateY(3rem);
+    }
+  
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }

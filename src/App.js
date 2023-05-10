@@ -13,7 +13,6 @@ import GroupModification from "./pages/GroupModification";
 import EmployeeLogin from "./pages/EmployeeLogin";
 import SearchUser from "./pages/SearchUser";
 
-
 import CartPage from "./pages/Cart";
 import StoresPage from "./pages/Stores";
 import StoreDetailPage from "./pages/StoreDetail";
@@ -22,6 +21,7 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ShowsPage from "./pages/Shows";
+import { Invoices } from "./pages/Invoices";
 
 function App() {
   return (

@@ -1,0 +1,72 @@
+*{
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.order {
+    padding-bottom: 1rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr auto;
+    row-gap: 0.7rem;
+    margin-bottom: 1.5rem;
+
+    padding: 1rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+    background-color: #c1c1e5;
+    position: relative;
+  }
+
+  .row{
+    grid-column: 1/-1;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 4.8rem;
+  }
+
+  .row2-col1{
+    grid-column: 1/2;
+    margin: 0 auto;
+  }
+
+  .row2-col2{
+    grid-column: 2/3;
+    margin: 0 auto;
+  }
+
+  .row2-col3{
+    grid-column: 3/-1;
+    margin: 0 auto;
+  }
+
+  .field{
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .price {
+    font-weight: bold;
+    color: #ad5502;
+    font-size: 1.25rem;
+  }
+
+  .invoiceDate, .totalPrice, .invoiceId{
+    flex-grow: 1;
+  }
+
+  .wrapWord{
+    max-width: 10rem;
+    word-wrap: break-word;
+    
+  }
+
+  .notPaid{
+    height: fit-content;
+    width: fit-content;
+    background-color: rgb(122, 29, 29); 
+    padding: 0.4rem 0.6rem;
+    color: white;
+    position: absolute;
+    top: -0.8rem;
+    right: -1.5rem;
+  }

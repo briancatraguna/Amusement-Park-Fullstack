@@ -7,13 +7,13 @@ export const ROUTES = {
     shows: "/shows",
     stores: "/stores",
     storeDetail: "/stores/detail",
-    tickets: "/tickets",
     cart: "/cart",
     orders: "/orders",
     userProfile: "/userProfile",
     groupModification : "/editGroups",
     employeeLogin : "/employeeLogin",
-    searchUser : "/searchUser"
+    searchUser : "/searchUser",
+    invoices: "/invoices"
 };
 
 export const ROLE_TO_ID = {

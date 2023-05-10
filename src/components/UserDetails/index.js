@@ -18,6 +18,7 @@ import { saveUserProfileAPI } from "../../utils/api";
 import { Button, Checkbox, FormControlLabel, TextField ,FormGroup,Divider, Fab } from "@mui/material";
 import CircularProgress from '@mui/material/CircularProgress';
 import Backdrop from '@mui/material/Backdrop';
+import { emitNotification } from "../../utils/emitNotification";
 
 
 
@@ -156,9 +157,7 @@ const UserDetails = ({userInfo}) => {
       newUser.username = userDetailsObject.userName
       dispatch(setUser(newUser));
     } catch (error) {
-      alert(error.response);
-      console.log(error)
-      dispatch(setUser(user));
+      emitNotification("error", error.response.data.message);
     }finally{
       setUserInfoFromProps()
     };
