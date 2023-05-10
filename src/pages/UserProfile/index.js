@@ -25,7 +25,7 @@ const UserProfile = () => {
         );
         setuserProfileInfo(userProfileResponse);
       } catch (error) {
-        alert(error.response.data.message);
+        emitNotification("error",error.response.data.message);
       }
     };
     fetchUserProfile();
