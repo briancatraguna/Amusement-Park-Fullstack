@@ -82,7 +82,7 @@ const Header = () => {
               </>
           }
           <li>
-            <Button variant="outlined" onClick={() => setIsLogoutDialogOpen(true)}>
+            <Button variant="outlined" className="float-right" onClick={() => setIsLogoutDialogOpen(true)}>
               Logout
             </Button>
             <AlertDialog
