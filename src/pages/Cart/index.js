@@ -1,4 +1,4 @@
-import { Checkbox, FormControlLabel } from "@mui/material";
+import { Button, Checkbox, FormControlLabel } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import AlertDialog from "../../components/AlertDialog";
@@ -115,15 +115,15 @@ const CartPage = () => {
           <StripeButton totalAmount={((totalInvoiceAmount + totalUnpaidInvoiceAmount) * 100).toFixed()} />
         ) : (
           <>
-            <button
+            <Button
               className="clear-cart-button"
               onClick={() => setIsConfirmClearCartOpen(true)}
             >
               Clear Cart
-            </button>
-            <button className="checkout-button" onClick={handleCheckout}>
+            </Button>
+            <Button className="checkout-button" onClick={handleCheckout}>
               Checkout
-            </button>
+            </Button>
           </>
         )}
       </div>
