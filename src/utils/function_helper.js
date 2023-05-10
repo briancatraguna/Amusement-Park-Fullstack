@@ -36,7 +36,7 @@ export function convertToPlaceOrderRequestBody(
         price: price,
         discount: 0,
         visitorId: visitorId,
-        ticketType: 2
+        ticketType: 1
       })
     }
   };
@@ -53,7 +53,7 @@ export function convertToPlaceOrderRequestBody(
         price: price,
         discount: 0,
         visitorId: visitorId,
-        ticketType: 1,
+        ticketType: 2,
         showId: showId
       })
     }

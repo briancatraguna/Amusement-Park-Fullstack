@@ -31,6 +31,9 @@ const CartPage = () => {
   const [isConfirmClearCartOpen, setIsConfirmClearCartOpen] = useState(false);
   const [includeParking, setIncludeParking] = useState(false);
 
+  console.log(totalInvoiceAmount);
+  console.log(totalUnpaidInvoiceAmount);
+
   const handleClearCart = () => {
     setIsConfirmClearCartOpen(false);
     dispatch(clearCartState());
@@ -109,7 +112,7 @@ const CartPage = () => {
           label="Include Parking Tickets?"
         />
         {totalInvoiceAmount + totalUnpaidInvoiceAmount !== 0.0 ? (
-          <StripeButton totalAmount={(totalInvoiceAmount + totalUnpaidInvoiceAmount) * 100} />
+          <StripeButton totalAmount={((totalInvoiceAmount + totalUnpaidInvoiceAmount) * 100).toFixed()} />
         ) : (
           <>
             <button
