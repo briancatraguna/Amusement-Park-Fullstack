@@ -30,6 +30,8 @@ const UserDetails = ({userInfo}) => {
   const navigate = useNavigate();
   const accessToken = useSelector((state) => state.auth.accessToken);
   const roleId = useSelector((state) => state.auth.roleId);
+  const user = useSelector((state) => state.userInfo.user)
+
 
   //fields
   const [userFullName, setUserFullName] = useState(userInfo.fname + " " +userInfo.lname);
@@ -108,7 +110,6 @@ const UserDetails = ({userInfo}) => {
 
   //user object for save data
   const createUserDetailsObject = () => {
-    console.log(userInfo);
     return  {
       userFullName	,
       userName 		,
@@ -146,11 +147,15 @@ const UserDetails = ({userInfo}) => {
 
   //save user data by calling API
   const saveUserProfileToDB = async () => {
+    let {username , ...prevUser} = user;
+    
     try {
       let userDetailsObject = createUserDetailsObject();
-      // const userProfileResponse = 
       await saveUserProfileAPI(accessToken, userDetailsObject);
       setUserInfoFromSave();
+      let newUser = prevUser;
+      newUser.username = userDetailsObject.userName
+      dispatch(setUser(newUser));
     } catch (error) {
       emitNotification("error", error.response.data.message);
     }finally{

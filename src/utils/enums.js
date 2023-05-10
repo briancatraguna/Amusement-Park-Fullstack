@@ -11,6 +11,8 @@ export const ROUTES = {
     orders: "/orders",
     userProfile: "/userProfile",
     groupModification : "/editGroups",
+    employeeLogin : "/employeeLogin",
+    searchUser : "/searchUser",
     invoices: "/invoices"
 };
 
