@@ -1,11 +1,13 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import StripeCheckout from "react-stripe-checkout";
+import { clearCartState, setTotalInvoiceAmount, setTotalUnpaidInvoiceAmount } from "../../redux/cartSlice";
 import { postPayment } from "../../utils/api";
 import { emitNotification } from "../../utils/emitNotification";
 
 const StripeButton = ({totalAmount}) => {
 	const accessToken = useSelector((state) => state.auth.accessToken);
+	const dispatch = useDispatch();
 
 	const publishableKey =
 		"pk_test_51N1hlFGJhLy7hRLHRF8WDdftreXfhbFiHVd1C4iUPzrrmvr90gr9iFazHBPbYViQwM68JUKRV7Cpd5SlskHBtCQh00PgVHXgPb";
@@ -20,6 +22,9 @@ const StripeButton = ({totalAmount}) => {
 			const response = await postPayment(accessToken, body);
 			if (response.status === 200) {
 				emitNotification("success", "Payment Successful!");
+				dispatch(setTotalInvoiceAmount(0.0));
+				dispatch(setTotalUnpaidInvoiceAmount(0.0));
+				dispatch(clearCartState());
 				return { success: true, data: response.data };
 			} else {
 				throw new Error(response.data.message);

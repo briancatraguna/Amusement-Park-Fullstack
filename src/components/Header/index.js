@@ -9,7 +9,7 @@ import { clearUserState } from "../../redux/userInfoSlice";
 import { clearEmployeeState } from "../../redux/employeeInfoSlice";
 import { ROUTES } from "../../utils/enums";
 import AlertDialog from "../AlertDialog";
-import { clearCartState } from "../../redux/cartSlice";
+import { clearCartState, setTotalInvoiceAmount, setTotalUnpaidInvoiceAmount } from "../../redux/cartSlice";
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -32,7 +32,9 @@ const Header = () => {
     dispatch(clearAuthState());
     dispatch(clearUserState());
     dispatch(clearCartState());
-    dispatch(clearEmployeeState())
+    dispatch(clearEmployeeState());
+    dispatch(setTotalInvoiceAmount(0.0));
+    dispatch(setTotalUnpaidInvoiceAmount(0.0));
   };
 
   return (

@@ -31,11 +31,6 @@ const CartPage = () => {
   const [isConfirmClearCartOpen, setIsConfirmClearCartOpen] = useState(false);
   const [includeParking, setIncludeParking] = useState(false);
 
-  useEffect(() => {
-    console.log("Hello");
-    console.log(totalUnpaidInvoiceAmount);
-  },[totalUnpaidInvoiceAmount]);
-
   const handleClearCart = () => {
     setIsConfirmClearCartOpen(false);
     dispatch(clearCartState());
@@ -56,6 +51,7 @@ const CartPage = () => {
           accessToken,
           requestBody
         );
+        console.log(placeOrderResponse.data);
         const allotedParkingLots = placeOrderResponse.data.allotedParkingLots;
         const totalInvoiceAmount = placeOrderResponse.data.totalInvoiceAmount;
         const totalUnpaidInvoiceAmount =
@@ -63,7 +59,6 @@ const CartPage = () => {
         dispatch(setTotalInvoiceAmount(totalInvoiceAmount));
         dispatch(setTotalUnpaidInvoiceAmount(totalUnpaidInvoiceAmount));
         emitNotification("success", placeOrderResponse.data.message);
-        dispatch(clearCartState());
       } catch (error) {
         emitNotification("error", error.response.data.message);
       }
