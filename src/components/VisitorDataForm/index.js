@@ -56,7 +56,7 @@ const VisitorDataForm = ({ handleNext }) => {
         key="first_name"
         label="First Name"
         variant="outlined"
-        className="auth-textfield"
+        className="visitor-data-textfield"
         value={firstName}
         onChange={(e) => setFirstName(e.target.value)}
       />
@@ -65,7 +65,7 @@ const VisitorDataForm = ({ handleNext }) => {
         key="last_name"
         label="Last Name"
         variant="outlined"
-        className="auth-textfield"
+        className="visitor-data-textfield"
         value={lastName}
         onChange={(e) => setLastName(e.target.value)}
       />
@@ -74,7 +74,7 @@ const VisitorDataForm = ({ handleNext }) => {
         key="street_name"
         label="Street Name"
         variant="outlined"
-        className="auth-textfield"
+        className="visitor-data-textfield"
         value={streetName}
         onChange={(e) => setStreetName(e.target.value)}
       />
@@ -84,7 +84,7 @@ const VisitorDataForm = ({ handleNext }) => {
         label="Street Number"
         type="number"
         variant="outlined"
-        className="auth-textfield"
+        className="visitor-data-textfield"
         value={streetNumber}
         onChange={(e) => setStreetNumber(e.target.value)}
         inputProps={{
@@ -97,7 +97,7 @@ const VisitorDataForm = ({ handleNext }) => {
         key="city"
         label="City"
         variant="outlined"
-        className="auth-textfield"
+        className="visitor-data-textfield"
         value={city}
         onChange={(e) => setCity(e.target.value)}
       />
@@ -106,7 +106,7 @@ const VisitorDataForm = ({ handleNext }) => {
         key="zipcode"
         label="Zip Code"
         variant="outlined"
-        className="auth-textfield"
+        className="visitor-data-textfield"
         value={zipcode}
         onChange={(e) => setZipcode(e.target.value)}
         inputProps={{
@@ -120,7 +120,7 @@ const VisitorDataForm = ({ handleNext }) => {
         key="cellno"
         label="Cell No"
         variant="outlined"
-        className="auth-textfield"
+        className="visitor-data-textfield"
         value={cellNo}
         onChange={(e) => setCellNo(e.target.value)}
         inputProps={{

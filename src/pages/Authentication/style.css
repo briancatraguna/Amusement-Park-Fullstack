@@ -37,6 +37,11 @@
     margin-bottom: 16px;
 }
 
+.form-container .visitor-data-textfield {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
 .left-side > div {
     display: flex;
     flex-direction: column;
