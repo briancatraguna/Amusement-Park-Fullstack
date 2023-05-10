@@ -510,7 +510,7 @@ const CreateNewGroup = () => {
 								<List
 									sx={{
 										width: "100%",
-										bgcolor: "background.paper",
+										bgcolor: "#d8dcff",
 									}}
 								>
 									<Box

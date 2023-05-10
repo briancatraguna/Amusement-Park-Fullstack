@@ -17,7 +17,7 @@ const AlertDialog = ({
         <p>{dialogContent}</p>
       </DialogContent>
       <DialogActions>
-        <Button onClick={onCancel}>{negativeButtonTitle}</Button>
+        {negativeButtonTitle && <Button onClick={onCancel}>{negativeButtonTitle}</Button>}
         <Button onClick={onConfirm}>{positiveButtonTitle}</Button>
       </DialogActions>
     </Dialog>

@@ -34,6 +34,7 @@ export function convertToPlaceOrderRequestBody(
         ticketType: 1,
       });
     }
+    if (group === null || group === "null") continue;
     for (let child of group.children) {
       const visitorId = child.visitor_id;
       if (includeParking) {
@@ -68,6 +69,7 @@ export function convertToPlaceOrderRequestBody(
         showId: showId,
       });
     }
+    if (group === null || group === "null") continue;
     for (let child of group.children) {
       const visitorId = child.visitor_id;
       ticketsArr.push({

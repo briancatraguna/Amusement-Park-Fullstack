@@ -96,7 +96,7 @@ const QuantitySelectorWithGroupModal = ({
           <Button
             variant="contained"
             onClick={handleAddToCart}
-            disabled={!selectedGroup}
+            disabled={!selectedGroup && !isSelfSelected}
           >
             Add to Cart
           </Button>
