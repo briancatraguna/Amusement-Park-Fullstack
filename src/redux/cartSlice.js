@@ -15,7 +15,6 @@ export const cartSlice = createSlice({
     },
     setTotalUnpaidInvoiceAmount(state, action) {
       state.totalUnpaidInvoiceAmount = action.payload;
-      console.log(state.totalUnpaidInvoiceAmount);
     },
     addEntryTickets(state, action) {
       state.entryTickets.push(action.payload);

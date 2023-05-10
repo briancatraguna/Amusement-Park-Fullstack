@@ -51,7 +51,6 @@ const CartPage = () => {
           accessToken,
           requestBody
         );
-        console.log(placeOrderResponse.data);
         const allotedParkingLots = placeOrderResponse.data.allotedParkingLots;
         const totalInvoiceAmount = placeOrderResponse.data.totalInvoiceAmount;
         const totalUnpaidInvoiceAmount =
