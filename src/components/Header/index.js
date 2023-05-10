@@ -59,10 +59,10 @@ const Header = () => {
             <Link to={ROUTES.stores}>Stores</Link>
           </li>
           <li className="header-menu">
-            <Link to={ROUTES.tickets}>Tickets</Link>
+            <Link to={ROUTES.cart}>Cart</Link>
           </li>
           <li className="header-menu">
-            <Link to={ROUTES.cart}>Cart</Link>
+            <Link to={ROUTES.invoices}>Orders</Link>
           </li>
           {  
             employee==null ? 

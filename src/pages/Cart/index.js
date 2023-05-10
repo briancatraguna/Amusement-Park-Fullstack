@@ -31,6 +31,11 @@ const CartPage = () => {
   const [isConfirmClearCartOpen, setIsConfirmClearCartOpen] = useState(false);
   const [includeParking, setIncludeParking] = useState(false);
 
+  useEffect(() => {
+    console.log("Hello");
+    console.log(totalUnpaidInvoiceAmount);
+  },[totalUnpaidInvoiceAmount]);
+
   const handleClearCart = () => {
     setIsConfirmClearCartOpen(false);
     dispatch(clearCartState());

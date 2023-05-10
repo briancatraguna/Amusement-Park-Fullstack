@@ -41,6 +41,7 @@ function App() {
             <Route path={ROUTES.shows} element={<ShowsPage />} />
             <Route path={ROUTES.storeDetail} element={<StoreDetailPage />} />
             <Route path={ROUTES.cart} element={<CartPage />} />
+            <Route path={ROUTES.invoices} element={<Invoices />} />
             <Route path={ROUTES.groupModification} element={<GroupModification/>}/>
             <Route path={ROUTES.userProfile} element={<UserProfile/>} />
             <Route path={ROUTES.employeeLogin} element={<EmployeeLogin/>} />
